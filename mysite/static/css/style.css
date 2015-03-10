@@ -73,7 +73,7 @@ a:focus {
 }
 
 .navbar-brand h1{
-	color: #000;
+	color: #FFF;
   font-size: 20px;
   line-height: 40px;
 }
@@ -83,7 +83,7 @@ a:focus {
 }
 
 .nav.navbar-nav {
-    background-color: rgba(220,220,220,.8);
+    background-color: rgba(225,225,225,.6);
 }
 
 .navbar-custom.top-nav-collapse .nav.navbar-nav {
