@@ -37,6 +37,7 @@ class Campaign(models.Model):
     status = models.IntegerField()
     views = models.BigIntegerField()
     created_by = models.ForeignKey(User)
+    # set default value of approval_tag to false
 
 class WishType(models.Model):
     name = models.CharField(max_length=200)
@@ -56,4 +57,6 @@ class Campaign_User_Followers(models.Model):
 class Campaign_Wishlist(models.Model):
     campaign = models.ForeignKey(Campaign)
     wishlist = models.ForeignKey(Wishlist)
-    receive_tag = models.BooleanField()
+    received_tag = models.BooleanField()
+    # set default value of received_tag to false
+
