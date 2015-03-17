@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wesaveDB',
+        'NAME': 'wesavedb',
 	'USER': 'wesave',
 	'PASSWORD': 'wesave',
 	'HOST': 'localhost',
