@@ -7,5 +7,5 @@ urlpatterns = patterns('',
     url(r'^register/', 'mysite.views.register', name='register'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    (r'^accounts/', include('registration.backends.simple.urls')),
+    (r'^accounts/', include('registration.backends.default.urls')),
 )
