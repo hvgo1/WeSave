@@ -33,7 +33,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href={% url 'home' %}>
                     <h1>WeSave</h1>
                 </a>
             </div>
@@ -60,7 +60,7 @@
                             Sign In</button>
                     </div>
 </div>
-            <li><a href="#">Register as Member</a></li>
+            <li><a href="{% url 'registration_register' %}">Register</a></li>
           </ul>
         </li>
       </ul>
