@@ -1,4 +1,4 @@
-from registration.backends.simple.views import RegistrationView
+from registration.backends.simple.views import RegistrationView #
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
