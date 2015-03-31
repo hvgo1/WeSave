@@ -37,12 +37,20 @@ class Service_Category(models.Model):
         return u'%s' %(self.name)
     name = models.CharField(max_length=200)
 
-class User(models.Model):
+class UserProfile(models.Model):
     def __unicode__(self): 
-        return self.id
-    email = models.EmailField(max_length=75)
-    password = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to=None, null=True, blank=True)
+        return self.user.id
+     STATUS_CHOICES = (
+        ('Ben', 'Beneficiary'),
+        ('Hos', 'Hospital_Rep'),
+        ('Don', 'Donor'),
+        ('Adm', 'Admin'),
+    )
+    photo = models.ImageField(upload_to=, null=True, blank=True)
+    address = models.ForeignKey(Address)
+    user = models.OneToOneField(User)
+    role = models.models.CharField(max_length=15,choices=STATUS_CHOICES)
+
    
 
 class Individual(models.Model):
@@ -52,8 +60,7 @@ class Individual(models.Model):
     middle_name = models.CharField(max_length=200,null=True,blank=True)
     last_name = models.CharField(max_length=200)
     birthday = models.DateTimeField('birthday')
-    address = models.ForeignKey(Address)
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
 
 class Group(models.Model):
     def __unicode__(self): 
@@ -75,26 +82,26 @@ class Group(models.Model):
     sc_email = models.EmailField(max_length=75)
     sc_job_title = models.CharField(max_length=200)
     sc_phone_number = models.CharField(max_length=12)
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
 
 class Campaign(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.title)
     STATUS_CHOICES = (
-        ('0', 'Draft'),
-        ('1', 'For Approval'),
-        ('2', 'Verified'),
-        ('3', 'Completed'),
-        ('4', 'Inactive'),
+        ('D', 'Draft'),
+        ('F', 'For Approval'),
+        ('V', 'Verified'),
+        ('C', 'Completed'),
+        ('I', 'Inactive'),
     )
 
     title = models.CharField(max_length=200)
     beneficiary_name = models.CharField(max_length=200)
     story = models.CharField(max_length=2000)
     deadline = models.DateTimeField('deadline')
-    approval_tag = models.BooleanField()
-    status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='0')#Draft
+    status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='D')#Draft
     views = models.BigIntegerField(default = 0)
+    ack_receipt = models.ImageField(upload_to=None, null=True, blank=True)
     campaign_image = models.ImageField(upload_to=None, null=True, blank=True)
     created_by = models.ForeignKey(User)
     donors = models.ManyToManyField(User,through='Campaign_User_Donor',through_fields=('campaign', 'user'))
@@ -125,17 +132,12 @@ class Unregistered_Donor(models.Model):
     campaign = models.ForeignKey(Campaign)
     amount = models.DecimalField(decimal_places=2)
 
-class User_Role(models.Model):
+class Contact(models.Model):
     def __unicode__(self): 
-        return u'%s,%s' %(self.user,self.role)
-    STATUS_CHOICES = (
-        ('Ben', 'Beneficiary'),
-        ('Hos', 'Hospital_Rep'),
-        ('Don', 'Donor'),
-        ('Admin', 'Admin'),
-    )
-    user = models.ForeignKey(User)
-    role = models.models.CharField(max_length=15,choices=STATUS_CHOICES)
+        return u'%s,%s,%s' %(self.name,self.email,self.message)
+    name = models.CharField(max_length=200)
+    email = models.models.EmailField(max_length=75)
+    message = models.CharField(max_length=200)
 
 class Campaign_User_Followers(models.Model):
     def __unicode__(self): 
@@ -145,14 +147,14 @@ class Campaign_User_Followers(models.Model):
 
 class Campaign_User_Donor(models.Model):
     def __unicode__(self): 
-        return u'%s,%s' %(self.campaign,self.user)
+        return u'%s,%s,%s' %(self.campaign,self.user,self.amount)
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
     amount = models.DecimalField(decimal_places=2)
 
 class Campaign_Wish(models.Model):
     def __unicode__(self): 
-        return u'%s,%s,%s' %(self.campaign,self.wish,self.completed,self.estimated_price)
+        return u'%s,%s,%s,%s' %(self.campaign,self.wish,self.completed,self.estimated_price)
     campaign = models.ForeignKey(Campaign)
     wish = models.ForeignKey(Wish)
     completed = models.BooleanField()
@@ -161,7 +163,7 @@ class Campaign_Wish(models.Model):
 
 class Campaign_Keyword(models.Model):
     def __unicode__(self): 
-        return u'%s,%s' %(self.campaign,self.wish,self.keyword)
+        return u'%s,%s' %(self.campaign,self.keyword)
     campaign = models.ForeignKey(Campaign)
     keyword = models.ForeignKey(Keyword)
    
