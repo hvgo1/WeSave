@@ -12,3 +12,6 @@ class RegFormEmail(RegistrationFormNoFreeEmail):
 def home(request):
     return render(request,'mysite/index.html')
 
+def register_continue(request):
+    return render(request,'registration/registration_continue.html')
+

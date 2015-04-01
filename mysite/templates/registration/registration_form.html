@@ -7,12 +7,13 @@
 <section id="about" class="home-section text-center">
 <br><br>
 <center>
+
 <h1>Register</h1>
 
-
-<form class="form-group" action="/your-name/" method="post">
+<form class="form-group" action="" method="post">
     {% csrf_token %}
-    <table>
+
+<tr><td><table>
     
   {% for field in form %}
      <tr>
@@ -24,11 +25,11 @@
       </tr>
     {% endfor %}
 
-    <tr><td colspan="3" style="padding-top:10px;"><input type="submit" class="btn btn-skin pull-right" value="Submit" /></td></tr>
+    <tr><td colspan="3" style="padding-top:10px;"><input type="submit" class="btn btn-skin pull-right" value="Continue >>" /></td></tr>
     
-                </form>
-    </table>
-    
+       
+
+</table>   
 </form>
 </center>
 </section>
