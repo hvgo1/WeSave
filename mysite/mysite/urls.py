@@ -9,7 +9,7 @@ from django.conf import settings
 class MyRegistrationView(RegistrationView):
     def get_success_url(self,request, user):
         if 'indivbutton' in request.POST:
-            return '/reg-individual/%s'  %user.username
+            return '/reg-individual/%s'  %user.username #SECURITY ISSUE(?)
         else:
             return '/reg-group/%s' %user.username
 

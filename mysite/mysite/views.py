@@ -22,6 +22,8 @@ def register_individual(request,username):
     else:
         form = UserProfileForm(request.POST, request.FILES,)
         form1 = IndividualForm(request.POST)
+        #HIDE USER FIELD, SET USER FIELD TO USER.ID
+
         #request.POST = request.POST.copy()
         #request.POST['user_id'] = user.id
         #form = UserProfileForm(request.POST, request.FILES,)
@@ -40,7 +42,7 @@ def register_group(request,username):
     else:
         form = UserProfileForm(request.POST, request.FILES,)
         form1 = GroupForm(request.POST)
-
+        #HIDE USER FIELD, SET USER FIELD TO USER.ID
         if form.is_valid():
             form.save()
             if form1.is_valid():
