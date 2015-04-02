@@ -61,7 +61,7 @@ class Service_Category(models.Model):
 
 class UserProfile(models.Model):
     def __unicode__(self): 
-        return self.user.id
+        return u'%s' %(self.user.id)
     STATUS_CHOICES = (
         ('Ben', 'Beneficiary'),
         ('Hos', 'Hospital_Rep'),

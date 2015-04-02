@@ -11,11 +11,11 @@
 <h1>Register</h1>
 <table>
 <tr><td>
-	<form action="/home/" method="post"><input style="width:250px" type="submit" class="btn btn-skin" value="Register as an Individual" />{% csrf_token %}
+	<form action="/individual/" method="get"><input style="width:250px" type="submit" class="btn btn-skin" value="Register as an Individual" />{% csrf_token %}
         </form><br>
 </td></tr>
 <tr><td>	
-        <form action="/accounts/register/" method="post"><input style="width:250px" type="submit" class="btn btn-skin " value="Register as a Group" />{% csrf_token %}
+        <form action="/accounts/register/" method="get"><input style="width:250px" type="submit" class="btn btn-skin " value="Register as a Group" />{% csrf_token %}
        </form>
 </td></tr>
 </table>       
