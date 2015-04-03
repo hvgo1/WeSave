@@ -4,16 +4,11 @@ import os
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django_countries.fields import CountryField
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   
 MEDIA_PROF = os.path.join(MEDIA_ROOT, 'profile_images')
-
-
-class Country(models.Model):
-    def __unicode__(self):  
-        return u'%s' %(self.name)
-    name = models.CharField(max_length=200)
 
 class Region(models.Model):
     def __unicode__(self):  
@@ -48,7 +43,8 @@ class Keyword(models.Model):
 class Address(models.Model):
     def __unicode__(self):  
         return u'%s,%s,%s,%s,%s' %(self.street,self.barangay,self.city,self.region,self.country)    
-    country = models.ForeignKey(Country)  
+ 
+    country = CountryField()
     region = models.ForeignKey(Region,null=True, blank=True)   
     city = models.ForeignKey(City,null=True, blank=True)    
     barangay = models.ForeignKey(Barangay,null=True, blank=True)
