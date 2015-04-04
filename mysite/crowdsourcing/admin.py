@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from crowdsourcing.models import Country,Region,City,Barangay,Wish,Keyword,Address,Service_Category,UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers,Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category,UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers,Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish
 # Register your models here.
  
 class WishAdmin(admin.ModelAdmin):
@@ -44,7 +44,6 @@ class Campaign_WishAdmin(admin.ModelAdmin):
 admin.site.register(City)
 admin.site.register(Barangay)
 admin.site.register(Region)
-admin.site.register(Country)
 admin.site.register(Wish,WishAdmin)
 admin.site.register(Keyword)
 admin.site.register(Address,AddressAdmin)

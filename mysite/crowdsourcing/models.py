@@ -6,10 +6,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   
-MEDIA_PROF = os.path.join(MEDIA_ROOT, 'profile_images')
-
 class Region(models.Model):
     def __unicode__(self):  
         return u'%s' %(self.name)
@@ -65,7 +61,7 @@ class UserProfile(models.Model):
         ('Adm', 'Admin'),
     )
     
-    photo = models.ImageField(upload_to=MEDIA_PROF, null=True, blank=True)
+    photo = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     address = models.ForeignKey(Address)
     user = models.OneToOneField(User)
     role = models.CharField(max_length=15,choices=STATUS_CHOICES)
@@ -76,7 +72,7 @@ class Individual(models.Model):
     first_name = models.CharField(max_length=200)
     middle_name = models.CharField(max_length=200,null=True,blank=True)
     last_name = models.CharField(max_length=200)
-    birthday = models.DateTimeField('birthday')
+    birthday = models.DateField('birthday')
     user = models.OneToOneField(User)
 
 class Group(models.Model):
@@ -87,7 +83,7 @@ class Group(models.Model):
     about = models.CharField(max_length=200)
     service_category = models.ForeignKey(Service_Category)
     registration_number = models.BigIntegerField(null=True, blank=True)
-    document = models.FileField(upload_to =None,null=True, blank=True)
+    document = models.FileField(upload_to ='documents/',null=True, blank=True)
     comments = models.CharField(max_length=200, null=True, blank=True)
     pc_first_name = models.CharField(max_length=200)
     pc_last_name = models.CharField(max_length=200)
@@ -118,7 +114,7 @@ class Campaign(models.Model):
     deadline = models.DateTimeField('deadline')
     status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='D')#Draft
     views = models.BigIntegerField(default = 0)
-    ack_receipt = models.ImageField(upload_to=None, null=True, blank=True)
+    ack_receipt = models.ImageField(upload_to='ack_receipts/', null=True, blank=True)
     campaign_image = models.ImageField(upload_to=None, null=True, blank=True)
     created_by = models.ForeignKey(User)
     donors = models.ManyToManyField(User,through='Campaign_User_Donor',through_fields=('campaign','user'),related_name='campaign_donors')
