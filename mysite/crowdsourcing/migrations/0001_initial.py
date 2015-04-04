@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
+import django_countries.fields
 
 
 class Migration(migrations.Migration):
@@ -16,6 +17,7 @@ class Migration(migrations.Migration):
             name='Address',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('country', django_countries.fields.CountryField(max_length=2)),
                 ('street', models.CharField(max_length=200)),
             ],
             options={
@@ -42,8 +44,8 @@ class Migration(migrations.Migration):
                 ('deadline', models.DateTimeField(verbose_name=b'deadline')),
                 ('status', models.CharField(default=b'D', max_length=15, choices=[(b'D', b'Draft'), (b'F', b'For Approval'), (b'V', b'Verified'), (b'C', b'Completed'), (b'I', b'Inactive')])),
                 ('views', models.BigIntegerField(default=0)),
-                ('ack_receipt', models.ImageField(null=True, upload_to=None, blank=True)),
-                ('campaign_image', models.ImageField(null=True, upload_to=None, blank=True)),
+                ('ack_receipt', models.ImageField(null=True, upload_to=b'ack_receipts/', blank=True)),
+                ('campaign_image', models.ImageField(null=True, upload_to=b'profile_images/', blank=True)),
                 ('created_by', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -118,16 +120,6 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Country',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=200)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='Group',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -135,7 +127,7 @@ class Migration(migrations.Migration):
                 ('page_address', models.URLField(null=True, blank=True)),
                 ('about', models.CharField(max_length=200)),
                 ('registration_number', models.BigIntegerField(null=True, blank=True)),
-                ('document', models.FileField(null=True, upload_to=None, blank=True)),
+                ('document', models.FileField(null=True, upload_to=b'documents/', blank=True)),
                 ('comments', models.CharField(max_length=200, null=True, blank=True)),
                 ('pc_first_name', models.CharField(max_length=200)),
                 ('pc_last_name', models.CharField(max_length=200)),
@@ -159,7 +151,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=200)),
                 ('middle_name', models.CharField(max_length=200, null=True, blank=True)),
                 ('last_name', models.CharField(max_length=200)),
-                ('birthday', models.DateTimeField(verbose_name=b'birthday')),
+                ('birthday', models.DateField(verbose_name=b'birthday')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -212,8 +204,8 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('photo', models.ImageField(null=True, upload_to=b'/home/jecca/Desktop/WeSave/mysite/media/profile_images', blank=True)),
-                ('role', models.CharField(max_length=15, choices=[(b'Ben', b'Beneficiary'), (b'Hos', b'Hospital_Rep'), (b'Don', b'Donor'), (b'Adm', b'Admin')])),
+                ('photo', models.ImageField(null=True, upload_to=b'profile_images/', blank=True)),
+                ('role', models.CharField(max_length=15, choices=[(b'Ben', b'Beneficiary'), (b'Hos', b'Hospital Representative'), (b'Don', b'Donor'), (b'Adm', b'Admin')])),
                 ('address', models.ForeignKey(to='crowdsourcing.Address')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
@@ -235,7 +227,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='group',
             name='service_category',
-            field=models.ForeignKey(to='crowdsourcing.Service_Category'),
+            field=models.ManyToManyField(to='crowdsourcing.Service_Category'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -290,12 +282,6 @@ class Migration(migrations.Migration):
             model_name='address',
             name='city',
             field=models.ForeignKey(blank=True, to='crowdsourcing.City', null=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='address',
-            name='country',
-            field=models.ForeignKey(to='crowdsourcing.Country'),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -56,7 +56,7 @@ class UserProfile(models.Model):
         return u'%s' %(self.user.id)
     STATUS_CHOICES = (
         ('Ben', 'Beneficiary'),
-        ('Hos', 'Hospital_Rep'),
+        ('Hos', 'Hospital Representative'),
         ('Don', 'Donor'),
         ('Adm', 'Admin'),
     )
@@ -68,7 +68,7 @@ class UserProfile(models.Model):
 
 class Individual(models.Model):
     def __unicode__(self): 
-        return self.user.id
+        return u'%s' %(self.user.id)
     first_name = models.CharField(max_length=200)
     middle_name = models.CharField(max_length=200,null=True,blank=True)
     last_name = models.CharField(max_length=200)
@@ -77,11 +77,11 @@ class Individual(models.Model):
 
 class Group(models.Model):
     def __unicode__(self): 
-        return self.user.id
+        return u'%s' %(self.user.id)
     name = models.CharField(max_length=200)
     page_address = models.URLField(max_length=200,null=True, blank=True)
     about = models.CharField(max_length=200)
-    service_category = models.ForeignKey(Service_Category)
+    service_category = models.ManyToManyField(Service_Category)
     registration_number = models.BigIntegerField(null=True, blank=True)
     document = models.FileField(upload_to ='documents/',null=True, blank=True)
     comments = models.CharField(max_length=200, null=True, blank=True)
@@ -115,7 +115,7 @@ class Campaign(models.Model):
     status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='D')#Draft
     views = models.BigIntegerField(default = 0)
     ack_receipt = models.ImageField(upload_to='ack_receipts/', null=True, blank=True)
-    campaign_image = models.ImageField(upload_to=None, null=True, blank=True)
+    campaign_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     created_by = models.ForeignKey(User)
     donors = models.ManyToManyField(User,through='Campaign_User_Donor',through_fields=('campaign','user'),related_name='campaign_donors')
     subscribers = models.ManyToManyField(User,through='Campaign_User_Followers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
@@ -139,14 +139,14 @@ class Contact(models.Model):
 
 class Campaign_User_Donor(models.Model):
     def __unicode__(self): 
-        return self.id
+        return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
     amount = models.DecimalField(max_digits=20,decimal_places=2)
 
 class Campaign_Wish(models.Model):
     def __unicode__(self): 
-        return self.id
+        return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     wish = models.ForeignKey(Wish)
     completed = models.BooleanField()
@@ -155,13 +155,13 @@ class Campaign_Wish(models.Model):
 
 class Campaign_User_Followers(models.Model):
     def __unicode__(self): 
-        return self.id
+        return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
 
 class Campaign_Keyword(models.Model):
     def __unicode__(self): 
-        return self.id
+        return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     keyword = models.ForeignKey(Keyword)
  
