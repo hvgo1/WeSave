@@ -33,12 +33,23 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
+    'registration',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crowdsourcing',
+    'django_countries',
+    
 )
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
+LOGIN_REDIRECT_URL = '/home/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/home/'  # The page users are directed to if they are not logged in,
+                                                                # and are trying to access pages requiring authentication
+
+SITE_ID = 1#
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -95,3 +106,5 @@ STATICFILES_DIRS = (
     STATIC_PATH,
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

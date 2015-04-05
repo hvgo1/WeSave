@@ -1,0 +1,23 @@
+{% extends "mysite/base.html" %}
+{% block title %} Register as a Group{% endblock %}
+
+
+{% block body_block %}
+<section id="intro">
+</section>
+<section id="about" class="home-section text-center">
+<br><br>
+<center>
+<h1>Register Group</h1>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+<table>
+{{userform}}
+{{addform}}
+{{groupform}}
+</table>
+<input type="submit" class="btn btn-skin" value="Continue >>"/>
+</form> 
+</center>
+</section>
+{% endblock %}

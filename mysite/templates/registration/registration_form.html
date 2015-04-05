@@ -1,0 +1,38 @@
+{% extends "mysite/base.html" %}
+{% block title %} Register {% endblock %}
+
+{% block body_block %}
+<section id="intro">
+</section>
+<section id="about" class="home-section text-center">
+<br><br>
+<center>
+
+<h1>Register</h1>
+
+<form class="form-group" action="" method="post">
+    {% csrf_token %}
+
+<tr><td><table>
+    
+  {% for field in form %}
+     <tr>
+        <div class="fieldWrapper">
+           <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
+           <td style="padding-right:60px;">{{ field.label_tag }}</td> 
+           <td> {{ field }} </td>
+        </div>
+      </tr>
+    {% endfor %}
+
+    <tr><td colspan="3" style="padding-top:10px;"><center><button style="width:250px;" type="submit" class="btn btn-skin" name="indivbutton" value="Register as an Individual">Register as an Individual</button></center></td></tr>
+    <tr><td colspan="3" style="padding-top:10px;"><center><button style="width:250px" type="submit" class="btn btn-skin" name="groupbutton" value="Register as Group">Register as a Group</button></center></td></tr>
+    
+       
+
+</table>   
+</form>
+</center>
+</section>
+{% endblock %}
+

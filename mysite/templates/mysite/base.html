@@ -33,15 +33,15 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href={% url 'home' %}>
                     <h1>WeSave</h1>
                 </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="">Home</a></li>
+       <ul class="nav navbar-nav">
+        <li><a href="">Home</a></li>
         <li><a href="">Campaigns</a></li>
 		<li><a href="">About</a></li>
 		<li><a href="">Contact</a></li>
@@ -60,7 +60,7 @@
                             Sign In</button>
                     </div>
 </div>
-            <li><a href="#">Register as Member</a></li>
+            <li><a href="{% url 'registration_register' %}">Register</a></li>
           </ul>
         </li>
       </ul>

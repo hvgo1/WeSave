@@ -1,0 +1,23 @@
+{% extends "mysite/base.html" %}
+{% block title %} Register as Individual{% endblock %}
+
+
+{% block body_block %}
+<section id="intro">
+</section>
+<section id="about" class="home-section text-center">
+<br><br>
+<center>
+<h1>Register Individual</h1>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+<table>
+{{userform}}
+{{addform}}
+{{indivform}}
+</table>
+<input type="submit" class="btn btn-skin" value="Continue >>"/>
+</form> 
+</center>
+</section>
+{% endblock %}
