@@ -47,20 +47,37 @@
 		<li><a href="">Contact</a></li>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Sign in/ Register <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <div>
+          <ul class="dropdown-menu" style="
+               height: 235px;
+               border-bottom-width: 1px;
+               margin-bottom: 10px;">
+            <div style="
+                height: 172px;
+                width: 250px;
+                margin-top: 5px;
+                margin-left: 5px;
+                margin-right: 5px;
+                
+            ">
 	
 	<div class="form-group">
 	   <label for="username">Username</label>
-           <input type="text" class="form-control" id="username" placeholder="Enter username" required="required" />
+           <input type="text" class="form-control" id="username" placeholder="Enter username" required="required" style = "width:100%;" />
            <label for="password">Password</label>
            <input type="text" class="form-control" id="password" placeholder="Enter password" required="required" />
-            <div class="col-md-12">
-                        <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+            <div style="
+               padding-top: 10px;
+               padding-bottom: 10px;
+               padding-left: 65px;"   class="col-md-12">
+                        <button style="width: 106px;" type="submit" class="btn btn-skin" id="btnContactUs">
                             Sign In</button>
                     </div>
 </div>
-            <li><a href="{% url 'registration_register' %}">Register</a></li>
+            <li style="
+               border-bottom-width: 2px;
+               padding-left: 66px;
+            ">Not a Member?</li>
+            <li><a style="padding-left: 85px;" href="{% url 'registration_register' %}">Register</a></li>
           </ul>
         </li>
       </ul>
