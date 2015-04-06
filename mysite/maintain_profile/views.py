@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import UpdateView
 from django.core.paginator import Paginator, InvalidPage,EmptyPage, PageNotAnInteger
@@ -22,4 +23,15 @@ def viewProfile(request,username):
         is_indiv = False
     return render(request,'maintain_profile/viewprofile.html',{'user':user,'profile':profile,'details':details,'address':address,'is_indiv':is_indiv})
 
-
+#LIST
+def listProfile(request):
+    userlist = User.objects.order_by('username')
+    paginator = Paginator(userlist,5)
+    page = request.GET.get('page')
+    try:
+    	users = paginator.page(page) 
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+    return render_to_response('maintain_profile/viewprofilelist.html',{'users':users})
