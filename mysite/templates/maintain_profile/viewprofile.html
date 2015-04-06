@@ -1,0 +1,30 @@
+{% extends "mysite/base.html" %}
+{% block title %} {{user.username}} {% endblock %}
+
+
+{% block body_block %}
+<section id="intro">
+</section>
+<section id="about" class="home-section text-center">
+<br><br>
+
+
+
+{% if is_indiv %}
+     <h1>{{details.first_name}}</h1>
+     <b>Name:</b> {{details.first_name}} <br>
+     <b>Location:</b>{{address.country}}<br><br>
+ 
+{% else %}
+     <h1>{{details.name}}</h1><br>
+     <b>Name:</b> {{details.name}}
+     <b>Location:</b>{{address.country}}<br>
+     <b>Service Category:</b>{% for s in details.service_category.all %}
+        	           <li>{{s}}</li>
+                         {% endfor %}
+     <br><br>
+  {% endif %}
+<a href='/home/'>Back</a>
+
+</section>
+{% endblock %}
