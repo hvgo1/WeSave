@@ -1,0 +1,34 @@
+{% extends 'mysite/base.html' %}
+{% block body_block %}
+<section id="intro">
+    </section>
+<section id="about" class="home-section text-center">
+    <br><br>
+    <center>
+
+    <h1>Login</h1>
+        {% if user == None %}
+            Invalid login details.
+        {% endif %}
+        <form id="login_form" method="post" >
+            {% csrf_token %}        
+            <label for="username">Username</label>
+            <input type="text" class="" id="username" name="username" placeholder="Enter username" required="required" style = "width:200px; margin-left:5px;" value="" /><br/>
+            <label for="password">Password</label>
+            <input type="password" class="" id="password" name="password" placeholder="Enter password" required="required" style = "width:200px; margin-left:5px;" value="" />
+            <div style="
+                padding-top: 10px;
+                padding-bottom: 10px;"   class="col-md-12">
+                <button style="width: 106px;" type="submit" class="btn btn-skin" id="btnContactUs">Sign In</button>
+            </div>
+        </form>
+        <label style="border-bottom-width: 2px;">Not a Member?</label><br/>
+        <label><a style="" href="{% url 'registration_register' %}">REGISTER</a></label>
+    </center>
+</section>
+{% endblock %}
+<!-- 
+            Username: <input type="text" name="username" value="" size="50"/><br/>
+            Password: <input type="password" name="password" value="" size="50"/><br/>
+            <input type="submit" value="submit"/>
+>

@@ -45,6 +45,12 @@
         <li><a href="">Campaigns</a></li>
 		<li><a href="">About</a></li>
 		<li><a href="">Contact</a></li>
+
+    {% if user.is_authenticated %}
+        <li><a href="">{{ user.username }}</a></li> <!-- If clicked, go to profile.-->
+        <li><a href="/logout/">Logout</a></li>
+    {% else %}
+		<li><a href="">Login</a></li>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Sign in/ Register <b class="caret"></b></a>
           <ul class="dropdown-menu" style="
@@ -72,7 +78,7 @@
                         <button style="width: 106px;" type="submit" class="btn btn-skin" id="btnContactUs">
                             Sign In</button>
                     </div>
-</div>
+    </div>
             <li style="
                border-bottom-width: 2px;
                padding-left: 66px;
@@ -80,6 +86,7 @@
             <li><a style="padding-left: 85px;" href="{% url 'registration_register' %}">Register</a></li>
           </ul>
         </li>
+    {% endif %}
       </ul>
             </div>
             <!-- /.navbar-collapse -->

@@ -1,5 +1,7 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from registration.forms import RegistrationFormNoFreeEmail
 from django.contrib.auth.models import User
 from crowdsourcing.forms import UserProfileForm, IndividualForm,GroupForm,AddressForm
@@ -76,4 +78,29 @@ def register_group(request,username):
                 user_id=user.id)[0]            
                 i.save()            
                 return HttpResponseRedirect('/home/')
-    return render(request,'registration/addgroup.html', {'userform': userform,'groupform': groupform,'addform':addform})
+    return render(request, 'registration/addgroup.html', {'userform':userform, 'groupform':groupform, 'addform':addform})
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(username=username, password=password)
+        
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/home/')
+            else:
+                return HttpResponse("Your account is disabled.")
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return render(request, 'mysite/login.html', {'user': user})
+            #return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'mysite/login.html', {})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/home/')
