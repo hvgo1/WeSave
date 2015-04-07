@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^reg-individual/(?P<username>\w+)', views.register_individual, name='register_individual'),
     url(r'^reg-group/(?P<username>\w+)', views.register_group, name='register_group'),
     (r'^accounts/', include('registration.backends.simple.urls')),
+     url(r'^home/#contact', include('manage_contacts.urls',namespace="contact"))
 )
 
 if settings.DEBUG:
