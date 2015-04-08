@@ -21,9 +21,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
+
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
-
 
 
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
@@ -32,7 +32,9 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.simple.urls')),
 
 
+
     url(r'^profile/', include('maintain_profile.urls',namespace="profile")),
+
 
 )
 
