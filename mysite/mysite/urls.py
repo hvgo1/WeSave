@@ -1,5 +1,6 @@
 from registration.backends.simple.views import RegistrationView #
 from mysite import views
+import manage_contacts
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
@@ -15,6 +16,7 @@ class MyRegistrationView(RegistrationView):
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^contact/', include('manage_contacts.urls',namespace="contact")),
     url(r'^home/', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
@@ -24,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^reg-individual/(?P<username>\w+)', views.register_individual, name='register_individual'),
     url(r'^reg-group/(?P<username>\w+)', views.register_group, name='register_group'),
     (r'^accounts/', include('registration.backends.simple.urls')),
-     url(r'^home/#contact', include('manage_contacts.urls',namespace="contact"))
+
 )
 
 if settings.DEBUG:
