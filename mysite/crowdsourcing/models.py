@@ -121,7 +121,6 @@ class Campaign(models.Model):
     subscribers = models.ManyToManyField(User,through='Campaign_User_Followers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
     wishes = models.ManyToManyField(Wish,through='Campaign_Wish')
     keywords = models.ManyToManyField(Keyword,through='Campaign_Keyword')
-    # set default value of approval_tag to false
 
 class Unregistered_Donor(models.Model):
     def __unicode__(self): 

@@ -1,0 +1,24 @@
+{% extends 'mysite/base.html' %}
+{% block body_block%}
+<section id="intro">
+    </section>
+<section id="about" class="home-section text-center">
+    <br><br>
+    <center>
+
+    <h1>Add Campaign</h1>
+    <form id="add_campaign_form" method="post" action="/campaign/add_campaign/">
+        {% csrf_token %}
+			{% for hidden in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+
+			{% for field in form.visible_fields %}
+				{{ field.errors }}
+				{{ field.help_text }}<br/>
+				{{ field }}
+			{% endfor %}<br/>
+			<input type="submit" name="submit" value="Submit Campaign">
+    </form>
+</section>
+{% endblock %}
