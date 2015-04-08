@@ -20,12 +20,19 @@ urlpatterns = patterns('',
     url(r'^home/', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
+
+
+
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
     url(r'^reg-individual/(?P<username>\w+)', views.register_individual, name='register_individual'),
     url(r'^reg-group/(?P<username>\w+)', views.register_group, name='register_group'),
     (r'^accounts/', include('registration.backends.simple.urls')),
+
+
+    url(r'^profile/', include('maintain_profile.urls',namespace="profile")),
 
 )
 

@@ -158,7 +158,7 @@ def populate():
         email="dymark@yahoo.com")
     print "user" 
 
-    add_userprof(photo="profile_images/1.jpg",
+    add_userprof(photo="profile_images/4.jpg",
         address=1,
         user=11,
         role='Don')
@@ -166,19 +166,19 @@ def populate():
         address=2,
         user=10,
         role='Don')
-    add_userprof(photo="profile_images/2.jpg",
+    add_userprof(photo="profile_images/3.jpg",
         address=3,
         user=9,
         role='Don')
-    add_userprof(photo="profile_images/3.jpg",
+    add_userprof(photo="profile_images/2.jpg",
         address=4,
         user=8,
         role='Adm')
-    add_userprof(photo="profile_images/1.jpg",
+    add_userprof(photo="profile_images/4.jpg",
         address=5,
         user=7,
         role='Ben')
-    add_userprof(photo="profile_images/4.jpg",
+    add_userprof(photo="profile_images/2.jpg",
         address=6,
         user=6,
         role='Hos')
@@ -213,10 +213,10 @@ def populate():
     add_group(name="Save the Poor",page="http://www.fb.com/savethepoor",
         abt="We help the poor",scat=[19],rnum=1200334,doc=None,comm=None,pcf="Mariz",pcl="Sumali",
         pce="mumali@gmail.com",pcj="President",pcp="09277779821",scf="Cristine",
-        scl="Nueves",sce="cnueves@yahoo.com",scj="Secretary",scp="9981289",user=3)
+        scl="Nueves",sce="cnueves@yahoo.com",scj="Secretary",scp="9981289",user=9)
     add_group(name="Help the Children Society",page="www.helpthechildren.com.ph",abt="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",scat=[5,4],rnum=None,doc="documents/doc.pdf",
         comm="Government Document",pcf="Joseph",pcl="Alvarez",pce="jalvarez@hotmail.com",pcj="Head",pcp="09225672811",
-        scf="Mario",scl="Lucas",sce="mario_lucas@gmail.com",scj="Director",scp="09052357778",user=9)
+        scf="Mario",scl="Lucas",sce="mario_lucas@gmail.com",scj="Director",scp="09052357778",user=3)
 
     add_campaign(title="For the Kids",beneficiary="Ella,Rosie,Marie,Selena",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
@@ -362,8 +362,10 @@ def add_user(uname,passw,email):
         password=passw, 
         email=email)[0]
     return u
-
+ 
 def add_userprof(photo,address,user,role):
+    if photo==None:
+        photo='profile_images/def.jpg'
     u = UserProfile.objects.get_or_create(photo=photo,
         address_id=address,
         user_id=user, 

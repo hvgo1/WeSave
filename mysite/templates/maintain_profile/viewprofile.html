@@ -1,0 +1,67 @@
+{% extends "mysite/base.html" %}
+{% block title %} {{user.username}} {% endblock %}
+
+
+{% block body_block %}
+<section id="intro">
+</section>
+<section id="about" class="home-section text-center">
+<br><br>
+
+
+
+{% if is_indiv %}
+     <h1 style="border-right-width: 0px; margin-right: 600px; margin-left: 80px;">{{details.first_name}}</h1>
+      <div class="col-xs-6 col-sm-3 col-md-3" style = "padding-left: 15px; left: 80px; width: 500px;height: 500px;">                
+              
+                <div class="avatar"> <img src="{{profile.photo.url}}" alt="" class="img-responsive img-circle"/></div>
+    
+
+     
+    </div><br><br>
+    <b>Location:</b>{{address.country.name}}<br>
+    <b>Campaigns Donated:</b>{% for s in donor.all %}
+                       <li>{{s.campaign.title}}</li>
+                         {% endfor %}<br>
+    <b>Campaigns Subscribed:</b>{% for s in sub.all %}
+                       <li>{{s.campaign.title}}</li>
+                         {% endfor %}<br>
+    {% if created %}
+    <b>Campaigns Created:</b>{% for s in created.all %}
+                       <li>{{s.title}}</li>
+                         {% endfor %}<br>
+    {% endif %}
+     <br><br><br><br><br><br>
+    }
+ 
+{% else %}
+     <h1 style="border-right-width: 0px; margin-right: 600px; margin-left: 80px;">{{details.name}}</h1><br>
+      <div class="col-xs-6 col-sm-3 col-md-3" style = "padding-left: 15px; left: 80px; width: 500px;">                
+              
+                <div class="avatar"> <img src="{{profile.photo.url}}" alt="" class="img-responsive img-circle"/></div>
+    
+
+     
+    </div><br><br>
+    <b>Location:</b>{{address.country.name}}<br>
+    <b>Service Category:</b>{% for s in details.service_category.all %}
+                       <li>{{s}}</li>
+                         {% endfor %}
+    <b>Campaigns Donated:</b>{% for s in donor.all %}
+                       <li>{{s.campaign.title}}</li>
+                         {% endfor %}<br>
+    <b>Campaigns Subscribed:</b>{% for s in sub.all %}
+                       <li>{{s.campaign.title}}</li>
+                         {% endfor %}<br>
+    {% if created %}
+    <b>Campaigns Created:</b>{% for s in created.all %}
+                       <li>{{s.title}}</li>
+                         {% endfor %}<br>
+    {% endif %}
+     <br><br><br><br><br><br>
+     
+     
+  {% endif %}
+
+</section>
+{% endblock %}
