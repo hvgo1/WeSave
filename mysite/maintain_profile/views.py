@@ -6,12 +6,15 @@ from django.core.paginator import Paginator, InvalidPage,EmptyPage, PageNotAnInt
 
 from django.contrib.auth.models import User
 #from maintain_profile.forms import 
-from crowdsourcing.models import UserProfile,Individual,Group, Address
+from crowdsourcing.models import UserProfile,Individual,Group, Address,Campaign_User_Donor,Campaign_User_Followers,Campaign
 
 # View
 def viewProfile(request,username):
     user = User.objects.get(username=username)
     profile = UserProfile.objects.get(user=user.id)
+    donor = Campaign_User_Donor.objects.filter(user=user)
+    sub = Campaign_User_Followers.objects.filter(user=user)
+    created = Campaign.objects.filter(created_by_id=user.id)
     
     if Individual.objects.filter(user=user.id).exists():
         details = Individual.objects.get(user=user.id)
@@ -21,12 +24,12 @@ def viewProfile(request,username):
         details = Group.objects.get(user=user.id)
         address = Address.objects.get(id=details.id)
         is_indiv = False
-    return render(request,'maintain_profile/viewprofile.html',{'user':user,'profile':profile,'details':details,'address':address,'is_indiv':is_indiv})
+    return render(request,'maintain_profile/viewprofile.html',{'user':user,'created':created,'sub':sub,'donor':donor,'profile':profile,'details':details,'address':address,'is_indiv':is_indiv})
 
 #LIST
 def listProfile(request):
-    userlist = User.objects.order_by('username')
-    paginator = Paginator(userlist,5)
+    userlist = UserProfile.objects.order_by('user')
+    paginator = Paginator(userlist,8)
     page = request.GET.get('page')
     try:
     	users = paginator.page(page) 

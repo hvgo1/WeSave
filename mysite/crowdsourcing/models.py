@@ -61,7 +61,7 @@ class UserProfile(models.Model):
         ('Adm', 'Admin'),
     )
     
-    photo = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    photo = models.ImageField(upload_to='profile_images/',null=True, blank=True)
     address = models.ForeignKey(Address)
     user = models.OneToOneField(User)
     role = models.CharField(max_length=15,choices=STATUS_CHOICES)

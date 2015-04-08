@@ -1,11 +1,11 @@
 {% extends "mysite/base.html" %}
+{% load static %}
 {% block title %} Profiles {% endblock %}
 {% block body_block %}
 <section id="intro">
 </section>
 <section id="about" class="home-section text-center">
-<br><br>
-
+<br>
 
 <center>
 <h1>User Profiles</h1>
@@ -14,57 +14,56 @@
  <b> {{ message }} </b>
  <p>
 {% endif %}
-<head>
-<style>
-table,th,td
-{
-border:1px solid black;
-border-collapse:collapse;
-}
-th,td
-{
-padding:5px;
-}
-</style>
-</head>
+
 <body>
-<center>
-<table style="width:600px">
-<tr>
-  <th>ID</th>
-  <th>Username</th> 		
-  <th>Location</th>
-  <th>Actions</th>
-</tr>
-	
+
+<div class="row">
+			<div class="col-lg-2 col-lg-offset-5">
+				<hr class="marginbot-50">
+			</div>
+		</div>
+ <div class="row">
 {% for user in users %}
-<tr bgcolor='{% cycle FFFFFF,EEEEEE as rowcolor %}'>
-<td><a href='/crime/viewsuspect/{{suspect.id}}'>{{user.id}}</a></td>
-<td>{{user.username}}</td>
-							<td>{{user.address_id}}</td>
-<td><a href='/crime/updatesuspect/{{suspect.id}}'>Update</a>
- <a href='/crime/deletesuspect/{{suspect.id}}'>Delete</a></td>
-</tr>
+
+ <div class="col-xs-6 col-sm-3 col-md-3">
+				
+                <div class="team boxed-grey">
+                    <div class="inner">
+						<h5><a href="/profile/{{user.user.username}}">{{user.user.username}}</a></h5>
+                        
+                        <div class="avatar"><img src="{{user.photo.url}}" alt="" class="img-responsive img-circle" /></div>
+                    </div>
+                    <div class="service-desc">
+						
+						<p><b>{{user.address.country.name}}</b></p>
+					</div>
+                </div>                
+<br>				
+</div>
+
 {% endfor %}
-         </table>
-         </center>
-	</body>
+</div>
+			
+
+
+</body>
+
+
 <div class = "pagination">
-    <span class = "step-links">		
+    <span class = "step-links">	
+     	<br><br><br><br><br><br><br><br><br><br><br>
         {% if users.has_previous %}
-		<a href="?page={{ users.previous_page_number }}">previous</a>
+		<a href="?page={{ users.previous_page_number }}"><b><< PREVIOUS</b></a>
 	{% endif %} 
     <span class= "current">
 		 Page {{ users.number }} of {{ users.paginator.num_pages }}.
         </span>
         {% if users.has_next %}
-		<a href="?page={{ users.next_page_number }}">next</a>
+		<a href="?page={{ users.next_page_number }}"><b>NEXT >></b></a>
 	{% endif %} 
     </span>
 </div>
         
-
-
-<b><a href='/crime/searchsuspect'>Search Suspect</a></b><br>
 </section>
+
 {% endblock %}
