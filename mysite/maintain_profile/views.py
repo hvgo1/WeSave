@@ -38,3 +38,6 @@ def listProfile(request):
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
     return render_to_response('maintain_profile/viewprofilelist.html',{'users':users})
+#copy to campaign module
+def campaign(request):
+    return render(request,'mysite/campaign.html')
