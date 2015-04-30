@@ -33,7 +33,7 @@ def register_individual(request,username):
             if addform.is_valid():
                 a=addform.save()
                 u = UserProfile.objects.get_or_create(photo=request.FILES.get('photo','profile_images/def.jpg'), 
-                address_id=a.id,user_id=user.id,role=request.POST['role'])[0]            
+                address_id=a.id,user_id=user.id)[0]            
                 u.save()            
             if indivform.is_valid():
                 i = Individual.objects.get_or_create(first_name=request.POST['first_name'], 
@@ -58,7 +58,7 @@ def register_group(request,username):
             if addform.is_valid():
                 a=addform.save()
                 u = UserProfile.objects.get_or_create(photo=request.FILES.get('photo', None), 
-                address_id=a.id,user_id=user.id,role=request.POST['role'])[0]            
+                    address_id=a.id,user_id=user.id,role=request.POST['role'])[0]            
                 u.save()            
             if groupform.is_valid():
                 i = Group.objects.get_or_create(name=request.POST['name'], 

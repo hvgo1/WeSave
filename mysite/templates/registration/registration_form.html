@@ -13,7 +13,7 @@
 <form class="form-group" action="" method="post">
     {% csrf_token %}
 
-<tr><td><table>
+<table>
     
   {% for field in form %}
      <tr>
@@ -25,8 +25,12 @@
       </tr>
     {% endfor %}
 
-    <tr><td colspan="3" style="padding-top:10px;"><center><button style="width:250px;" type="submit" class="btn btn-skin" name="indivbutton" value="Register as an Individual">Register as an Individual</button></center></td></tr>
-    <tr><td colspan="3" style="padding-top:10px;"><center><button style="width:250px" type="submit" class="btn btn-skin" name="groupbutton" value="Register as Group">Register as a Group</button></center></td></tr>
+    <tr><td colspan="3" style="padding-top:10px;">
+        <center><button style="width:250px;" type="submit" class="btn btn-skin" name="indivbutton" value="Register as an Individual">Register as an Individual</button>
+    </center></td></tr>
+    <tr><td colspan="3" style="padding-top:10px;">
+        <center><button style="width:250px" type="submit" class="btn btn-skin" name="groupbutton" value="Register as Group">Register as a Group</button>
+    </center></td></tr>
     
        
 
