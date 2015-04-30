@@ -29,6 +29,7 @@ urlpatterns = patterns('',
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
     url(r'^reg-individual/(?P<username>\w+)', views.register_individual, name='register_individual'),
     url(r'^reg-group/(?P<username>\w+)', views.register_group, name='register_group'),
+    url(r'^campaign/', include('maintain_campaign.urls')),
     (r'^accounts/', include('registration.backends.simple.urls')),
 
 
