@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category,UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers,Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category, UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers, Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish,User_Role
 # Register your models here.
 
  
@@ -12,6 +12,9 @@ class AddressAdmin(admin.ModelAdmin):
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ['id','user','address','photo']
+
+class UserRoleAdmin(admin.ModelAdmin):
+    list_display = ['id','user','role']
 
 class IndividualAdmin(admin.ModelAdmin):
     list_display = ['id','user','first_name','middle_name','last_name','birthday']
@@ -64,6 +67,7 @@ admin.site.register(Keyword,KeywordAdmin)
 admin.site.register(Address,AddressAdmin)
 admin.site.register(Service_Category,Service_CategoryAdmin)
 admin.site.register(UserProfile,UserProfileAdmin)
+admin.site.register(User_Role,UserRoleAdmin)
 admin.site.register(Individual,IndividualAdmin)
 admin.site.register(Group,GroupAdmin)
 admin.site.register(Campaign,CampaignAdmin)
