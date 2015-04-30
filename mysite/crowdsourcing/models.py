@@ -54,17 +54,25 @@ class Service_Category(models.Model):
 class UserProfile(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.user.id)
-    STATUS_CHOICES = (
-        ('Ben', 'Beneficiary'),
-        ('Hos', 'Hospital Representative'),
-        ('Don', 'Donor'),
-        ('Adm', 'Admin'),
-    )
-    
     photo = models.ImageField(upload_to='profile_images/',null=True, blank=True)
     address = models.ForeignKey(Address)
     user = models.OneToOneField(User)
-    role = models.CharField(max_length=15,choices=STATUS_CHOICES)
+    #role = models.CharField(max_length=15,choices=STATUS_CHOICES)
+
+class User_Role(models.Model):
+    def __unicode__(self): 
+        return u'%s' %(self.user.id)
+    ROLE_CHOICES = (
+        ('Soc', 'Social Worker'),
+        ('Don', 'Donor'),
+        ('Adm', 'WeSave Admin'),
+    )
+    
+    user = models.ForeignKey(User)
+    role = models.CharField(max_length=25, choices=ROLE_CHOICES)
+
+    class Meta:
+        unique_together = ('user', 'role')
 
 class Individual(models.Model):
     def __unicode__(self): 

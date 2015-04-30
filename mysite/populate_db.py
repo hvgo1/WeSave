@@ -7,7 +7,7 @@ django.setup()
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category,UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers,Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category, UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers, Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish,User_Role
 
 def populate():
 
@@ -156,49 +156,48 @@ def populate():
     add_user(uname="markdy",
         passw="markdy",
         email="dymark@yahoo.com")
-    print "user" 
+    print "user"
+
 
     add_userprof(photo="profile_images/4.jpg",
         address=1,
-        user=11,
-        role='Don')
+        user=11)
     add_userprof(photo="profile_images/1.jpg",
         address=2,
-        user=10,
-        role='Don')
+        user=10)
     add_userprof(photo="profile_images/3.jpg",
         address=3,
-        user=9,
-        role='Don')
+        user=9)
     add_userprof(photo="profile_images/2.jpg",
         address=4,
-        user=8,
-        role='Adm')
+        user=8)
     add_userprof(photo="profile_images/4.jpg",
         address=5,
-        user=7,
-        role='Ben')
+        user=7)
     add_userprof(photo="profile_images/2.jpg",
         address=6,
-        user=6,
-        role='Hos')
+        user=6)
     add_userprof(photo="profile_images/3.jpg",
         address=7,
-        user=5,
-        role='Ben')
+        user=5)
     add_userprof(photo=None,
         address=8,
-        user=4,
-        role='Adm')
+        user=4)
     add_userprof(photo="profile_images/1.jpg",
         address=9,
-        user=3,
-        role='Hos')
+        user=3)
     add_userprof(photo=None,
         address=10,
-        user=2,
-        role='Don')
+        user=2)
     print "uprof" 
+
+    add_userrole(user=2,
+        role="Adm")
+    add_userrole(user=2,
+        role="Soc")
+    add_userrole(user=3,
+        role="Soc")
+    print "urole"
 
     add_indiv(fname="Tris",mid=None,lname="Prior",bday="1991-01-04",user=2)
     add_indiv(fname="Emmalyn",mid="Santos",lname="Roberts",bday="1971-08-26",user=4)
@@ -363,12 +362,16 @@ def add_user(uname,passw,email):
         email=email)[0]
     return u
  
-def add_userprof(photo,address,user,role):
+def add_userprof(photo,address,user):
     if photo==None:
         photo='profile_images/def.jpg'
     u = UserProfile.objects.get_or_create(photo=photo,
         address_id=address,
-        user_id=user, 
+        user_id=user)[0]
+    return u
+
+def add_userrole(user, role):
+    u = User_Role.objects.get_or_create(user_id=user,
         role=role)[0]
     return u
 
