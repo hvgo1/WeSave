@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'crowdsourcing',
     'django_countries',
     'manage_contacts',
+    'wsadmin',
+    'verify_campaign',
     
 )
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
