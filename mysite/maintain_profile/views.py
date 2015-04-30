@@ -8,13 +8,14 @@ from django.contrib.auth.models import User
 #from maintain_profile.forms import 
 from crowdsourcing.models import UserProfile,Individual,Group, Address,Campaign_User_Donor,Campaign_User_Followers,Campaign
 
-# View
-def viewProfile(request,username):
+
+#View individual profile of users [privacy options pa]
+def viewProfile(request,username): 
     user = User.objects.get(username=username)
-    profile = UserProfile.objects.get(user=user.id)
-    donor = Campaign_User_Donor.objects.filter(user=user)
-    sub = Campaign_User_Followers.objects.filter(user=user)
-    created = Campaign.objects.filter(created_by_id=user.id)
+    profile = UserProfile.objects.get(user=user.id) 
+    donor = Campaign_User_Donor.objects.filter(user=user) #returns all campaigns where the user is a donor
+    sub = Campaign_User_Followers.objects.filter(user=user) #returns all campaigns where the user is a subscriber/follower
+    created = Campaign.objects.filter(created_by_id=user.id) #returns all campaigns where the user is a creator [by social workers only]
     
     if Individual.objects.filter(user=user.id).exists():
         details = Individual.objects.get(user=user.id)
@@ -26,10 +27,11 @@ def viewProfile(request,username):
         is_indiv = False
     return render(request,'maintain_profile/viewprofile.html',{'user':user,'created':created,'sub':sub,'donor':donor,'profile':profile,'details':details,'address':address,'is_indiv':is_indiv})
 
-#LIST
-def listProfile(request):
+
+#Lists all user profiles
+def listProfile(request): 
     userlist = UserProfile.objects.order_by('user')
-    paginator = Paginator(userlist,8)
+    paginator = Paginator(userlist,8) #pagination
     page = request.GET.get('page')
     try:
     	users = paginator.page(page) 

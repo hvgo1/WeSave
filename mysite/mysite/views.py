@@ -7,16 +7,18 @@ from django.contrib.auth.models import User
 from crowdsourcing.forms import UserProfileForm, IndividualForm,GroupForm,AddressForm
 from crowdsourcing.models import UserProfile, Address,Individual,Group
 
+#Override RegistrationFormNoFreeEmail of Registration package
 class RegFormEmail(RegistrationFormNoFreeEmail):
      
     bad_domains = ['aim.com', 'aol.com', 'email.com','hushmail.com',
                    'mail.ru', 'mailinator.com', 'live.com']
 
 
-# Create your views here.
+# Homepage
 def home(request):
     return render(request,'mysite/index.html')
 
+#Individual Registration
 def register_individual(request,username):
     user = User.objects.get(username=username)
     if request.method == 'GET':
@@ -41,6 +43,7 @@ def register_individual(request,username):
                 return HttpResponseRedirect('/home/')
     return render(request,'registration/addindividual.html', {'userform': userform,'indivform': indivform,'addform':addform})
 
+#Group Registration
 def register_group(request,username):
     user = User.objects.get(username=username)
     if request.method == 'GET':
@@ -80,6 +83,7 @@ def register_group(request,username):
                 return HttpResponseRedirect('/home/')
     return render(request, 'registration/addgroup.html', {'userform':userform, 'groupform':groupform, 'addform':addform})
 
+#User Authentication
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -100,6 +104,7 @@ def user_login(request):
     else:
         return render(request, 'mysite/login.html', {})
 
+#Restrict
 @login_required
 def user_logout(request):
     logout(request)
