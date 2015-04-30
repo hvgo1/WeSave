@@ -7,18 +7,25 @@
     <center>
 
     <h1>Add Campaign</h1>
-    <form id="add_campaign_form" method="post" action="/campaign/add_campaign/">
+    <form class="form-group" id="add_campaign_form" method="post">
         {% csrf_token %}
 			{% for hidden in form.hidden_fields %}
 				{{ hidden }}
 			{% endfor %}
-
+            <tr><td><table>
 			{% for field in form.visible_fields %}
-				{{ field.errors }}
-				{{ field.help_text }}<br/>
-				{{ field }}
+                <tr>
+                <div class="fieldWrapper">
+                    <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
+                    <td style="padding-right:60px;">{{ field.label_tag }}</td>
+                    <td>{{ field }}</td>
+                </div>
+                </tr>
 			{% endfor %}<br/>
-			<input type="submit" name="submit" value="Submit Campaign">
+    <tr><td colspan="3" style="padding-top:10px;">
+        <center><button style="width:250px;" type="submit" class="btn btn-skin" name="submitbutton" value="Submit">Submit</button>
+        </center></td></tr>
+    </table>
     </form>
 </section>
 {% endblock %}
