@@ -1,98 +1,6 @@
-<!DOCTYPE html>
+{% extends 'mysite/base.html' %}
 {% load static %}
-<html lang="en">
-
-<head>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-
-    <title>WeSave - {% block title %}Bringing Out the Bayanihan in Us{% endblock %}</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" type="text/css">
-
-    <!-- Fonts -->
-    <link href="{% static 'font-awesome/css/font-awesome.min.css'%}" rel="stylesheet" type="text/css">
-	<link href="{% static 'css/animate.css'%}" rel="stylesheet" />
-    <!-- Squad theme CSS -->
-    <link href="{% static 'css/style.css'%}" rel="stylesheet">
-	<link href="{% static 'color/default.css'%}" rel="stylesheet">
-
-</head>
-
-<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
-	<!-- Preloader -->
-	<div id="preloader">
-	  <div id="load"></div>
-	</div>
-
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href={% url 'home' %}>
-                    <h1>WeSave</h1>
-                </a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="">Home</a></li>
-        <li><a href="">Campaigns</a></li>
-		<li><a href="">About</a></li>
-		<li><a href="/contact/">Contact</a></li>
-
-	{% if user.is_authenticated %}
-        <li><a href="">{{ user.username }}</a></li> <!-- If clicked, go to profile.-->
-        <li><a href="/logout/">Logout</a></li>
-    {% else %}
-		<li><a href="/login/">Login</a></li>
-        <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown">Sign in/ Register <b class="caret"></b></a>
-          <ul class="dropdown-menu" style="
-               height: 235px;
-               border-bottom-width: 1px;
-               margin-bottom: 10px;">
-            <div style="
-                height: 172px;
-                width: 250px;
-                margin-top: 5px;
-                margin-left: 5px;
-                margin-right: 5px;
-                
-            ">
-
-	<div class="form-group">
-	   <label for="username">Username</label>
-           <input type="text" class="form-control" id="username" placeholder="Enter username" required="required" style = "width:100%;" />
-           <label for="password">Password</label>
-           <input type="text" class="form-control" id="password" placeholder="Enter password" required="required" />
-            <div style="
-               padding-top: 10px;
-               padding-bottom: 10px;
-               padding-left: 65px;"   class="col-md-12">
-                        <button style="width: 106px;" type="submit" class="btn btn-skin" id="btnContactUs">
-                            Sign In</button>
-                    </div>
-</div>
-            <li style="
-               border-bottom-width: 2px;
-               padding-left: 66px;
-            ">Not a Member?</li>
-            <li><a style="padding-left: 85px;" href="{% url 'registration_register' %}">Register</a></li>
-          </ul>
-        </li>
-    {% endif %}
-      </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+{% block body_block %}
 	<!-- Section: intro -->
     <section id="intro" class="intro">
 	
@@ -257,7 +165,7 @@
 						<img src="{% static 'img/icons/service-icon-1.png'%}" alt="" />
 					</div>
 					<div class="service-desc">
-						<h5>Print</h5>
+						<h5>Create Campaign</h5>
 						<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
 					</div>
                 </div>
@@ -270,7 +178,7 @@
 						<img src="{% static 'img/icons/service-icon-2.png'%}" alt="" />
 					</div>
 					<div class="service-desc">
-						<h5>Web Design</h5>
+						<h5>Monetary Donation</h5>
 						<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
 					</div>
                 </div>
@@ -283,7 +191,7 @@
 						<img src="{% static 'img/icons/service-icon-3.png'%}" alt="" />
 					</div>
 					<div class="service-desc">
-						<h5>Photography</h5>
+						<h5>In-Kind Donation</h5>
 						<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
 					</div>
                 </div>
@@ -296,7 +204,7 @@
 						<img src="{% static 'img/icons/service-icon-4.png'%}" alt="" />
 					</div>
 					<div class="service-desc">
-						<h5>Cloud System</h5>
+						<h5>Track your Donation</h5>
 						<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
 					</div>
                 </div>
@@ -309,57 +217,13 @@
 <section id="contact" class="contact">
 	<div class="container">
 
-		<div class="row">
-			<div class="col-lg-2 col-lg-offset-5">
-				<hr class="marginbot-50">
-			</div>
-		</div>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="boxed-grey">
-                <!--form class="contact-form" action="" method="post">
-                        {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-6">
-                        
-                            <label for="name">
-                                Name</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" required="required" />
-                      
-                            <label for="email">
-                                Email Address</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
-                                </span>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
-                       
-
-                    </div>
-                    <div class="col-md-6">
-                        
-                            <label for="name">
-                                Message</label>
-                            <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
-                                placeholder="Message"></textarea>
-                       
-                    </div>
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-skin pull-right" id="sendmessage" name ="sendmessage" value="sendmessage">
-                            Send Message</button>
-                    </div>
-                </div>
-            </form!-->
-            
-
-            </div>
-        </div>
 		
 		<div class="col-lg-4">
 			<div class="widget-contact">
 				<h5>Main Office</h5>
 				
 				<address>
-				  <strong>Squas Design, Inc.</strong><br>
+				  <strong>WeSave, Inc.</strong><br>
 				  Tower 795 Folsom Ave, Beautiful Suite 600<br>
 				  San Francisco, CA 94107<br>
 				  <abbr title="Phone">P:</abbr> (123) 456-7890
@@ -387,31 +251,4 @@
 	</section>
 	<!-- /Section: contact -->
 
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-lg-12">
-					<div class="wow shake" data-wow-delay="0.4s">
-					<div class="page-scroll marginbot-30">
-						<a href="#intro" id="totop" class="btn btn-circle">
-							<i class="fa fa-angle-double-up animated"></i>
-						</a>
-					</div>
-					</div>
-					<p>&copy;Copyright 2015 - WeSave. All rights reserved.</p>
-				</div>
-			</div>	
-		</div>
-	</footer>
-	 <!-- Core JavaScript Files -->
-
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.easing.min.js' %}"></script>	
-	<script src="{% static 'js/jquery.scrollTo.js' %}"></script>
-	<script src="{% static 'js/wow.min.js' %}"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="{% static 'js/custom.js' %}"></script>
-
-</body>
-</html>
+{% endblock %}
