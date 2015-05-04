@@ -34,3 +34,5 @@ def add_campaign(request, username):
 
     return render(request, 'maintain_campaign/add_campaign.html', {'form': form})
 
+def view_campaign(request):
+    return render(request, 'maintain_campaign/view_campaign.html')
