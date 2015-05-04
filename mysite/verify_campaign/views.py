@@ -4,11 +4,15 @@ from django.core.paginator import Paginator, InvalidPage,EmptyPage, PageNotAnInt
 from crowdsourcing.models import Campaign
 
 def approve(request):
-    checked_campaigns = request.POST.getlist('checks')
-    for checked in checked_campaigns:
-        campaign = Campaign.User.objects.get(id=checked)
-        print campaign.status	
-        campaign.status = 'V'
+    print "hi"
+    if request.method == 'post':
+        checked_campaigns = request.POST.getlist('checks')
+        print checked_campaigns
+        for checked in checked_campaigns:
+            print checked
+            campaign = Campaign.objects.get(id=checked)
+            print campaign.status	
+            campaign.status = 'V'
     return forapproval_campaigns(request)
 # Create your views here.
 
