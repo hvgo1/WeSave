@@ -10,7 +10,7 @@ from crowdsourcing.models import UserProfile,Individual,Group, Address,Campaign_
 
 
 #View individual profile of users [privacy options pa]
-def viewProfile(request,username): 
+def view_profile(request,username): 
     user = User.objects.get(username=username)
     profile = UserProfile.objects.get(user=user.id) 
     donor = Campaign_User_Donor.objects.filter(user=user) #returns all campaigns where the user is a donor
@@ -29,7 +29,7 @@ def viewProfile(request,username):
 
 
 #Lists all user profiles
-def listProfile(request): 
+def list_profile(request): 
     userlist = UserProfile.objects.order_by('user')
     paginator = Paginator(userlist,8) #pagination
     page = request.GET.get('page')

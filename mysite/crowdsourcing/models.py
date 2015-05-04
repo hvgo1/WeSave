@@ -5,7 +5,11 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-
+#TO DO:
+#Naming convention
+#variable: var_name
+#class: Class_Name
+#status:Approved
 class Region(models.Model):
     def __unicode__(self):  
         return u'%s' %(self.name)

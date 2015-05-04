@@ -1,0 +1,103 @@
+{% extends "wsadmin/base.html" %}
+{% load static %}
+{% block title %} For Approval Campaigns {% endblock %}
+{% block body_block %}
+<head>
+<style>
+table, th, td {
+    padding: 5px;
+    text-align: center;
+}
+table#t2 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#t2 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#t2 th	{
+    background-color: #87CEEB;;
+  
+}
+</style>
+</head><section id="intro">
+
+</section>
+<section id="about" class="home-section text-center">
+<br>
+
+<center>
+
+</center>
+{% if message %}
+ <b> {{ message }} </b>
+ <p>
+{% endif %}
+
+<body>
+<table id="t2" style="width:100%;">
+    		    <tr ><th colspan="3" style="color:white;"><h1 style="padding-top: 5px;">For Approval Campaigns</h1></th></tr>
+    			<tr><td><h4>Title</h4></td> <td colspan="2"><h4>Actions</h4></td></tr>
+    	{% for campaign in campaigns %}
+                <tr>
+                	<td><h5>{{campaign.title}}</h5></td>
+                	<td><h5><a href="/campaign/{{campaign.id}}"><b>View Page</b></a></h5></td>
+                	<td><input type="checkbox" name="checks" value="{{campaign.id}}" /></td>
+                </tr>
+    	{% endfor %}		
+    			
+</table>
+<br>
+<!--button style="width: 106px;" type="submit" class="pull-right btn btn-skin" id="btnContactUs">Approve</button>
+-->
+<form action="all" method="get"><input style="width:250px" type="submit" class="pull-right btn btn-skin" value="Approve" />{% csrf_token %}</form>
+<!---div class="row">
+			<div class="col-lg-2 col-lg-offset-5">
+				<hr class="marginbot-50">
+			</div>
+		</div>
+ <div class="row">
+{% for campaign in campaigns %}
+
+
+ <div class="col-xs-6 col-sm-3 col-md-3">
+				
+                <div class="team boxed-grey">
+                    <div class="inner">
+						<h5>{{campaign.title}}</h5>
+                        
+                        <div class="avatar"><img src="{{campaign.campaign_image.url}}" alt="" class="img-responsive img-circle" /></div>
+                    </div>
+                    <div class="service-desc">
+						
+						<p><a href="/campaign/{{campaign.id}}"><b>View Page</b></a></p>
+					</div>
+                </div>                
+<br>				
+</div>
+
+{% endfor %}
+</div>
+-->			
+
+
+</body>
+
+
+<div class = "pagination">
+    <span class = "step-links">	
+     	<br><br><br><br><br><br><br><br><br><br><br>
+        {% if users.has_previous %}
+		<a href="?page={{ users.previous_page_number }}"><b><< PREVIOUS</b></a>
+	{% endif %} 
+    <span class= "current">
+		 Page {{ users.number }} of {{ users.paginator.num_pages }}.
+        </span>
+        {% if users.has_next %}
+		<a href="?page={{ users.next_page_number }}"><b>NEXT >></b></a>
+	{% endif %} 
+    </span>
+</div>
+        
+</section>
+
+{% endblock %}
