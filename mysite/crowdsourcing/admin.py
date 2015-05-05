@@ -21,8 +21,8 @@ class IndividualAdmin(admin.ModelAdmin):
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = ['id','user','name','get_servicecat','registration_number']
-    def get_servicecat(self, obj):
-        return ",".join([p.name for p in obj.service_category.all()])
+    def getServiceCategory(self, obj):
+        return ",".join([var.name for var in obj.service_category.all()])
 class CampaignAdmin(admin.ModelAdmin):
     list_display = ['id','title','beneficiary_name','deadline','status','views','created_by']
 
@@ -56,7 +56,7 @@ class RegionAdmin(admin.ModelAdmin):
 class KeywordAdmin(admin.ModelAdmin):
     list_display = ['id','name']
 
-class Service_CategoryAdmin(admin.ModelAdmin):
+class ServiceCategoryAdmin(admin.ModelAdmin):
     list_display = ['id','name']
 
 admin.site.register(City,CityAdmin)
@@ -65,15 +65,15 @@ admin.site.register(Region,RegionAdmin)
 admin.site.register(Wish,WishAdmin)
 admin.site.register(Keyword,KeywordAdmin)
 admin.site.register(Address,AddressAdmin)
-admin.site.register(Service_Category,Service_CategoryAdmin)
+admin.site.register(ServiceCategory,ServiceCategoryAdmin)
 admin.site.register(UserProfile,UserProfileAdmin)
-admin.site.register(User_Role,UserRoleAdmin)
+admin.site.register(UserRole,UserRoleAdmin)
 admin.site.register(Individual,IndividualAdmin)
 admin.site.register(Group,GroupAdmin)
 admin.site.register(Campaign,CampaignAdmin)
-admin.site.register(Campaign_User_Donor,Campaign_User_DonorAdmin)
-admin.site.register(Campaign_User_Followers,Campaign_User_FollowersAdmin)
-admin.site.register(Campaign_Keyword,Campaign_KeywordAdmin)
-admin.site.register(Unregistered_Donor,Unregistered_DonorAdmin)
+admin.site.register(CampaignUserDonor,CampaignUserDonorAdmin)
+admin.site.register(CampaignUserFollowers,CampaignUserFollowersAdmin)
+admin.site.register(CampaignKeyword,CampaignKeywordAdmin)
+admin.site.register(UnregisteredDonor,UnregisteredDonorAdmin)
 admin.site.register(Contact,ContactAdmin)
-admin.site.register(Campaign_Wish,Campaign_WishAdmin)
+admin.site.register(CampaignWish,CampaignWishAdmin)

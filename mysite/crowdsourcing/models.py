@@ -5,11 +5,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-#TO DO:
-#Naming convention
-#variable: var_name
-#class: Class_Name
-#status:Approved
+
+
 class Region(models.Model):
     def __unicode__(self):  
         return u'%s' %(self.name)
@@ -50,7 +47,7 @@ class Address(models.Model):
     barangay = models.ForeignKey(Barangay,null=True, blank=True)
     street = models.CharField(max_length=200)
 
-class Service_Category(models.Model):
+class ServiceCategory(models.Model):
     def __unicode__(self):  
         return u'%s' %(self.name)
     name = models.CharField(max_length=200)
@@ -61,9 +58,8 @@ class UserProfile(models.Model):
     photo = models.ImageField(upload_to='profile_images/',null=True, blank=True)
     address = models.ForeignKey(Address)
     user = models.OneToOneField(User)
-    #role = models.CharField(max_length=15,choices=STATUS_CHOICES)
-
-class User_Role(models.Model):
+ 
+class UserRole(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.user.id)
     ROLE_CHOICES = (
@@ -115,7 +111,7 @@ class Campaign(models.Model):
     STATUS_CHOICES = (
         ('D', 'Draft'),
         ('F', 'For Approval'),
-        ('V', 'Verified'),#change to Approved
+        ('A', 'Approved'),
         ('C', 'Completed'),
         ('I', 'Inactive'),
     )
@@ -134,7 +130,7 @@ class Campaign(models.Model):
     wishes = models.ManyToManyField(Wish,through='Campaign_Wish')
     keywords = models.ManyToManyField(Keyword,through='Campaign_Keyword')
 
-class Unregistered_Donor(models.Model):
+class UnregisteredDonor(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.name)
     name = models.CharField(max_length=200)
@@ -148,14 +144,14 @@ class Contact(models.Model):
     email = models.EmailField(max_length=75)
     message = models.CharField(max_length=200)
 
-class Campaign_User_Donor(models.Model):
+class CampaignUserDonor(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
     amount = models.DecimalField(max_digits=20,decimal_places=2)
 
-class Campaign_Wish(models.Model):
+class CampaignWish(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
@@ -164,13 +160,13 @@ class Campaign_Wish(models.Model):
     estimated_price = models.DecimalField(max_digits=20,decimal_places=2)
     # set default value of received_tag to false
 
-class Campaign_User_Followers(models.Model):
+class CampaignUserFollowers(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
 
-class Campaign_Keyword(models.Model):
+class CampaignKeyword(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
