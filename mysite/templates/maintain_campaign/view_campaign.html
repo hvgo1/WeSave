@@ -4,16 +4,18 @@
 	<style>
 		table, th, td {
 		    padding: 5px;
-		    text-align: center;
+		    text-align: left;
+		    vertical-align: top;
 		}
 		table#t2 tr:nth-child(even) {
-		    background-color: #eee;
+		    background-color: #fff;
 		}
 		table#t2 tr:nth-child(odd) {
-		   background-color:#fff;
+		   background-color:#eee;
 		}
 		table#t2 th	{
-		    background-color: #87CEEB;;
+		    background-color: #87CEEB;
+		    text-align: center;
 		}
 	</style>
 {% endblock %}
@@ -24,59 +26,67 @@
 <section id="view" class="home-section text-center">
 	<br/><br/>
 	<center>
-		<table id="t" border="2" style="width:1150px; margin-top: 0px; margin-left:50px;">
+	<h1 style="color:#87CEEB;">{{ campaign.title }}</h1>
+		<table border="0" id="t" style="width:1150px; margin-top: 0px; margin-left:50px;">
 			<tr>
-				<th colspan="3" style="margin-left:20px; padding-top:10px; color:#87CEEB;">
-					<h1>Fund Jean's Needs</h1></th>
-			</tr>
-			<tr>
-				<td style="width: 200px; margin-left: 20px; padding-left: 20px; padding-right: 20px;">
-					<div style="width: 200px;">&nbsp;<img src="{% static 'img/team/sample.jpg'%}" alt="" class="img-responsive img-circle" width="200px" /></div>
-		    		<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>
+				<td style="width:20%; margin-left: 20px; padding-left: 20px; padding-right: 20px;">
+					<center>
+						<div style="width: 200px;">&nbsp;<img src="{% static 'img/team/sample.jpg'%}" alt="" class="img-responsive img-circle" width="200px" /></div>
+			    		<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>
+		    		</center>
     			</td>
-    			<td style="width:50%; padding-right:60px; padding-left:30px;">
+    			<td style="width:70%; padding-right:20px; padding-left:20px;">
+    				<center>
+    					<h2 style="padding-top: 5px;">Story</h2>
+    					<p>{{ campaign.story }}</p>
+    				</center>
+    			</td>
+    			<td style="width:10%; padding-right:20px; padding-left:20px;">
 					<!-- TODO: List of wishes-->
-					<table>
-			    		<tr></tr><td>
-				    		<table id="t2" style="width:100%;">
-				    		    <tr>
-				    		    	<th colspan="3" style="width: 300px; margin-left: 30px;"><h3 style="padding-top:5px; height:20px; color:white;">Wishlist</h3></th>
-				    		    </tr>
+					<center>
+						<h3 style="padding-top:5px; height:20px; color:#87CEEB;">Wishlist</h3>
+							<table id="t2" style="width:300px;">
+				    		    {% for wish in wishes %}
 				    			<tr>
-				    				<td><h5 style="padding-top: 5px; height: 20px;">Wheelchair</h5></td>
-				    				<td style="padding-left: 100px;">&nbsp;</td>
-				    				<td><h5 style="padding-top: 5px; height: 20px;">Checkbox</h5></td>
+				    				<td><h5 style="width:80%; padding-top: 5px; height: 20px;">{{ wish.wish.name }}</h5></td>
+				    				<td id="td2"><h5 style="width:20%; padding: 0px; height: 20px;">
+				    					{% if wish.completed == True %}
+				    						<img src="{% static 'img/icons/checkbox-checked.png' %}" width="20" alt="Complete">
+				    					{% else %}
+				    						<img src="{% static 'img/icons/checkbox-unchecked.png' %}" width="20" alt="Incomplete">
+				    					{% endif %}
+				    				</h5></td>
 				    			</tr>
-				    			<tr>
-				    				<td><h5 style="padding-top: 5px; height: 20px;">Sacro Lumbar Support</h5></td>
-				    				<td style="padding-left: 100px;">&nbsp;</td>
-				    				<td><h5 style="padding-top: 5px; height: 20px;">Checkbox</h5></td>
-				    			</tr>
-				    		</table>
-			    		</td></tr>
-					</table>
-				</td>
-				<td>
-					<table>
-		    			<td><table id="t2"  style="width:100%;">
-			    			<tr>
-			    				<th style="color:white;"><center><h3 style="padding-top:5px; height:20px; color:white;">Campaign Status</h3></center></th>
-			    			</tr>
-			    			<tr>
-			    				<td><div class="progress">
-				    			   	<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="100"   aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-					        		     <span><b>60% </b></span>
-				    			   	</div>
-				                </div></td>
-				            </tr>
-			    			<tr>
-			    				<td><button style="width: 106px;" type="submit" class="btn btn-skin" id="btnContactUs">Donate</button></td>
-			    			</tr>
-			    		</table></td>
-		    		</table>
+				    			{% endfor %}
+							</table>
+						<br/>
+						<h3 style="padding-top:5px; height:20px; color:#87CEEB;">Campaign Status</h3>
+							<div class="progress">
+				    			<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="100"   aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+					        		<span><b>60% </b></span>
+				    			</div>
+				            </div>
+			    		<button style="width: 106px;" type="submit" class="btn btn-skin" id="btnDonate">Donate</button>
+			    		<br/><br/><br/>
+			    		<h3 style="padding-top:5px; height:20px; color:#87CEEB;">Donors List</h3>
+			    		<table id="t2" style="width:100%;">
+		    			<tr><td><h5>Anonymous</h5></td><td><h5>₱ 3,100</h5></td></tr>
+    					<tr><td><h5>Cris</h5></td><td><h5>₱ 100</h5></td></tr>
+    					<tr><td><h5>Alex</h5></td><td><h5>₱20</h5></td></tr>
+    			
+    		</table>
+			    	</center>
 				</td>
 			</tr>
 		</table>
 	</center>
 </section>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 {% endblock %}

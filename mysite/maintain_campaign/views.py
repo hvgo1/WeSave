@@ -2,27 +2,18 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 
-from crowdsourcing.models import Campaign
+from crowdsourcing.models import Campaign, Campaign_Wish, Wish
 from maintain_campaign.forms import CampaignForm
 
 def index(request):
     return HttpResponse("You are in campaign index")
 
-def add_campaign(request, username):
+def addCampaign(request, username):
     user = User.objects.get(username=username)
     if request.method == 'POST':
         form = CampaignForm(request.POST, request.FILES)
 
         if form.is_valid():
-            #campaign = Campaign.objects.get_or_create(
-            #    title=request.POST['title'],
-            #    beneficiary=request.POST['beneficiary_name'],
-            #    story=request.POST['story'],
-            #    deadline=request.POST['deadline'],
-            #    campaign_image=request.FILES.get['campaign_image','profile_images/def.jpg'],
-            #    wishes=request.POST['wishes'],
-            #    keywords=request.POST['keywords'],
-            #    created_by=1)[0]
             campaign = form.save(commit=False)
             campaign.created_by = user
             campaign.save()
@@ -34,5 +25,21 @@ def add_campaign(request, username):
 
     return render(request, 'maintain_campaign/add_campaign.html', {'form': form})
 
-def view_campaign(request):
-    return render(request, 'maintain_campaign/view_campaign.html')
+def viewCampaign(request, campaign_title_slug):
+    context_dict = {}
+
+    try:
+        campaign = Campaign.objects.get(slug=campaign_title_slug)
+        wishes = Campaign_Wish.objects.filter(campaign=campaign)
+
+        for wish in wishes:
+            print Wish.objects.get(id=wish.id).name
+
+        context_dict['wishes'] = wishes
+        context_dict['campaign'] = campaign
+        context_dict['campaign_title_slug'] = campaign.slug
+
+    except Campaign.DoesNotExist:
+        pass
+
+    return render(request, 'maintain_campaign/view_campaign.html', context_dict)

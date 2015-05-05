@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from django.template.defaultfilters import slugify
 
 class Region(models.Model):
     def __unicode__(self):  
@@ -108,6 +109,11 @@ class Group(models.Model):
 class Campaign(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.title)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Campaign, self).save(*args, **kwargs)
+
     STATUS_CHOICES = (
         ('D', 'Draft'),
         ('F', 'For Approval'),
@@ -129,6 +135,7 @@ class Campaign(models.Model):
     subscribers = models.ManyToManyField(User,through='Campaign_User_Followers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
     wishes = models.ManyToManyField(Wish,through='Campaign_Wish')
     keywords = models.ManyToManyField(Keyword,through='Campaign_Keyword')
+    slug = models.SlugField(unique = True)
 
 class Unregistered_Donor(models.Model):
     def __unicode__(self): 
