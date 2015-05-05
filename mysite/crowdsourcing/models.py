@@ -115,7 +115,7 @@ class Campaign(models.Model):
     STATUS_CHOICES = (
         ('D', 'Draft'),
         ('F', 'For Approval'),
-        ('V', 'Verified'),
+        ('V', 'Verified'),#change to Approved
         ('C', 'Completed'),
         ('I', 'Inactive'),
     )
