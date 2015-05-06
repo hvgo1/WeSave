@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, InvalidPage,EmptyPage, PageNotAnInt
 
 from django.contrib.auth.models import User
 #from maintain_profile.forms import 
-from crowdsourcing.models import UserProfile,Individual,Group, Address,Campaign_User_Donor,Campaign_User_Followers,Campaign
+from crowdsourcing.models import UserProfile,Individual,Group, Address,CampaignUserDonor,CampaignUserFollowers,Campaign
 
 
 #View individual profile of users [privacy options pa]

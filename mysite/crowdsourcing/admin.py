@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category, UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers, Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish,User_Role
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
 # Register your models here.
 
  
@@ -20,28 +20,28 @@ class IndividualAdmin(admin.ModelAdmin):
     list_display = ['id','user','first_name','middle_name','last_name','birthday']
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ['id','user','name','get_servicecat','registration_number']
+    list_display = ['id','user','name','getServiceCategory','registration_number']
     def getServiceCategory(self, obj):
         return ",".join([var.name for var in obj.service_category.all()])
 class CampaignAdmin(admin.ModelAdmin):
     list_display = ['id','title','beneficiary_name','deadline','status','views','created_by']
 
-class Campaign_User_DonorAdmin(admin.ModelAdmin):
+class CampaignUserDonorAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','user','amount']
 
-class Campaign_User_FollowersAdmin(admin.ModelAdmin):
+class CampaignUserFollowersAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','user']
 
-class Campaign_KeywordAdmin(admin.ModelAdmin):
+class CampaignKeywordAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','keyword']
 
-class Unregistered_DonorAdmin(admin.ModelAdmin):
+class UnregisteredDonorAdmin(admin.ModelAdmin):
     list_display = ['id','name','campaign','amount']
 
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['id','name','email','message']
 
-class Campaign_WishAdmin(admin.ModelAdmin):
+class CampaignWishAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','wish','completed','estimated_price']
 
 class CityAdmin(admin.ModelAdmin):

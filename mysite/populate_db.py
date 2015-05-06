@@ -7,7 +7,7 @@ django.setup()
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category, UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers, Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish,User_Role
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
 
 def populate():
 
@@ -228,7 +228,7 @@ def populate():
 
     add_campaign(title="Ben",beneficiary="Ben",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2015-06-28",status='V',views=0,ack=None,image="profile_images/1.jpg",createdby=3)
+        dline="2015-06-28",status='A',views=0,ack=None,image="profile_images/1.jpg",createdby=3)
 
     add_campaign(title="Andy",beneficiary="Andy",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
@@ -336,7 +336,7 @@ def add_region(name):
     return r
 
 def add_servicecategory(name):
-    s = Service_Category.objects.get_or_create(name=name)[0]
+    s = ServiceCategory.objects.get_or_create(name=name)[0]
     return s
 
 def add_keyword(name):
@@ -371,7 +371,7 @@ def add_userprofile(photo,address,user):
     return u
 
 def add_userrole(user, role):
-    u = User_Role.objects.get_or_create(user_id=user,
+    u = UserRole.objects.get_or_create(user_id=user,
         role=role)[0]
     return u
 
@@ -418,7 +418,7 @@ def add_campaign(title,beneficiary,story,dline,status,views,ack,image,createdby)
     return c
 
 def add_unregistereddonor(name,campaign,amount):
-    c = Unregistered_Donor.objects.get_or_create(name=name,
+    c = UnregisteredDonor.objects.get_or_create(name=name,
         campaign_id=campaign,
         amount=amount)[0]
     return c
@@ -430,14 +430,14 @@ def add_contact(name,email,msg):
     return c
 
 def add_campaigndonor(campaign,user,amount):
-    c = Campaign_User_Donor.objects.get_or_create(
+    c = CampaignUserDonor.objects.get_or_create(
         campaign_id=campaign,
         user_id=user,
         amount=amount)[0]
     return c
 
 def add_campaignwish(campaign,wish,compl,est):
-    c = Campaign_Wish.objects.get_or_create(
+    c = CampaignWish.objects.get_or_create(
         campaign_id=campaign,
         wish_id=wish,
         completed=compl,
@@ -445,13 +445,13 @@ def add_campaignwish(campaign,wish,compl,est):
     return c
 
 def add_campaignfollowers(campaign,user):
-    c = Campaign_User_Followers.objects.get_or_create(
+    c = CampaignUserFollowers.objects.get_or_create(
         campaign_id=campaign,
         user_id=user)[0]
     return c
 
 def add_campaignkey(campaign,keyw):
-    c = Campaign_Keyword.objects.get_or_create(
+    c = CampaignKeyword.objects.get_or_create(
         campaign_id=campaign,
         keyword_id=keyw)[0]
     return c

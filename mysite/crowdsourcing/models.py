@@ -89,7 +89,7 @@ class Group(models.Model):
     name = models.CharField(max_length=200)
     page_address = models.URLField(max_length=200,null=True, blank=True)
     about = models.CharField(max_length=200)
-    service_category = models.ManyToManyField(Service_Category)
+    service_category = models.ManyToManyField(ServiceCategory)
     registration_number = models.BigIntegerField(null=True, blank=True)
     document = models.FileField(upload_to ='documents/',null=True, blank=True)
     comments = models.CharField(max_length=200, null=True, blank=True)
@@ -125,10 +125,10 @@ class Campaign(models.Model):
     ack_receipt = models.ImageField(upload_to='ack_receipts/', null=True, blank=True)
     campaign_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     created_by = models.ForeignKey(User)
-    donors = models.ManyToManyField(User,through='Campaign_User_Donor',through_fields=('campaign','user'),related_name='campaign_donors')
-    subscribers = models.ManyToManyField(User,through='Campaign_User_Followers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
-    wishes = models.ManyToManyField(Wish,through='Campaign_Wish')
-    keywords = models.ManyToManyField(Keyword,through='Campaign_Keyword')
+    donors = models.ManyToManyField(User,through='CampaignUserDonor',through_fields=('campaign','user'),related_name='campaign_donors')
+    subscribers = models.ManyToManyField(User,through='CampaignUserFollowers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
+    wishes = models.ManyToManyField(Wish,through='CampaignWish')
+    keywords = models.ManyToManyField(Keyword,through='CampaignKeyword')
 
 class UnregisteredDonor(models.Model):
     def __unicode__(self): 
