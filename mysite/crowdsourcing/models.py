@@ -139,10 +139,15 @@ class UnregisteredDonor(models.Model):
 
 class Contact(models.Model):
     def __unicode__(self): 
-        return u'%s,%s,%s' %(self.name,self.email,self.message)
+        return u'%s,%s,%s,%s' %(self.name,self.email,self.message,self.status)
+    STATUS_CHOICES = (
+        ('R', 'Read'),
+        ('U', 'Unread'),
+    )    
     name = models.CharField(max_length=200)
     email = models.EmailField(max_length=75)
     message = models.CharField(max_length=200)
+    status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='U')#Draft
 
 class CampaignUserDonor(models.Model):
     def __unicode__(self): 

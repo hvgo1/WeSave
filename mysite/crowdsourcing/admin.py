@@ -39,7 +39,7 @@ class UnregisteredDonorAdmin(admin.ModelAdmin):
     list_display = ['id','name','campaign','amount']
 
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ['id','name','email','message']
+    list_display = ['id','name','email','message','status']
 
 class CampaignWishAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','wish','completed','estimated_price']

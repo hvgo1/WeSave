@@ -20,7 +20,8 @@ class GroupForm(forms.ModelForm):
         model = Group
         fields = ("name", "page_address", "about","service_category",
         "registration_number","document","comments","pc_first_name",
-        "pc_last_name","pc_email","pc_job_title","sc_phone_number")  
+        "pc_last_name","pc_email","pc_job_title","pc_phone_number",
+        "sc_first_name","sc_last_name","sc_email","sc_job_title","sc_phone_number")  
 
 #Form for Address model
 class AddressForm(forms.ModelForm):

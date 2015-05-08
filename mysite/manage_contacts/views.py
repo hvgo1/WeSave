@@ -19,6 +19,6 @@ def contact_us(request):
        #msg = Contact.objects.get_or_create(name=name, 
         #      email=email,message=message)[0] 
         if contact_form.is_valid():           
-            contatc_form.save() 
+            contact_form.save() 
         return HttpResponseRedirect('/contact/')           
     return render(request, 'manage_contacts/contact.html', {'contact_form':contact_form,})
