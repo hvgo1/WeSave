@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 
-from crowdsourcing.models import Campaign, Campaign_Wish, Wish
+from crowdsourcing.models import Campaign, CampaignWish, Wish
 from maintain_campaign.forms import CampaignForm
 
 def index(request):
@@ -30,7 +30,7 @@ def viewCampaign(request, campaign_title_slug):
 
     try:
         campaign = Campaign.objects.get(slug=campaign_title_slug)
-        wishes = Campaign_Wish.objects.filter(campaign=campaign)
+        wishes = CampaignWish.objects.filter(campaign=campaign)
 
         for wish in wishes:
             print Wish.objects.get(id=wish.id).name
