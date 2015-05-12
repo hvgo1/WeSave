@@ -43,3 +43,19 @@ def viewCampaign(request, campaign_title_slug):
         pass
 
     return render(request, 'maintain_campaign/view_campaign.html', context_dict)
+
+def updateCampaign(request, id):
+    campaign = Campaign.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = CampaignForm(request.POST)
+
+        if form.is_valid():
+            campaign = form.save(commit=False)
+            #ampaign.created_by = user
+            campaign.save()
+            return index(request)
+    else:
+        form = CampaignForm()
+
+    return render(request, 'maintain_campaign/update_campaign.html', {'form': form})
