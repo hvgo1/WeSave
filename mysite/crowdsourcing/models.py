@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django.template.defaultfilters import slugify
 
+
 class Region(models.Model):
     def __unicode__(self):  
         return u'%s' %(self.name)
@@ -47,7 +48,7 @@ class Address(models.Model):
     barangay = models.ForeignKey(Barangay,null=True, blank=True)
     street = models.CharField(max_length=200)
 
-class Service_Category(models.Model):
+class ServiceCategory(models.Model):
     def __unicode__(self):  
         return u'%s' %(self.name)
     name = models.CharField(max_length=200)
@@ -58,9 +59,8 @@ class UserProfile(models.Model):
     photo = models.ImageField(upload_to='profile_images/',null=True, blank=True)
     address = models.ForeignKey(Address)
     user = models.OneToOneField(User)
-    #role = models.CharField(max_length=15,choices=STATUS_CHOICES)
-
-class User_Role(models.Model):
+ 
+class UserRole(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.user.id)
     ROLE_CHOICES = (
@@ -90,7 +90,7 @@ class Group(models.Model):
     name = models.CharField(max_length=200)
     page_address = models.URLField(max_length=200,null=True, blank=True)
     about = models.CharField(max_length=200)
-    service_category = models.ManyToManyField(Service_Category)
+    service_category = models.ManyToManyField(ServiceCategory)
     registration_number = models.BigIntegerField(null=True, blank=True)
     document = models.FileField(upload_to ='documents/',null=True, blank=True)
     comments = models.CharField(max_length=200, null=True, blank=True)
@@ -117,7 +117,7 @@ class Campaign(models.Model):
     STATUS_CHOICES = (
         ('D', 'Draft'),
         ('F', 'For Approval'),
-        ('V', 'Verified'),
+        ('A', 'Approved'),
         ('C', 'Completed'),
         ('I', 'Inactive'),
     )
@@ -131,13 +131,13 @@ class Campaign(models.Model):
     ack_receipt = models.ImageField(upload_to='ack_receipts/', null=True, blank=True)
     campaign_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     created_by = models.ForeignKey(User)
-    donors = models.ManyToManyField(User,through='Campaign_User_Donor',through_fields=('campaign','user'),related_name='campaign_donors')
-    subscribers = models.ManyToManyField(User,through='Campaign_User_Followers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
-    wishes = models.ManyToManyField(Wish,through='Campaign_Wish')
-    keywords = models.ManyToManyField(Keyword,through='Campaign_Keyword')
+    donors = models.ManyToManyField(User,through='CampaignUserDonor',through_fields=('campaign','user'),related_name='campaign_donors')
+    subscribers = models.ManyToManyField(User,through='CampaignUserFollowers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
+    wishes = models.ManyToManyField(Wish,through='CampaignWish')
+    keywords = models.ManyToManyField(Keyword,through='CampaignKeyword')
     slug = models.SlugField(unique = True)
 
-class Unregistered_Donor(models.Model):
+class UnregisteredDonor(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.name)
     name = models.CharField(max_length=200)
@@ -146,19 +146,24 @@ class Unregistered_Donor(models.Model):
 
 class Contact(models.Model):
     def __unicode__(self): 
-        return u'%s,%s,%s' %(self.name,self.email,self.message)
+        return u'%s,%s,%s,%s' %(self.name,self.email,self.message,self.status)
+    STATUS_CHOICES = (
+        ('R', 'Read'),
+        ('U', 'Unread'),
+    )    
     name = models.CharField(max_length=200)
     email = models.EmailField(max_length=75)
     message = models.CharField(max_length=200)
+    status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='U')#Draft
 
-class Campaign_User_Donor(models.Model):
+class CampaignUserDonor(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
     amount = models.DecimalField(max_digits=20,decimal_places=2)
 
-class Campaign_Wish(models.Model):
+class CampaignWish(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
@@ -167,13 +172,13 @@ class Campaign_Wish(models.Model):
     estimated_price = models.DecimalField(max_digits=20,decimal_places=2)
     # set default value of received_tag to false
 
-class Campaign_User_Followers(models.Model):
+class CampaignUserFollowers(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
 
-class Campaign_Keyword(models.Model):
+class CampaignKeyword(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)

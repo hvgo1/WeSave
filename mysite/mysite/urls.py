@@ -1,6 +1,7 @@
 from registration.backends.simple.views import RegistrationView #
 from mysite import views
 import manage_contacts
+import wsadmin
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
@@ -16,10 +17,12 @@ class MyRegistrationView(RegistrationView):
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^wsadmin/', include('wsadmin.urls',namespace="wsadmin")),
     url(r'^contact/', include('manage_contacts.urls',namespace="contact")),
     url(r'^home/', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    
 
 
     url(r'^login/$', views.user_login, name='login'),

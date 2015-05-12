@@ -7,7 +7,7 @@ django.setup()
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category, UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers, Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish,User_Role
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
 
 def populate():
 
@@ -54,36 +54,36 @@ def populate():
     add_region("National Capital Region")
     print "reg" 
 
-    add_sercat("Abuse")
-    add_sercat("Animal")
-    add_sercat("Arts")
-    add_sercat("Cancer")
-    add_sercat("Children")
-    add_sercat("Chronic Illness")
-    add_sercat("Civil Rights")
-    add_sercat("Disability")
-    add_sercat("Disaster Re‪lief")
-    add_sercat("Education")
-    add_sercat("Elderly")
-    add_sercat("Emotional Support")
-    add_sercat("Environment")
-    add_sercat("Health")
-    add_sercat("HIV and AIDS")
-    add_sercat("Hospital and Hospice")
-    add_sercat("Human Rights")
-    add_sercat("Humanitarian Aid")
-    add_sercat("Indegenous")
-    add_sercat("Medical and Health")
-    add_sercat("Music")
-    add_sercat("Poverty")
-    add_sercat("Refugees")
-    add_sercat("Religion")
-    add_sercat("Rescue")
-    add_sercat("Social Welfare")
-    add_sercat("Sports and Leisure")
-    add_sercat("Welfare")
-    add_sercat("Women")
-    add_sercat("Youth")
+    add_servicecategory("Abuse")
+    add_servicecategory("Animal")
+    add_servicecategory("Arts")
+    add_servicecategory("Cancer")
+    add_servicecategory("Children")
+    add_servicecategory("Chronic Illness")
+    add_servicecategory("Civil Rights")
+    add_servicecategory("Disability")
+    add_servicecategory("Disaster Re‪lief")
+    add_servicecategory("Education")
+    add_servicecategory("Elderly")
+    add_servicecategory("Emotional Support")
+    add_servicecategory("Environment")
+    add_servicecategory("Health")
+    add_servicecategory("HIV and AIDS")
+    add_servicecategory("Hospital and Hospice")
+    add_servicecategory("Human Rights")
+    add_servicecategory("Humanitarian Aid")
+    add_servicecategory("Indegenous")
+    add_servicecategory("Medical and Health")
+    add_servicecategory("Music")
+    add_servicecategory("Poverty")
+    add_servicecategory("Refugees")
+    add_servicecategory("Religion")
+    add_servicecategory("Rescue")
+    add_servicecategory("Social Welfare")
+    add_servicecategory("Sports and Leisure")
+    add_servicecategory("Welfare")
+    add_servicecategory("Women")
+    add_servicecategory("Youth")
     print "sercat" 
 
     add_keyword("Cancer") 
@@ -159,34 +159,34 @@ def populate():
     print "user"
 
 
-    add_userprof(photo="profile_images/4.jpg",
+    add_userprofile(photo="profile_images/4.jpg",
         address=1,
         user=11)
-    add_userprof(photo="profile_images/1.jpg",
+    add_userprofile(photo="profile_images/1.jpg",
         address=2,
         user=10)
-    add_userprof(photo="profile_images/3.jpg",
+    add_userprofile(photo="profile_images/3.jpg",
         address=3,
         user=9)
-    add_userprof(photo="profile_images/2.jpg",
+    add_userprofile(photo="profile_images/2.jpg",
         address=4,
         user=8)
-    add_userprof(photo="profile_images/4.jpg",
+    add_userprofile(photo="profile_images/4.jpg",
         address=5,
         user=7)
-    add_userprof(photo="profile_images/2.jpg",
+    add_userprofile(photo="profile_images/2.jpg",
         address=6,
         user=6)
-    add_userprof(photo="profile_images/3.jpg",
+    add_userprofile(photo="profile_images/3.jpg",
         address=7,
         user=5)
-    add_userprof(photo=None,
+    add_userprofile(photo=None,
         address=8,
         user=4)
-    add_userprof(photo="profile_images/1.jpg",
+    add_userprofile(photo="profile_images/1.jpg",
         address=9,
         user=3)
-    add_userprof(photo=None,
+    add_userprofile(photo=None,
         address=10,
         user=2)
     print "uprof" 
@@ -199,14 +199,14 @@ def populate():
         role="Soc")
     print "urole"
 
-    add_indiv(fname="Tris",mid=None,lname="Prior",bday="1991-01-04",user=2)
-    add_indiv(fname="Emmalyn",mid="Santos",lname="Roberts",bday="1971-08-26",user=4)
-    add_indiv(fname="Christopher",mid="Lopez",lname="Pine",bday="1961-06-30",user=5)
-    add_indiv(fname="Sulli",mid=None,lname="Choi",bday="1963-04-18",user=6)
-    add_indiv(fname="Douglas",mid="Kane",lname="Booth",bday="1993-10-07",user=7)
-    add_indiv(fname="Miranda",mid="Scherzinger",lname="Kerr",bday="1982-09-02",user=8)
-    add_indiv(fname="Carla",mid="Ong",lname="Singson",bday="1985-03-12",user=10)
-    add_indiv(fname="Mark John",mid=None,lname="Dy",bday="1978-05-21",user=11)
+    add_individual(fname="Tris",mid=None,lname="Prior",bday="1991-01-04",user=2)
+    add_individual(fname="Emmalyn",mid="Santos",lname="Roberts",bday="1971-08-26",user=4)
+    add_individual(fname="Christopher",mid="Lopez",lname="Pine",bday="1961-06-30",user=5)
+    add_individual(fname="Sulli",mid=None,lname="Choi",bday="1963-04-18",user=6)
+    add_individual(fname="Douglas",mid="Kane",lname="Booth",bday="1993-10-07",user=7)
+    add_individual(fname="Miranda",mid="Scherzinger",lname="Kerr",bday="1982-09-02",user=8)
+    add_individual(fname="Carla",mid="Ong",lname="Singson",bday="1985-03-12",user=10)
+    add_individual(fname="Mark John",mid=None,lname="Dy",bday="1978-05-21",user=11)
     print "indiv" 
 
     add_group(name="Save the Poor",page="http://www.fb.com/savethepoor",
@@ -228,7 +228,7 @@ def populate():
 
     add_campaign(title="Ben",beneficiary="Ben",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2015-06-28",status='V',views=0,ack=None,image="profile_images/1.jpg",createdby=3)
+        dline="2015-06-28",status='A',views=0,ack=None,image="profile_images/1.jpg",createdby=3)
 
     add_campaign(title="Andy",beneficiary="Andy",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
@@ -239,88 +239,88 @@ def populate():
         dline="2011-06-28",status='I',views=10,ack=None,image="profile_images/1.jpg",createdby=4)
     print "camp" 
 
-    add_unregdonor(name="Syara",campaign=1,amount=200.00)
-    add_unregdonor(name="Casie",campaign=1,amount=2500.00)
-    add_unregdonor(name="Jun",campaign=2,amount=600.00)
-    add_unregdonor(name="Anonymous",campaign=4,amount=10.00)
-    add_unregdonor(name="Anonymous",campaign=1,amount=200.00)
-    add_unregdonor(name="Anonymous",campaign=4,amount=2500.00)
-    add_unregdonor(name="Junie",campaign=2,amount=600.00)
-    add_unregdonor(name="Anonymous",campaign=2,amount=10.00)
-    add_unregdonor(name="Lyca",campaign=3,amount=200.00)
-    add_unregdonor(name="Sophie Rey",campaign=1,amount=500.00)
-    add_unregdonor(name="Jun Alden",campaign=2,amount=5.00)
-    add_unregdonor(name="Anonymous",campaign=5,amount=10.00)
+    add_unregistereddonor(name="Syara",campaign=1,amount=200.00)
+    add_unregistereddonor(name="Casie",campaign=1,amount=2500.00)
+    add_unregistereddonor(name="Jun",campaign=2,amount=600.00)
+    add_unregistereddonor(name="Anonymous",campaign=4,amount=10.00)
+    add_unregistereddonor(name="Anonymous",campaign=1,amount=200.00)
+    add_unregistereddonor(name="Anonymous",campaign=4,amount=2500.00)
+    add_unregistereddonor(name="Junie",campaign=2,amount=600.00)
+    add_unregistereddonor(name="Anonymous",campaign=2,amount=10.00)
+    add_unregistereddonor(name="Lyca",campaign=3,amount=200.00)
+    add_unregistereddonor(name="Sophie Rey",campaign=1,amount=500.00)
+    add_unregistereddonor(name="Jun Alden",campaign=2,amount=5.00)
+    add_unregistereddonor(name="Anonymous",campaign=5,amount=10.00)
 
-    add_contact(name="Aisa",email="ai@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Riz",email="rizalee@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Ms. Claire Danes",email="danesclaire@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Ernie Calungsod",email="ai@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Paul Diaz",email="pdiaz@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Henry Jose",email="henjos@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Nica Jane",email="nj@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Missi Lee",email="mlee@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Jenne Fuentes",email="jf@yahoo.com",msg="jsdasfnadnfdfna")
-    add_contact(name="Suzy Bae",email="sz@yahoo.com",msg="jsdasfnadnfdfna")
+    add_contact(name="Aisa",email="ai@yahoo.com",msg="jsdasfnadnfdfna", status='R')
+    add_contact(name="Riz",email="rizalee@yahoo.com",msg="jsdasfnadnfdfna",status='R')
+    add_contact(name="Ms. Claire Danes",email="danesclaire@yahoo.com",msg="jsdasfnadnfdfna",status='U')
+    add_contact(name="Ernie Calungsod",email="ai@yahoo.com",msg="jsdasfnadnfdfna",status='U')
+    add_contact(name="Paul Diaz",email="pdiaz@yahoo.com",msg="jsdasfnadnfdfna",status='R')
+    add_contact(name="Henry Jose",email="henjos@yahoo.com",msg="jsdasfnadnfdfna",status='R')
+    add_contact(name="Nica Jane",email="nj@yahoo.com",msg="jsdasfnadnfdfna",status='U')
+    add_contact(name="Missi Lee",email="mlee@yahoo.com",msg="jsdasfnadnfdfna",status='U')
+    add_contact(name="Jenne Fuentes",email="jf@yahoo.com",msg="jsdasfnadnfdfna",status='R')
+    add_contact(name="Suzy Bae",email="sz@yahoo.com",msg="jsdasfnadnfdfna",status='R')
     print "unreg" 
 
-    add_campdonor(campaign=1,user=2,amount=700.00)
-    add_campdonor(campaign=1,user=9,amount=740.00)
-    add_campdonor(campaign=1,user=6,amount=300.00)
-    add_campdonor(campaign=1,user=11,amount=700.00)
-    add_campdonor(campaign=1,user=10,amount=740.00)
-    add_campdonor(campaign=2,user=2,amount=100.00)
-    add_campdonor(campaign=2,user=6,amount=800.00)
-    add_campdonor(campaign=2,user=9,amount=100.00)
-    add_campdonor(campaign=2,user=11,amount=800.00)
-    add_campdonor(campaign=3,user=10,amount=700.00)
-    add_campdonor(campaign=3,user=2,amount=740.00)
-    add_campdonor(campaign=3,user=6,amount=700.00)
-    add_campdonor(campaign=3,user=9,amount=740.00)
-    add_campdonor(campaign=4,user=11,amount=300.00)
-    add_campdonor(campaign=4,user=2,amount=100.00)
-    add_campdonor(campaign=4,user=6,amount=300.00)
-    add_campdonor(campaign=4,user=9,amount=100.00)
-    add_campdonor(campaign=5,user=10,amount=800.00)
-    add_campdonor(campaign=5,user=11,amount=800.00)
+    add_campaigndonor(campaign=1,user=2,amount=700.00)
+    add_campaigndonor(campaign=1,user=9,amount=740.00)
+    add_campaigndonor(campaign=1,user=6,amount=300.00)
+    add_campaigndonor(campaign=1,user=11,amount=700.00)
+    add_campaigndonor(campaign=1,user=10,amount=740.00)
+    add_campaigndonor(campaign=2,user=2,amount=100.00)
+    add_campaigndonor(campaign=2,user=6,amount=800.00)
+    add_campaigndonor(campaign=2,user=9,amount=100.00)
+    add_campaigndonor(campaign=2,user=11,amount=800.00)
+    add_campaigndonor(campaign=3,user=10,amount=700.00)
+    add_campaigndonor(campaign=3,user=2,amount=740.00)
+    add_campaigndonor(campaign=3,user=6,amount=700.00)
+    add_campaigndonor(campaign=3,user=9,amount=740.00)
+    add_campaigndonor(campaign=4,user=11,amount=300.00)
+    add_campaigndonor(campaign=4,user=2,amount=100.00)
+    add_campaigndonor(campaign=4,user=6,amount=300.00)
+    add_campaigndonor(campaign=4,user=9,amount=100.00)
+    add_campaigndonor(campaign=5,user=10,amount=800.00)
+    add_campaigndonor(campaign=5,user=11,amount=800.00)
     print "cdon" 
 
-    add_campwish(campaign=1,wish=1,compl=0,est=5000.00)
-    add_campwish(campaign=2,wish=3,compl=0,est=3000.00)
-    add_campwish(campaign=3,wish=4,compl=1,est=1000.00)
-    add_campwish(campaign=4,wish=5,compl=0,est=2000.00)
-    add_campwish(campaign=5,wish=6,compl=0,est=4000.00)
-    add_campwish(campaign=1,wish=5,compl=0,est=2000.00)
-    add_campwish(campaign=2,wish=3,compl=0,est=1500.00)
-    add_campwish(campaign=3,wish=8,compl=1,est=1300.00)  
+    add_campaignwish(campaign=1,wish=1,compl=0,est=5000.00)
+    add_campaignwish(campaign=2,wish=3,compl=0,est=3000.00)
+    add_campaignwish(campaign=3,wish=4,compl=1,est=1000.00)
+    add_campaignwish(campaign=4,wish=5,compl=0,est=2000.00)
+    add_campaignwish(campaign=5,wish=6,compl=0,est=4000.00)
+    add_campaignwish(campaign=1,wish=5,compl=0,est=2000.00)
+    add_campaignwish(campaign=2,wish=3,compl=0,est=1500.00)
+    add_campaignwish(campaign=3,wish=8,compl=1,est=1300.00)  
     print "cwish"     
 
-    add_campfollowers(campaign=1,user=2)
-    add_campfollowers(campaign=1,user=3)
-    add_campfollowers(campaign=1,user=4)
-    add_campfollowers(campaign=1,user=5)
-    add_campfollowers(campaign=2,user=6)
-    add_campfollowers(campaign=2,user=7)
-    add_campfollowers(campaign=2,user=8)
-    add_campfollowers(campaign=2,user=9)
-    add_campfollowers(campaign=3,user=10)
-    add_campfollowers(campaign=3,user=11)
-    add_campfollowers(campaign=4,user=2)
-    add_campfollowers(campaign=4,user=4)
-    add_campfollowers(campaign=5,user=9)
-    add_campfollowers(campaign=5,user=10)
+    add_campaignfollowers(campaign=1,user=2)
+    add_campaignfollowers(campaign=1,user=3)
+    add_campaignfollowers(campaign=1,user=4)
+    add_campaignfollowers(campaign=1,user=5)
+    add_campaignfollowers(campaign=2,user=6)
+    add_campaignfollowers(campaign=2,user=7)
+    add_campaignfollowers(campaign=2,user=8)
+    add_campaignfollowers(campaign=2,user=9)
+    add_campaignfollowers(campaign=3,user=10)
+    add_campaignfollowers(campaign=3,user=11)
+    add_campaignfollowers(campaign=4,user=2)
+    add_campaignfollowers(campaign=4,user=4)
+    add_campaignfollowers(campaign=5,user=9)
+    add_campaignfollowers(campaign=5,user=10)
     print "cfoll" 
 
-    add_campkey(campaign=1,keyw=1) 
-    add_campkey(campaign=1,keyw=2) 
-    add_campkey(campaign=2,keyw=3) 
-    add_campkey(campaign=2,keyw=5) 
-    add_campkey(campaign=3,keyw=6) 
-    add_campkey(campaign=5,keyw=1) 
-    add_campkey(campaign=4,keyw=2) 
-    add_campkey(campaign=1,keyw=3) 
-    add_campkey(campaign=4,keyw=4) 
-    add_campkey(campaign=5,keyw=4) 
+    add_campaignkey(campaign=1,keyw=1) 
+    add_campaignkey(campaign=1,keyw=2) 
+    add_campaignkey(campaign=2,keyw=3) 
+    add_campaignkey(campaign=2,keyw=5) 
+    add_campaignkey(campaign=3,keyw=6) 
+    add_campaignkey(campaign=5,keyw=1) 
+    add_campaignkey(campaign=4,keyw=2) 
+    add_campaignkey(campaign=1,keyw=3) 
+    add_campaignkey(campaign=4,keyw=4) 
+    add_campaignkey(campaign=5,keyw=4) 
     print "ckey" 
 
 def add_city(name):
@@ -335,8 +335,8 @@ def add_region(name):
     r = Region.objects.get_or_create(name=name)[0]
     return r
 
-def add_sercat(name):
-    s = Service_Category.objects.get_or_create(name=name)[0]
+def add_servicecategory(name):
+    s = ServiceCategory.objects.get_or_create(name=name)[0]
     return s
 
 def add_keyword(name):
@@ -362,7 +362,7 @@ def add_user(uname,passw,email):
         email=email)[0]
     return u
  
-def add_userprof(photo,address,user):
+def add_userprofile(photo,address,user):
     if photo==None:
         photo='profile_images/def.jpg'
     u = UserProfile.objects.get_or_create(photo=photo,
@@ -371,11 +371,11 @@ def add_userprof(photo,address,user):
     return u
 
 def add_userrole(user, role):
-    u = User_Role.objects.get_or_create(user_id=user,
+    u = UserRole.objects.get_or_create(user_id=user,
         role=role)[0]
     return u
 
-def add_indiv(fname,mid,lname,bday,user):
+def add_individual(fname,mid,lname,bday,user):
     u = Individual.objects.get_or_create(first_name=fname, 
         middle_name=mid,
         last_name=lname, 
@@ -417,41 +417,42 @@ def add_campaign(title,beneficiary,story,dline,status,views,ack,image,createdby)
         created_by_id=createdby)[0]
     return c
 
-def add_unregdonor(name,campaign,amount):
-    c = Unregistered_Donor.objects.get_or_create(name=name,
+def add_unregistereddonor(name,campaign,amount):
+    c = UnregisteredDonor.objects.get_or_create(name=name,
         campaign_id=campaign,
         amount=amount)[0]
     return c
 
-def add_contact(name,email,msg):
+def add_contact(name,email,msg,status):
     c = Contact.objects.get_or_create(name=name,
         email=email,
-        message=msg)[0]
+        message=msg,
+        status=status)[0]
     return c
 
-def add_campdonor(campaign,user,amount):
-    c = Campaign_User_Donor.objects.get_or_create(
+def add_campaigndonor(campaign,user,amount):
+    c = CampaignUserDonor.objects.get_or_create(
         campaign_id=campaign,
         user_id=user,
         amount=amount)[0]
     return c
 
-def add_campwish(campaign,wish,compl,est):
-    c = Campaign_Wish.objects.get_or_create(
+def add_campaignwish(campaign,wish,compl,est):
+    c = CampaignWish.objects.get_or_create(
         campaign_id=campaign,
         wish_id=wish,
         completed=compl,
         estimated_price=est)[0]
     return c
 
-def add_campfollowers(campaign,user):
-    c = Campaign_User_Followers.objects.get_or_create(
+def add_campaignfollowers(campaign,user):
+    c = CampaignUserFollowers.objects.get_or_create(
         campaign_id=campaign,
         user_id=user)[0]
     return c
 
-def add_campkey(campaign,keyw):
-    c = Campaign_Keyword.objects.get_or_create(
+def add_campaignkey(campaign,keyw):
+    c = CampaignKeyword.objects.get_or_create(
         campaign_id=campaign,
         keyword_id=keyw)[0]
     return c

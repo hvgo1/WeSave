@@ -12,9 +12,16 @@
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
 <table>
-{{userform}}
-{{addform}}
-{{indivform}}
+
+<tr><td><h4>Individual Information</h4></td></tr>
+<tr><td>{{user_profile_form}}</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td><h5>Address</h5></td></tr>
+<tr><td>{{address_form}}</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>{{individual_form}}</td></tr>
+<tr><td>&nbsp;</td></tr>
+
 </table>
 <input type="submit" class="btn btn-skin" value="Continue >>"/>
 </form> 

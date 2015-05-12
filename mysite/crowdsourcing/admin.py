@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,Service_Category, UserProfile,Individual,Group,Campaign,Campaign_User_Donor,Campaign_User_Followers, Campaign_Keyword,Unregistered_Donor,Contact,Campaign_Wish,User_Role
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
 # Register your models here.
 
  
@@ -20,28 +20,28 @@ class IndividualAdmin(admin.ModelAdmin):
     list_display = ['id','user','first_name','middle_name','last_name','birthday']
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ['id','user','name','get_servicecat','registration_number']
-    def get_servicecat(self, obj):
-        return ",".join([p.name for p in obj.service_category.all()])
+    list_display = ['id','user','name','getServiceCategory','registration_number']
+    def getServiceCategory(self, obj):
+        return ",".join([var.name for var in obj.service_category.all()])
 class CampaignAdmin(admin.ModelAdmin):
     list_display = ['id','title','beneficiary_name','deadline','status','views','created_by']
 
-class Campaign_User_DonorAdmin(admin.ModelAdmin):
+class CampaignUserDonorAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','user','amount']
 
-class Campaign_User_FollowersAdmin(admin.ModelAdmin):
+class CampaignUserFollowersAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','user']
 
-class Campaign_KeywordAdmin(admin.ModelAdmin):
+class CampaignKeywordAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','keyword']
 
-class Unregistered_DonorAdmin(admin.ModelAdmin):
+class UnregisteredDonorAdmin(admin.ModelAdmin):
     list_display = ['id','name','campaign','amount']
 
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ['id','name','email','message']
+    list_display = ['id','name','email','message','status']
 
-class Campaign_WishAdmin(admin.ModelAdmin):
+class CampaignWishAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','wish','completed','estimated_price']
 
 class CityAdmin(admin.ModelAdmin):
@@ -56,7 +56,7 @@ class RegionAdmin(admin.ModelAdmin):
 class KeywordAdmin(admin.ModelAdmin):
     list_display = ['id','name']
 
-class Service_CategoryAdmin(admin.ModelAdmin):
+class ServiceCategoryAdmin(admin.ModelAdmin):
     list_display = ['id','name']
 
 admin.site.register(City,CityAdmin)
@@ -65,15 +65,15 @@ admin.site.register(Region,RegionAdmin)
 admin.site.register(Wish,WishAdmin)
 admin.site.register(Keyword,KeywordAdmin)
 admin.site.register(Address,AddressAdmin)
-admin.site.register(Service_Category,Service_CategoryAdmin)
+admin.site.register(ServiceCategory,ServiceCategoryAdmin)
 admin.site.register(UserProfile,UserProfileAdmin)
-admin.site.register(User_Role,UserRoleAdmin)
+admin.site.register(UserRole,UserRoleAdmin)
 admin.site.register(Individual,IndividualAdmin)
 admin.site.register(Group,GroupAdmin)
 admin.site.register(Campaign,CampaignAdmin)
-admin.site.register(Campaign_User_Donor,Campaign_User_DonorAdmin)
-admin.site.register(Campaign_User_Followers,Campaign_User_FollowersAdmin)
-admin.site.register(Campaign_Keyword,Campaign_KeywordAdmin)
-admin.site.register(Unregistered_Donor,Unregistered_DonorAdmin)
+admin.site.register(CampaignUserDonor,CampaignUserDonorAdmin)
+admin.site.register(CampaignUserFollowers,CampaignUserFollowersAdmin)
+admin.site.register(CampaignKeyword,CampaignKeywordAdmin)
+admin.site.register(UnregisteredDonor,UnregisteredDonorAdmin)
 admin.site.register(Contact,ContactAdmin)
-admin.site.register(Campaign_Wish,Campaign_WishAdmin)
+admin.site.register(CampaignWish,CampaignWishAdmin)

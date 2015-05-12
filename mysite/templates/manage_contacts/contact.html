@@ -12,12 +12,12 @@
 
 <h1>Send Us a Message</h1>
 
-<form class="form-group" action="" method="post">
-    {% csrf_token %}
+<form  action="" method="post">
+{% csrf_token %}
 
-<tr><td><table>
+<table>
     
-  {% for field in cform %}
+  {% for field in contact_form %}
      <tr>
         <div class="fieldWrapper">
            <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
@@ -25,14 +25,10 @@
            <td> {{ field }} </td>
         </div>
       </tr>
-    {% endfor %}
-
- 
-    <tr><td colspan="3" style="padding-top:10px;"><center><button style="width:250px" type="submit" class="btn btn-skin" name="Send" value="Send">Send Message</button></center></td></tr>
-    
-       
+    {% endfor %}     
 
 </table>   
+<button style="width:250px;margin-left: 60px;margin-top: 20px;" type="submit" class="btn btn-skin" name="Send" value="Send">Send Message</button>
 </form>
 <br><br>
 </center>

@@ -4,13 +4,13 @@ from manage_contacts.forms import ContactForm
 from crowdsourcing.models import Contact
 # Create your views here.
 
-def contactus(request):
+def contact_us(request):
 
     if request.method == 'GET': 
-        cform = ContactForm()
+        contact_form = ContactForm()
 
     else:
-        cform = ContactForm(request.POST)
+        contact_form = ContactForm(request.POST)
        #name = request.POST.get('name')
        #email = request.POST('email')
        #message = request.POST('message')
@@ -18,7 +18,7 @@ def contactus(request):
 
        #msg = Contact.objects.get_or_create(name=name, 
         #      email=email,message=message)[0] 
-        if cform.is_valid():           
-            cform.save() 
+        if contact_form.is_valid():           
+            contact_form.save() 
         return HttpResponseRedirect('/contact/')           
-    return render(request, 'manage_contacts/contact.html', {'cform':cform,})
+    return render(request, 'manage_contacts/contact.html', {'contact_form':contact_form,})
