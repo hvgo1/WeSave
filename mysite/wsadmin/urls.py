@@ -5,4 +5,5 @@ from wsadmin import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^approve/', include('verify_campaign.urls',namespace="approve")),
+    url(r'^manage-social-workers/', include('manage_social_workers.urls',namespace="manage_social_workers")),
 )
