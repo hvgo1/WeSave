@@ -40,22 +40,30 @@ def viewCampaign(request, campaign_title_slug):
         context_dict['campaign_title_slug'] = campaign.slug
 
     except Campaign.DoesNotExist:
+        #TODO campaign does not exist page
         pass
 
     return render(request, 'maintain_campaign/view_campaign.html', context_dict)
 
+# TODO: restrict updating of campaign to social worker/wesave admin
 def updateCampaign(request, id):
     campaign = Campaign.objects.get(id=id)
 
     if request.method == 'POST':
         form = CampaignForm(request.POST)
-
+#beneficiary_name', 'story', 'deadline', 'campaign_image', 'wishes', 'keywords
         if form.is_valid():
-            campaign = form.save(commit=False)
-            #ampaign.created_by = user
+            campaign.title = request.POST["title"]
+            campaign.beneficiary_name = request.POST["beneficiary_name"]
+            campaign.story = request.POST["story"]
+            campaign.deadline = request.POST["deadline"]
+            campaign.campaign_image = request.POST["campaign_image"]
             campaign.save()
+            #TODO: update wishes
+            wish = CampaignWish(wish_id=request.POST["wishes"], campaign_id=campaign.id, completed=False, estimated_price=0)
+            wish.save()
             return index(request)
     else:
-        form = CampaignForm()
+        form = CampaignForm(instance=campaign)
 
-    return render(request, 'maintain_campaign/update_campaign.html', {'form': form})
+    return render(request, 'maintain_campaign/update_campaign.html', {'form':form, 'campaign':campaign})
