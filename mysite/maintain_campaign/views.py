@@ -16,6 +16,8 @@ def addCampaign(request, username):
         if form.is_valid():
             campaign = form.save(commit=False)
             campaign.created_by = user
+            # TODO: set amount to every wish
+
             campaign.save()
             return index(request)
         else:
@@ -32,15 +34,12 @@ def viewCampaign(request, campaign_title_slug):
         campaign = Campaign.objects.get(slug=campaign_title_slug)
         wishes = CampaignWish.objects.filter(campaign=campaign)
 
-        for wish in wishes:
-            print Wish.objects.get(id=wish.id).name
-
         context_dict['wishes'] = wishes
         context_dict['campaign'] = campaign
         context_dict['campaign_title_slug'] = campaign.slug
 
     except Campaign.DoesNotExist:
-        #TODO campaign does not exist page
+        # TODO campaign does not exist page
         pass
 
     return render(request, 'maintain_campaign/view_campaign.html', context_dict)
@@ -51,7 +50,6 @@ def updateCampaign(request, id):
 
     if request.method == 'POST':
         form = CampaignForm(request.POST)
-#beneficiary_name', 'story', 'deadline', 'campaign_image', 'wishes', 'keywords
         if form.is_valid():
             campaign.title = request.POST["title"]
             campaign.beneficiary_name = request.POST["beneficiary_name"]
@@ -59,7 +57,7 @@ def updateCampaign(request, id):
             campaign.deadline = request.POST["deadline"]
             campaign.campaign_image = request.POST["campaign_image"]
             campaign.save()
-            #TODO: update wishes
+            # TODO: update wishes
             wish = CampaignWish(wish_id=request.POST["wishes"], campaign_id=campaign.id, completed=False, estimated_price=0)
             wish.save()
             return index(request)
