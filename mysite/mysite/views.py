@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from registration.forms import RegistrationFormNoFreeEmail
 from django.contrib.auth.models import User
 from crowdsourcing.forms import UserProfileForm, IndividualForm,GroupForm,AddressForm
-from crowdsourcing.models import UserProfile, Address,Individual,Group
+from crowdsourcing.models import UserProfile, Address,Individual,Group, UserRole
 
 #Override RegistrationFormNoFreeEmail of Registration package
 class RegFormEmail(RegistrationFormNoFreeEmail):
@@ -39,6 +39,10 @@ def register_individual(request,username):
                 individual_object = Individual.objects.get_or_create(first_name=request.POST['first_name'], 
                 middle_name=request.POST.get('middle_name',None), #or ""Blank
                 last_name=request.POST['last_name'],birthday=request.POST['birthday'],user_id=user.id)[0]            
+                individual_object = Individual.objects.get_or_create(first_name=request.POST['first_name'], 
+                middle_name=request.POST.get('middle_name',None),user_id=user.id)[0] #or ""Blank
+                role_object=UserRole.objects.get_or_create(role='Don',user_id=user.id)[0]
+                role_object.save()
                 individual_object.save()            
                 return HttpResponseRedirect('/home/')
     return render(request,'registration/addindividual.html', {'user_profile_form': user_profile_form,'individual_form': individual_form,'address_form':address_form})
@@ -58,7 +62,7 @@ def register_group(request,username):
             if address_form.is_valid():
                 address_object=address_form.save()
                 user_profile_object = UserProfile.objects.get_or_create(photo=request.FILES.get('photo', None), 
-                    address_id=address_object.id,user_id=user.id,role=request.POST['role'])[0]            
+                    address_id=address_object.id,user_id=user.id)[0]            
                 user_profile_object.save()            
             if groupform.is_valid():
                 group_object = Group.objects.get_or_create(name=request.POST['name'], 
@@ -78,7 +82,8 @@ def register_group(request,username):
                 sc_email = request.POST['sc_email'],
                 sc_job_title = request.POST['sc_job_title'],
                 sc_phone_number = request.POST['sc_phone_number'],
-                user_id=user.id)[0]            
+                user_id=user.id)[0]        
+                role_object=UserRole.objects.get_or_create(role='Don',user_id=user.id)[0]    
                 group_object.save()            
                 return HttpResponseRedirect('/home/')
     return render(request, 'registration/addgroup.html', {'user_profile_form':user_profile_form, 'group_form':group_form, 'address_form':address_form})

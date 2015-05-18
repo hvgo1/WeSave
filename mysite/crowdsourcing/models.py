@@ -69,11 +69,11 @@ class UserRole(models.Model):
         ('Adm', 'WeSave Admin'),
     )
     
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,unique=True)
     role = models.CharField(max_length=25, choices=ROLE_CHOICES)
 
-    class Meta:
-        unique_together = ('user', 'role')
+ #   class Meta:
+  #      unique_together = ('user', 'role')
 
 class Individual(models.Model):
     def __unicode__(self): 

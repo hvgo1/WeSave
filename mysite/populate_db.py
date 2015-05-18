@@ -191,13 +191,6 @@ def populate():
         user=2)
     print "uprof" 
 
-    add_userrole(user=2,
-        role="Adm")
-    add_userrole(user=2,
-        role="Soc")
-    add_userrole(user=3,
-        role="Soc")
-    print "urole"
 
     add_individual(fname="Tris",mid=None,lname="Prior",bday="1991-01-04",user=2)
     add_individual(fname="Emmalyn",mid="Santos",lname="Roberts",bday="1971-08-26",user=4)
@@ -360,6 +353,7 @@ def add_user(uname,passw,email):
     u = User.objects.get_or_create(username=uname,
         password=passw, 
         email=email)[0]
+    r = add_userrole(user=u.id,role='Don')
     return u
  
 def add_userprofile(photo,address,user):
