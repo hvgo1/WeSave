@@ -12,23 +12,52 @@
 
 		<form class="form-group" id="add_campaign_form" method="post">
 	        {% csrf_token %}
-				{% for hidden in form.hidden_fields %}
-					{{ hidden }}
-				{% endfor %}
-	            <tr><td><table>
-				{% for field in form.visible_fields %}
-	                <tr>
-	                <div class="fieldWrapper">
-	                    <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
-	                    <td style="padding-right:60px;">{{ field.label_tag }}</td>
-	                    <td>{{ field }}</td>
-	                </div>
-	                </tr>
-				{% endfor %}<br/>
-	    <tr><td colspan="3" style="padding-top:10px;">
-	        <center><button style="width:250px;" type="submit" class="btn btn-skin" name="updatebutton" value="update">Update</button>
+			{% for hidden in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+            <table border="0">
+			{% for field in form.visible_fields %}
+                <tr>
+                <div class="fieldWrapper">
+                    <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
+                    <td style="padding-right:60px;">{{ field.label_tag }}</td>
+                    <td>{{ field }}</td>
+                </div>
+                </tr>
+			{% endfor %}<br/>
+				<tr>
+					<td></td>
+					<td>
+						<label class="control-label" for="field1">Wishes</label>
+					</td>
+					<td>
+						<select name="dropdown_wishes">
+							{% for wish in wishes %}
+								<option value="{{ wish.name }}">{{ wish.name }}</option>
+							{% endfor %}
+						</select>
+						<div class="container" style="width:300px">
+							<div class="row">
+								<input type="hidden" name="count" value="1" />
+								<div class="control-group" id="fields">
+									<div class="controls" id="profs">
+										<form class="input-append">
+											<div id="field">
+												<input autocomplete="off" class="input" id="field1" name="prof1" type="text" placeholder="Input estimated cost"  />
+												<button id="b1" class="btn add-more" type="button">+</button>
+											</div>
+										</form>
+										<br/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+		    </table>
+			
+	        <center><button style="width:250px; padding-top:10px;" type="submit" class="btn btn-skin" name="updatebutton" value="update">Update</button>
 	        </center></td></tr>
-	    </table>
 	    </form>
 	</center>
 </section>
