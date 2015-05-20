@@ -69,3 +69,9 @@ def updateCampaign(request, id):
         form = CampaignForm(instance=campaign)
 
     return render(request, 'maintain_campaign/update_campaign.html', {'form':form, 'campaign':campaign, 'wishes':wishes})
+
+def donateToCampaign(request):
+    #TODO: create donate to campaign page
+    #if donation is successful, redirect to save viewCampaign and update campaign status 
+    #if donation is cancelled, redirect to delete donation info
+    return render(request, 'maintain_campaign/view_campaign.html', context_dict)
