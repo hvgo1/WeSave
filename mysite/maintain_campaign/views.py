@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
 from crowdsourcing.models import Campaign, CampaignWish, Wish
 from maintain_campaign.forms import CampaignForm, WishForm
@@ -8,6 +9,7 @@ from maintain_campaign.forms import CampaignForm, WishForm
 def index(request):
     return HttpResponse("You are in campaign index")
 
+#TODO restrict to social worker/wsadmin
 def addCampaign(request, username):
     user = User.objects.get(username=username)
     if request.method == 'POST':
@@ -75,3 +77,16 @@ def donateToCampaign(request):
     #if donation is successful, redirect to save viewCampaign and update campaign status 
     #if donation is cancelled, redirect to delete donation info
     return render(request, 'maintain_campaign/view_campaign.html', context_dict)
+
+def listCampaign(request):
+    campaign_list = Campaign.objects.all()
+    paginator = Paginator(campaign_list,20) #pagination
+    page = request.GET.get('page')
+    try:
+        campaigns = paginator.page(page) 
+    except PageNotAnInteger:
+        campaigns = paginator.page(1)
+    except EmptyPage:
+        campaigns = paginator.page(paginator.num_pages)
+    #TODO: set default campaign image
+    return render_to_response('maintain_campaign/view_campaign_list.html',{'campaigns':campaigns})

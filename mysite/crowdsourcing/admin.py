@@ -24,7 +24,7 @@ class GroupAdmin(admin.ModelAdmin):
     def getServiceCategory(self, obj):
         return ",".join([var.name for var in obj.service_category.all()])
 class CampaignAdmin(admin.ModelAdmin):
-    list_display = ['id','title','beneficiary_name','deadline','status','views','created_by']
+    list_display = ['id','title','beneficiary_name','deadline','status','views','campaign_image','created_by']
 
 class CampaignUserDonorAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','user','amount']
