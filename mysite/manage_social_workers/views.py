@@ -11,20 +11,18 @@ def add_role(request):
     if request.method == 'POST':
         checked_individuals = request.POST.getlist('checks')
         choice_role = request.POST.get('role')
-        print choice_role
+
         if choice_role == 'social_worker':
             role = 'Soc'
         else:
             role = 'Adm'
-        print checked_individuals
+
         for checked in checked_individuals:
-            print checked
-            
-            user = UserRole.objects.get_or_create(user_id=checked,role=role)[0]
-            #user.role = 'Adm'
- 			 #user.role = 'Soc'
-            #campaign.save()
-            print user.role
+
+            user = UserRole.objects.get(user_id=checked)
+            user.role = role
+            user.save()
+
     return users_list(request)
 
 
