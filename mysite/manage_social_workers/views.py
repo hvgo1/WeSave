@@ -32,6 +32,7 @@ def add_role(request):
 def users_list(request): 
     #roles = UserRole.objects.filter(user=user) #returns all campaigns where the user is a donor
     individual_list = Individual.objects.order_by('user')#user.username
+    userrole_list = UserRole.objects.order_by('user')
     paginator = Paginator(individual_list,8) #pagination
     page = request.GET.get('page')
     try:
@@ -40,4 +41,4 @@ def users_list(request):
         individuals = paginator.page(1)
     except EmptyPage:
         individuals = paginator.page(paginator.num_pages)
-    return render(request,'manage_social_workers/view_individuals_list.html',{'individuals':individuals})
+    return render(request,'manage_social_workers/view_individuals_list.html',{'individuals':individuals,'userrole_list':userrole_list})
