@@ -284,7 +284,6 @@ def populate():
     add_campaignwish(campaign=4,wish=5,compl=0,est=2000.00)
     add_campaignwish(campaign=5,wish=6,compl=0,est=4000.00)
     add_campaignwish(campaign=1,wish=5,compl=0,est=2000.00)
-    add_campaignwish(campaign=2,wish=3,compl=0,est=1500.00)
     add_campaignwish(campaign=3,wish=8,compl=1,est=1300.00)  
     print "cwish"     
 
