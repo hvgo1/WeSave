@@ -53,10 +53,12 @@ table#t2 th	{
                         {{individual.middle_name}}
                     {% endif %}
                     {{individual.last_name}}</b></a></h5></td>
-                    <td><h5>role
-                       {% for role in individual.user.userrole.role.all %}
-                       <li>{{role}}</li>
-                       {% endfor %}
+                    <td><h5>
+                         {% for user in userrole_list %}
+                            {% if user.user == individual.user %}
+                               {{user.role}}
+                            {% endif %}
+                          {% endfor %}
 
                     </h5></td>
                 	<td><input type="checkbox" name="checks" value={{individual.user.id}} /></td>
