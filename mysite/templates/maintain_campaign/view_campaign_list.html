@@ -1,6 +1,6 @@
 {% extends "mysite/base.html" %}
 {% load static %}
-{% block title %} Profiles {% endblock %}
+{% block title %} Campaigns {% endblock %}
 {% block body_block %}
 <section id="intro">
 	</section>
@@ -20,7 +20,7 @@
 			<div class="col-xs-6 col-sm-3 col-md-3">	
 	            <div class="team boxed-grey">
 	                <div class="inner">
-						<h5><a href="/profile/{{campaign.title}}">{{campaign.title}}</a></h5>
+						<h5><a href="/campaign/view/{{campaign.slug}}">{{campaign.title}}</a></h5>
 	                    <div class="avatar">
 	                    {% if campaign.campaign_image %}
                     		<img src="{{ campaign.campaign_image.url }}"alt="" class="img-responsive img-circle" />

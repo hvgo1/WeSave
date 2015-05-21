@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
 from crowdsourcing.models import Campaign, CampaignWish, Wish
-from maintain_campaign.forms import CampaignForm
+from maintain_campaign.forms import CampaignForm, WishForm
 
 #def index(request):
 #    return HttpResponse("You are in campaign index")
@@ -12,14 +12,17 @@ from maintain_campaign.forms import CampaignForm
 #TODO restrict to social worker/wsadmin
 def addCampaign(request, username):
     user = User.objects.get(username=username)
+    wishes = Wish.objects.all()
     if request.method == 'POST':
         form = CampaignForm(request.POST, request.FILES)
-
         if form.is_valid():
             campaign = form.save(commit=False)
             campaign.created_by = user
-            # TODO: set amount to every wish
             campaign.save()
+            # TODO: set amount to every wish
+            wish = request.POST.get('dropdown_wishes')
+            
+            print wish
 
             redirect_link = '/campaign/view/' + campaign.slug + '/'
             return HttpResponseRedirect(redirect_link)
@@ -27,8 +30,9 @@ def addCampaign(request, username):
             print form.errors
     else:
         form = CampaignForm()
+        wish_form = WishForm()
 
-    return render(request, 'maintain_campaign/add_campaign.html', {'form': form})
+    return render(request, 'maintain_campaign/add_campaign.html', {'form': form, 'wishes':wishes,})
 
 def viewCampaign(request, campaign_title_slug):
     context_dict = {}
@@ -64,8 +68,8 @@ def updateCampaign(request, id):
             # TODO: update wishes
             #wish = CampaignWish(wish_id=request.POST["wishes"], campaign_id=campaign.id, completed=False, estimated_price=0)
             #wish.save()
-
             wish = request.POST.get('dropdown_wishes')
+
             redirect_link = '/campaign/view/' + campaign.slug + '/'
             return HttpResponseRedirect(redirect_link)
     else:

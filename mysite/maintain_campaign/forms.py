@@ -7,5 +7,10 @@ class CampaignForm(forms.ModelForm):
     class Meta:
         model = Campaign
         #fields = ('title', 'beneficiary_name', 'story', 'deadline', 'campaign_image', 'wishes', 'keywords')
-        fields = ('title', 'beneficiary_name', 'story', 'deadline', 'campaign_image')
+        fields = ('title', 'beneficiary_name', 'story', 'deadline', 'campaign_image',)
 
+class WishForm(forms.ModelForm):
+	#wish = forms.ChoiceField(Wish)
+	class Meta:
+		model = Wish
+		fields = ('name',)
