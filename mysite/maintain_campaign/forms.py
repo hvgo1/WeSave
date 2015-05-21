@@ -9,7 +9,3 @@ class CampaignForm(forms.ModelForm):
         #fields = ('title', 'beneficiary_name', 'story', 'deadline', 'campaign_image', 'wishes', 'keywords')
         fields = ('title', 'beneficiary_name', 'story', 'deadline', 'campaign_image')
 
-class WishForm(forms.ModelForm):
-	class Meta:
-		model = Wish
-		fields = ('name', 'wish_type')

@@ -1,34 +1,34 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
 from crowdsourcing.models import Campaign, CampaignWish, Wish
-from maintain_campaign.forms import CampaignForm, WishForm
+from maintain_campaign.forms import CampaignForm
 
-def index(request):
-    return HttpResponse("You are in campaign index")
+#def index(request):
+#    return HttpResponse("You are in campaign index")
 
 #TODO restrict to social worker/wsadmin
 def addCampaign(request, username):
     user = User.objects.get(username=username)
     if request.method == 'POST':
-        campaign_form = CampaignForm(request.POST, request.FILES)
+        form = CampaignForm(request.POST, request.FILES)
 
-        if campaign_form.is_valid():
-            campaign = campaign_form.save(commit=False)
+        if form.is_valid():
+            campaign = form.save(commit=False)
             campaign.created_by = user
             # TODO: set amount to every wish
-
             campaign.save()
-            return index(request)
+
+            redirect_link = '/campaign/view/' + campaign.slug + '/'
+            return HttpResponseRedirect(redirect_link)
         else:
-            print campaign_form.errors
+            print form.errors
     else:
         form = CampaignForm()
-        form = WishForm()
 
-    return render(request, 'maintain_campaign/add_campaign.html', {'form': campaign_form})
+    return render(request, 'maintain_campaign/add_campaign.html', {'form': form})
 
 def viewCampaign(request, campaign_title_slug):
     context_dict = {}
@@ -66,7 +66,8 @@ def updateCampaign(request, id):
             #wish.save()
 
             wish = request.POST.get('dropdown_wishes')
-            return index(request)
+            redirect_link = '/campaign/view/' + campaign.slug + '/'
+            return HttpResponseRedirect(redirect_link)
     else:
         form = CampaignForm(instance=campaign)
 

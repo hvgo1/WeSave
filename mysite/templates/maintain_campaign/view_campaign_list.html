@@ -22,7 +22,11 @@
 	                <div class="inner">
 						<h5><a href="/profile/{{campaign.title}}">{{campaign.title}}</a></h5>
 	                    <div class="avatar">
+	                    {% if campaign.campaign_image %}
                     		<img src="{{ campaign.campaign_image.url }}"alt="" class="img-responsive img-circle" />
+                    	{% else %}
+	                    	<img src="media/campaign_images/default.png" alt="" class="img-responsive img-circle" />
+	                    {% endif %}
 	                    </div>
 	                </div>
 	            </div>                

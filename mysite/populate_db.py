@@ -209,27 +209,27 @@ def populate():
     add_group(name="Help the Children Society",page="www.helpthechildren.com.ph",abt="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",scat=[5,4],rnum=None,doc="documents/doc.pdf",
         comm="Government Document",pcf="Joseph",pcl="Alvarez",pce="jalvarez@hotmail.com",pcj="Head",pcp="09225672811",
         scf="Mario",scl="Lucas",sce="mario_lucas@gmail.com",scj="Director",scp="09052357778",user=3)
+    print "grp" 
 
     add_campaign(title="For the Kids",beneficiary="Ella,Rosie,Marie,Selena",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2015-06-28",status='D',views=10,ack=None,image="profile_images/2.jpg",createdby=2)
-    print "grp" 
+        dline="2015-06-28",status='D',views=10,ack=None,image="campaign_images/2.jpg",createdby=2)
 
     add_campaign(title="Maura",beneficiary="Maura",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2015-06-28",status='F',views=5,ack=None,image="profile_images/1.jpg",createdby=6)
+        dline="2015-06-28",status='F',views=5,ack=None,image="campaign_images/1.jpg",createdby=6)
 
     add_campaign(title="Ben",beneficiary="Ben",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2015-06-28",status='A',views=0,ack=None,image="profile_images/1.jpg",createdby=3)
+        dline="2015-06-28",status='A',views=0,ack=None,image="campaign_images/3.jpg",createdby=3)
 
     add_campaign(title="Andy",beneficiary="Andy",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2015-02-23",status='C',views=10,ack="ack_receipts/ack.pdf",image="profile_images/3.jpg",createdby=7)
+        dline="2015-02-23",status='C',views=10,ack="ack_receipts/ack.pdf",image="campaign_images/4.jpg",createdby=7)
 
     add_campaign(title="Lyn & Yve",beneficiary="Lyn, Yve",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2011-06-28",status='I',views=10,ack=None,image="profile_images/1.jpg",createdby=4)
+        dline="2011-06-28",status='I',views=10,ack=None,image="campaign_images/5.jpg",createdby=4)
     print "camp" 
 
     add_unregistereddonor(name="Syara",campaign=1,amount=200.00)

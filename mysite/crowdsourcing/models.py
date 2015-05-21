@@ -129,7 +129,7 @@ class Campaign(models.Model):
     status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='D')#Draft
     views = models.BigIntegerField(default = 0)
     ack_receipt = models.ImageField(upload_to='ack_receipts/', null=True, blank=True)
-    campaign_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    campaign_image = models.ImageField(upload_to='campaign_images/', null=True, blank=True)
     created_by = models.ForeignKey(User)
     donors = models.ManyToManyField(User,through='CampaignUserDonor',through_fields=('campaign','user'),related_name='campaign_donors')
     subscribers = models.ManyToManyField(User,through='CampaignUserFollowers',through_fields=('campaign', 'user'),related_name='campaign_subscribers')
