@@ -8,9 +8,13 @@ class CampaignForm(forms.ModelForm):
         model = Campaign
         #fields = ('title', 'beneficiary_name', 'story', 'deadline', 'campaign_image', 'wishes', 'keywords')
         fields = ('title', 'beneficiary_name', 'story', 'deadline', 'campaign_image',)
+        widgets = {
+            'deadline': forms.DateInput(attrs={'class':'datepicker'})
+        }
 
 class WishForm(forms.ModelForm):
 	#wish = forms.ChoiceField(Wish)
 	class Meta:
 		model = Wish
 		fields = ('name',)
+

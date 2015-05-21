@@ -125,7 +125,7 @@ class Campaign(models.Model):
     title = models.CharField(max_length=200)
     beneficiary_name = models.CharField(max_length=200)
     story = models.CharField(max_length=2000)
-    deadline = models.DateTimeField('deadline')
+    deadline = models.DateField('deadline')
     status = models.CharField(max_length=15,choices=STATUS_CHOICES,default='D')#Draft
     views = models.BigIntegerField(default = 0)
     ack_receipt = models.ImageField(upload_to='ack_receipts/', null=True, blank=True)

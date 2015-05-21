@@ -1,5 +1,8 @@
 {% extends 'mysite/base.html' %}
-{% load static %}
+{% load staticfiles %}
+{% block head_block %}
+<link href="{% static 'css/jquery-ui.css'%}" rel="stylesheet" type="text/css">
+{% endblock %}
 {% block body_block %}
 <!--TODo modify html-->
 <section id="intro">
@@ -19,14 +22,16 @@
 			{% for field in form.visible_fields %}
                 <tr>
                 <div class="fieldWrapper">
-                    <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
-                    <td style="padding-right:60px;">{{ field.label_tag }}</td>
+                    <td style="padding-right:60px;">{{ field.label_tag }}
+                    {% if field.errors %}
+                         {{ field.errors }} 
+                    {% endif %}
+                    </td>
                     <td>{{ field }}</td>
                 </div>
                 </tr>
 			{% endfor %}<br/>
 				<tr>
-					<td></td>
 					<td>
 						<label class="control-label" for="field1">Wishes:</label>
 					</td>
@@ -61,4 +66,16 @@
 	    </form>
 	</center>
 </section>
+{% endblock %}
+{% block script_block %}
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script>
+    $(function() {
+        $( ".datepicker" ).datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy-mm-dd"
+        });
+    });
+</script>
 {% endblock %}
