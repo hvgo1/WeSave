@@ -12,12 +12,19 @@
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
 <table>
-
-<tr><td><h4>Individual Information</h4></td></tr>
+{% if individual_form %}
+	<tr><td><h4>Individual Information</h4></td></tr>
+{% else %}
+	<tr><td><h4>Group Information</h4></td></tr>
+{% endif %}
 <tr><td>{{user_profile_form}}</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td>{{individual_form}}</td></tr>
+{% if individual_form %}
+	<tr><td>{{individual_form}}</td></tr>
+{% else %}
+	<tr><td>{{group_form}}</td></tr>
+{% endif %}
 <tr><td>&nbsp;</td></tr>
 
 </table>
