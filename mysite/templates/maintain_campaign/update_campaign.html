@@ -1,5 +1,6 @@
 {% extends 'mysite/base.html' %}
 {% load staticfiles %}
+{% block title %} Campaigns {% endblock %}
 {% block head_block %}
 <link href="{% static 'css/jquery-ui.css'%}" rel="stylesheet" type="text/css">
 {% endblock %}
@@ -72,10 +73,16 @@
 <script>
     $(function() {
         $( ".datepicker" ).datepicker({
-          changeMonth: true,
-          changeYear: true,
-          dateFormat: "yy-mm-dd"
+	        changeMonth: true,
+	        changeYear: true,
+	        dateFormat: "yy-mm-dd",
+	        minDate: new Date(),
+	        gotoCurrent: true,
         });
+    	// Getter
+		var gotoCurrent = $( ".selector" ).datepicker( "option", "gotoCurrent" );
+		// Setter
+		$( ".selector" ).datepicker( "option", "gotoCurrent", true );
     });
 </script>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends 'mysite/base.html' %}
 {% load staticfiles %}
+{% block title %} Campaigns {% endblock %}
 {% block head_block %}
 <link href="{% static 'css/jquery-ui.css'%}" rel="stylesheet" type="text/css">
 {% endblock %}
@@ -11,7 +12,7 @@
     <center>
 
     <h1>Add Campaign</h1>
-    <form class="form-group" id="add_campaign_form" method="post">
+    <form class="form-group" id="add_campaign_form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 			{% for hidden in form.hidden_fields %}
 				{{ hidden }}
@@ -30,15 +31,32 @@
                 </tr>
 			{% endfor %}<br/>
             <tr>
-                    <td>
-                        <label class="control-label" for="field1">Wishes:</label>
-                    </td>
-                    <td><select name="dropdown_wishes">
-            {% for wish in wishes %}
-                <option value="{{ wish.name }}">{{ wish.name }}</option>
-            {% endfor %}
-            </select>
-            </td>
+                <td>
+                    <label class="control-label" for="field1">Wishes:</label>
+                </td>
+                <td>
+                    <select name="dropdown_wishes">
+                    {% for wish in wishes %}
+                        <option value="{{ wish.name }}">{{ wish.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <div class="container" style="width:300px">
+                        <div class="row">
+                            <input type="hidden" name="count" value="1" />
+                            <div class="control-group" id="fields">
+                                <div class="controls" id="profs">
+                                    <form class="input-append">
+                                        <div id="field">
+                                            <input autocomplete="off" class="input" id="field1" name="prof1" type="text" placeholder="Input estimated cost"  />
+                                            <button id="b1" class="btn add-more" type="button">+</button>
+                                        </div>
+                                    </form>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
     <tr><td colspan="3" style="padding-top:10px;">
         <center><button style="width:250px;" type="submit" class="btn btn-skin" name="submitbutton" value="Submit">Submit</button>
@@ -53,9 +71,10 @@
 <script>
     $(function() {
         $( ".datepicker" ).datepicker({
-          changeMonth: true,
-          changeYear: true,
-          dateFormat: "yy-mm-dd"
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            minDate: new Date(),
         });
     });
 </script>

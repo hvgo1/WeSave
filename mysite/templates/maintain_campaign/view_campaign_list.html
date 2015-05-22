@@ -1,5 +1,5 @@
-{% extends "mysite/base.html" %}
-{% load static %}
+{% extends 'mysite/base.html' %}
+{% load staticfiles %}
 {% block title %} Campaigns {% endblock %}
 {% block body_block %}
 <section id="intro">
@@ -23,9 +23,10 @@
 						<h5><a href="/campaign/view/{{campaign.slug}}">{{campaign.title}}</a></h5>
 	                    <div class="avatar">
 	                    {% if campaign.campaign_image %}
-                    		<img src="{{ campaign.campaign_image.url }}"alt="" class="img-responsive img-circle" />
+                    		<img src="{{ campaign.campaign_image.url }}"alt="" class="img-responsive img-circle" height="300px" width="300px" />
+                    		
                     	{% else %}
-	                    	<img src="media/campaign_images/default.png" alt="" class="img-responsive img-circle" />
+	                    	<img src="media/campaign_images/default.png" alt="" class="img-responsive img-circle" height="300px" width="300px" />
 	                    {% endif %}
 	                    </div>
 	                </div>

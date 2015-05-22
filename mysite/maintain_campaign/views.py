@@ -63,7 +63,9 @@ def updateCampaign(request, id):
             campaign.beneficiary_name = request.POST["beneficiary_name"]
             campaign.story = request.POST["story"]
             campaign.deadline = request.POST["deadline"]
-            campaign.campaign_image = request.FILES.get('campaign_image')
+            # TODO: on updating image, delete the previous image
+            # retain previous  
+            campaign.campaign_image = request.FILES.get('campaign_image', campaign.campaign_image)
             campaign.save()
             # TODO: update wishes
             #wish = CampaignWish(wish_id=request.POST["wishes"], campaign_id=campaign.id, completed=False, estimated_price=0)
