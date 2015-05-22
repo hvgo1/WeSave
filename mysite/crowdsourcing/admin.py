@@ -1,17 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
 # Register your models here.
 
  
 class WishAdmin(admin.ModelAdmin):
     list_display = ['id','name','wish_type']
 
-class AddressAdmin(admin.ModelAdmin):
-    list_display = ['id','street','barangay','city','region','country']
-
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['id','user','address','photo']
+    list_display = ['id','user','street','barangay','city','region','country','photo']
 
 class UserRoleAdmin(admin.ModelAdmin):
     list_display = ['id','user','role']
@@ -20,7 +17,7 @@ class IndividualAdmin(admin.ModelAdmin):
     list_display = ['id','user','first_name','middle_name','last_name','birthday']
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ['id','user','name','getServiceCategory','registration_number']
+    list_display = ['id','user','name','getServiceCategory','registration_number','document']
     def getServiceCategory(self, obj):
         return ",".join([var.name for var in obj.service_category.all()])
 class CampaignAdmin(admin.ModelAdmin):
@@ -64,7 +61,6 @@ admin.site.register(Barangay,BarangayAdmin)
 admin.site.register(Region,RegionAdmin)
 admin.site.register(Wish,WishAdmin)
 admin.site.register(Keyword,KeywordAdmin)
-admin.site.register(Address,AddressAdmin)
 admin.site.register(ServiceCategory,ServiceCategoryAdmin)
 admin.site.register(UserProfile,UserProfileAdmin)
 admin.site.register(UserRole,UserRoleAdmin)

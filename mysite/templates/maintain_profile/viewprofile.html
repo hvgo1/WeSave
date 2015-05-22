@@ -1,6 +1,30 @@
 {% extends "mysite/base.html" %}
 {% block title %} {{user.username}} {% endblock %}
-
+{% block head_block %}
+  <style>
+    table, td {
+        padding: 5px;
+        text-align: left;
+        vertical-align: top;
+    }
+    table, th{
+      text-align: center;
+    }
+    table#t2 tr:nth-child(even) {
+        background-color: #fff;
+    }
+    table#t2 tr:nth-child(odd) {
+       background-color:#eee;
+    }
+    table#t2 td {
+       text-align: left;
+    }
+    table#t2 th {
+        background-color: #87CEEB;
+        text-align: center;
+    }
+  </style>
+{% endblock %}
 
 {% block body_block %}
 <section id="intro">
@@ -10,58 +34,225 @@
 
 
 
-{% if is_indiv %}
-     <h1 style="border-right-width: 0px; margin-right: 600px; margin-left: 80px;">{{details.first_name}}</h1>
-      <div class="col-xs-6 col-sm-3 col-md-3" style = "padding-left: 15px; left: 80px; width: 500px;height: 500px;">                
+   {% if is_indiv %}
+     <table  style="width:100%;">
+      <tr>
+        <th>
+          <h1 style="color:#87CEEB;">{{details.first_name}}&nbsp;{{details.last_name}}</h1>
+        </th>
+      </tr>
+      <tr>
+        <td>
+                <div class="col-xs-6 col-sm-3 col-md-3" style = "padding-left: 15px; left: 370px; width: 500px;">                
               
                 <div class="avatar"> <img src="{{profile.photo.url}}" alt="" class="img-responsive img-circle"/></div>
-    
+      
+                </div><br><br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <h3 style="padding-top:5px; height:20px; color:#87CEEB;">User Information</h3>
+       </td>
+      </tr>
+      <tr>
+        <td>
+          <table id="t2" style="width:100%;">   
+                <tr>   
+               <td><h5> <b>Birthday:</b> </h5></td>
+               <td>{{user.individual.birthday}}<br></td>
+           </tr> 
+                <tr>
+                  <td>
+                    <h5><b>Location:</b></h5>
+                  </td>
+                  <td>
+                    {{user.userprofile.street}}, 
+                    {% if user.userprofile.barangay %}
+                       {{user.userprofile.barangay}},
+                    {% elif user.userprofile.city %}
+                       {{user.userprofile.city}},
+                    {% elif user.userprofile.region %}
+                       {{user.userprofile.region}},
+                    {% endif %}
+                    {{user.userprofile.country.name}}
+                    
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h5><b>Campaigns Donated:</b></h5>
+                  </td>
+                  <td>
+                      {% if donor %}
+                          {% for s in donor.all %}
+                                 <li><a href="/campaign/view/{{s.campaign.title}}/">     {{s.campaign.title}} </a>&nbsp;( Php {{s.amount}})</li> 
+                          {% endfor %}
+                      {% else %}
+                       None
+                      {% endif %}
+                  </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <h5><b>Campaigns Subscribed:</b></h5>
+                   </td> 
+                   <td>
+                    {% if sub %}
+                         {% for s in sub.all %}
+                                  <a href="/campaign/view/{{s.campaign.title}}/"><li>{{s.campaign.title}}</li></a>
+                          {% endfor %}
+                    {% else %}
+                       None
+                   {% endif %}
+                  </td>
+                  </tr>
+                  <tr>
 
+                   
+                    <td><h5>
+                    <b>Campaigns Created:</b></h5>
+                    </td>
+                    <td>
+                     {% if created %}
+                          {% for s in created.all %}
+                                <a href="/campaign/view/{{s.title}}/">  <li>{{s.title}}</li></a>
+                          {% endfor %}
+                     {% else %}
+                       None
+                     {% endif %}
+                    </td>
+                   </tr>
+            </table>
+         </td>          
+    </table> 
+     {% else %}
+    <table  style="width:100%;">
+        <tr>
+          <th>
+            <h1 style="color:#87CEEB;">{{details.name}}</h1><br>
+          </th>
+        </tr>
+        <tr>
+          <td>
+                 <div class="col-xs-6 col-sm-3 col-md-3" style = "padding-left: 15px; left: 370px; width: 500px;">                
+                  
+                    <div class="avatar"> <img src="{{profile.photo.url}}" alt="" class="img-responsive img-circle"/></div>
      
-    </div><br><br>
-    <b>Location:</b>{{address.country.name}}<br>
-    <b>Campaigns Donated:</b>{% for s in donor.all %}
-                       <li>{{s.campaign.title}}</li>
-                         {% endfor %}<br>
-    <b>Campaigns Subscribed:</b>{% for s in sub.all %}
-                       <li>{{s.campaign.title}}</li>
-                         {% endfor %}<br>
-    {% if created %}
-    <b>Campaigns Created:</b>{% for s in created.all %}
-                       <li>{{s.title}}</li>
-                         {% endfor %}<br>
-    {% endif %}
-     <br><br><br><br><br><br>
-    }
- 
-{% else %}
-     <h1 style="border-right-width: 0px; margin-right: 600px; margin-left: 80px;">{{details.name}}</h1><br>
-      <div class="col-xs-6 col-sm-3 col-md-3" style = "padding-left: 15px; left: 80px; width: 500px;">                
-              
-                <div class="avatar"> <img src="{{profile.photo.url}}" alt="" class="img-responsive img-circle"/></div>
-    
+     
+          
+              </div><br><br>
+          </td>
+        </tr>
+        <tr>
+        <td>
+          <h3 style="padding-top:5px; height:20px; color:#87CEEB;">User Information</h3>
+        </td></tr>
+          <tr><td>
+          <table id="t2" style="width:100%;">  
+           <tr>   
+               <td><h5> <b>Page Address:</b> </h5></td>
+               <td><a href="{{user.group.page_address}}">{{user.group.page_address}}</a><br></td>
+           </tr>
+           <tr>   
+               <td><h5> <b>About:</b> </h5></td>
+               <td>{{user.group.about}}<br></td>
+           </tr>           
+           
+           <tr>   
+               <td><h5> <b>Location:</b> </h5></td>
+               <td>{{user.userprofile.street}}, 
+                    {% if user.userprofile.barangay %}
+                       {{user.userprofile.barangay}},
+                    {% elif user.userprofile.city %}
+                       {{user.userprofile.city}},
+                    {% elif user.userprofile.region %}
+                       {{user.userprofile.region}},
+                    {% endif %}
+                    {{user.userprofile.country.name}}
+                    <br></td>
+           </tr>
+           <tr>
+              <td><h5><b>Service Category:</b></h5></td>
+              <td> 
+                  {% if details %}
+                      {% for s in details.service_category.all %}
+                                  <li>{{s}}</li> 
+                       {% endfor %}
+                  {% else %}
+                    None
+                  {% endif %}
+              </td>
+            </tr>
+            
+           <tr>   
+               <td><h5> <b>Registration Number:</b> </h5></td>
+               <td>{{user.group.registration_number}}<br></td>
+           </tr>
+           <tr>   
+               <td><h5> <b>Document:</b> </h5></td>
+               {% if user.group.document %}
+                  <td><a href="{{user.group.document.url}}/">  download document<br></a></td>
+               {% else %}
+                  <td>None</td>
+               {% endif %}
+           </tr>
+           <tr>   
+               <td><h5> <b>Comments:</b> </h5></td>
+               <td>{{user.group.comments}}<br></td>
+           </tr>
+           <tr>   
+               <td><h5> <b>Primary Contact:</b> </h5></td>
+               <td>{{user.group.pc_first_name}}&nbsp; {{user.group.pc_last_name}}<br> {{user.group.pc_email}}<br> {{user.group.pc_job_titlr}}<br> {{user.group.pc_phone_number}}<br></td>
+           </tr>
+           <tr>   
+               <td><h5> <b>Secondary Contact:</b> </h5></td>
+               <td>{{user.group.sc_first_name}}&nbsp; {{user.group.sc_last_name}}<br> {{user.group.sc_email}}<br> {{user.group.sc_job_titlr}}<br> {{user.group.sc_phone_number}}<br></td>
+           </tr>
+            <tr>
+              <td><h5><b>Campaigns Donated:</b></h5></td>
+              <td>
+                {% if donor %}
+                    {% for s in donor.all %}
+                             <li><a href="/campaign/view/{{s.campaign.title}}/">     {{s.campaign.title}} </a> &nbsp;(Php {{s.amount}})</li> 
+                    {% endfor %}
+                {% else %}
+                    None
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+               <td><h5><b>Campaigns Subscribed:</b></h5></td>
+               <td>
+                {% if sub %}
+                    {% for s in sub.all %}
+                          <a href="/campaign/view/{{s.campaign.title}}/">    <li>{{s.campaign.title}}</li> </a>
+                                   {% endfor %}
+                {% else %}
+                    None
+                {% endif %}
+               </td>
+            </tr>
+            <tr>
+             
+              <td><h5><b>Campaigns Created:</b></h5></td>
 
-     
-    </div><br><br>
-    <b>Location:</b>{{address.country.name}}<br>
-    <b>Service Category:</b>{% for s in details.service_category.all %}
-                       <li>{{s}}</li>
-                         {% endfor %}
-    <b>Campaigns Donated:</b>{% for s in donor.all %}
-                       <li>{{s.campaign.title}}</li>
-                         {% endfor %}<br>
-    <b>Campaigns Subscribed:</b>{% for s in sub.all %}
-                       <li>{{s.campaign.title}}</li>
-                         {% endfor %}<br>
-    {% if created %}
-    <b>Campaigns Created:</b>{% for s in created.all %}
-                       <li>{{s.title}}</li>
-                         {% endfor %}<br>
-    {% endif %}
-     <br><br><br><br><br><br>
-     
-     
-  {% endif %}
+              <td>
+              {% if created %}
+                  {% for s in created.all %}
+                               <a href="/campaign/view/{{s.title}}/"> <li>{{s.title}}</li></a>
+                                   {% endfor %}</td>
+              {% else %}
+                   None
+              {% endif %}
+             </tr>
+          
+           </table>   
+         </td>
+         </tr>  
 
+      </table>
+  {% endif  %}
 </section>
+
 {% endblock %}
