@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from registration.forms import RegistrationFormNoFreeEmail
 from django.contrib.auth.models import User
-from crowdsourcing.forms import UserProfileForm, IndividualForm,GroupForm,AddressForm
-from crowdsourcing.models import UserProfile, Address,Individual,Group, UserRole
+from crowdsourcing.forms import UserProfileForm, IndividualForm,GroupForm
+from crowdsourcing.models import UserProfile,Individual,Group, UserRole
 
 #Override RegistrationFormNoFreeEmail of Registration package
 class RegFormEmail(RegistrationFormNoFreeEmail):
@@ -24,28 +24,28 @@ def register_individual(request,username):
     if request.method == 'GET':
         user_profile_form = UserProfileForm()
         individual_form = IndividualForm()
-        address_form = AddressForm()
+
     else:
         user_profile_form = UserProfileForm(request.POST, request.FILES)
         individual_form = IndividualForm(request.POST)
-        address_form = AddressForm(request.POST)
+       
         if user_profile_form.is_valid():
-            if address_form.is_valid():
-                address_object=addform.save()
-                user_profile_object = UserProfile.objects.get_or_create(photo=request.FILES.get('photo','profile_images/def.jpg'), 
-                address_id=address_object.id,user_id=user.id)[0]            
-                user_profile_object.save()            
+   
+            user_profile_object = user_profile_form.save(commit = False) 
+            user_profile_object.user_id = user.id
+            user_profile_object.photo=request.FILES.get('photo','profile_images/def.jpg')
+            user_profile_object.save()     
+
             if individual_form.is_valid():
+                
                 individual_object = Individual.objects.get_or_create(first_name=request.POST['first_name'], 
                 middle_name=request.POST.get('middle_name',None), #or ""Blank
-                last_name=request.POST['last_name'],birthday=request.POST['birthday'],user_id=user.id)[0]            
-                individual_object = Individual.objects.get_or_create(first_name=request.POST['first_name'], 
-                middle_name=request.POST.get('middle_name',None),user_id=user.id)[0] #or ""Blank
+                last_name=request.POST['last_name'],birthday=request.POST['birthday'],user_id=user.id)[0]                            
                 role_object=UserRole.objects.get_or_create(role='Don',user_id=user.id)[0]
                 role_object.save()
                 individual_object.save()            
-                return HttpResponseRedirect('/home/')
-    return render(request,'registration/addindividual.html', {'user_profile_form': user_profile_form,'individual_form': individual_form,'address_form':address_form})
+                return HttpResponseRedirect('/profile/'+username+'/')
+    return render(request,'registration/addindividual.html', {'user_profile_form': user_profile_form,'individual_form': individual_form})
 
 #Group Registration
 def register_group(request,username):
@@ -53,18 +53,20 @@ def register_group(request,username):
     if request.method == 'GET':
         user_profile_form = UserProfileForm()
         group_form = GroupForm()
-        address_form = AddressForm()
+ 
     else:
         user_profile_form = UserProfileForm(request.POST, request.FILES)
         group_form = GroupForm(request.POST)
-        address_form = AddressForm(request.POST)
+   
         if user_profile_form.is_valid():
-            if address_form.is_valid():
-                address_object=address_form.save()
-                user_profile_object = UserProfile.objects.get_or_create(photo=request.FILES.get('photo', None), 
-                    address_id=address_object.id,user_id=user.id)[0]            
-                user_profile_object.save()            
-            if groupform.is_valid():
+  
+            user_profile_object = user_profile_form.save(commit = False) 
+            user_profile_object.user_id = user.id
+            user_profile_object.photo=request.FILES.get('photo','profile_images/def.jpg')
+            user_profile_object.save()              
+
+            if group_form.is_valid():
+
                 group_object = Group.objects.get_or_create(name=request.POST['name'], 
                 page_address=request.POST.get('page_address',None), #or ""Blank
                 about=request.POST['about'],
@@ -85,8 +87,8 @@ def register_group(request,username):
                 user_id=user.id)[0]        
                 role_object=UserRole.objects.get_or_create(role='Don',user_id=user.id)[0]    
                 group_object.save()            
-                return HttpResponseRedirect('/home/')
-    return render(request, 'registration/addgroup.html', {'user_profile_form':user_profile_form, 'group_form':group_form, 'address_form':address_form})
+                return HttpResponseRedirect('/profile/'+username+'/')
+    return render(request, 'registration/addgroup.html', {'user_profile_form':user_profile_form, 'group_form':group_form})
 
 #User Authentication
 def user_login(request):

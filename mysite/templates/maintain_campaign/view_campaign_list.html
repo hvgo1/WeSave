@@ -1,0 +1,48 @@
+{% extends "mysite/base.html" %}
+{% load static %}
+{% block title %} Profiles {% endblock %}
+{% block body_block %}
+<section id="intro">
+	</section>
+<section id="about" class="home-section text-center">
+	<br/><br/>
+	<center>
+		<h1>Campaigns</h1>
+	</center>
+
+	<div class="row">
+		<div class="col-lg-2 col-lg-offset-5">
+			<hr class="marginbot-50">
+		</div>
+	</div>
+ 	<div class="row">
+		{% for campaign in campaigns %}
+			<div class="col-xs-6 col-sm-3 col-md-3">	
+	            <div class="team boxed-grey">
+	                <div class="inner">
+						<h5><a href="/profile/{{campaign.title}}">{{campaign.title}}</a></h5>
+	                    <div class="avatar">
+                    		<img src="{{ campaign.campaign_image.url }}"alt="" class="img-responsive img-circle" />
+	                    </div>
+	                </div>
+	            </div>                
+			<br/>				
+			</div>
+		{% endfor %}
+	</div>
+	<div class = "pagination">
+	    <span class = "step-links">	
+	     	<br><br><br><br><br><br><br><br><br><br><br>
+	        {% if campaigns.has_previous %}
+				<a href="?page={{ campaigns.previous_page_number }}"><b><< PREVIOUS</b></a>
+			{% endif %} 
+		    <span class= "current">
+				Page {{ campaigns.number }} of {{ campaigns.paginator.num_pages }}.
+		    </span>
+		    {% if campaigns.has_next %}
+				<a href="?page={{ campaigns.next_page_number }}"><b>NEXT >></b></a>
+			{% endif %} 
+	    </span>
+	</div>
+</section>
+{% endblock %}
