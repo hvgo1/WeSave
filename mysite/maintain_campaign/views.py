@@ -57,13 +57,13 @@ def updateCampaign(request, id):
     wishes = Wish.objects.all()
 
     if request.method == 'POST':
-        form = CampaignForm(request.POST)
+        form = CampaignForm(request.POST, request.FILES)
         if form.is_valid():
             campaign.title = request.POST["title"]
             campaign.beneficiary_name = request.POST["beneficiary_name"]
             campaign.story = request.POST["story"]
             campaign.deadline = request.POST["deadline"]
-            campaign.campaign_image = request.POST["campaign_image"]
+            campaign.campaign_image = request.FILES.get('campaign_image')
             campaign.save()
             # TODO: update wishes
             #wish = CampaignWish(wish_id=request.POST["wishes"], campaign_id=campaign.id, completed=False, estimated_price=0)
