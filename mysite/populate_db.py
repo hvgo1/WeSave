@@ -7,7 +7,7 @@ django.setup()
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,CampaignWish,UserRole
 
 def populate():
 
@@ -245,16 +245,6 @@ def populate():
     add_unregistereddonor(name="Jun Alden",campaign=2,amount=5.00)
     add_unregistereddonor(name="Anonymous",campaign=5,amount=10.00)
 
-    add_contact(name="Aisa",email="ai@yahoo.com",msg="jsdasfnadnfdfna", status='R')
-    add_contact(name="Riz",email="rizalee@yahoo.com",msg="jsdasfnadnfdfna",status='R')
-    add_contact(name="Ms. Claire Danes",email="danesclaire@yahoo.com",msg="jsdasfnadnfdfna",status='U')
-    add_contact(name="Ernie Calungsod",email="ai@yahoo.com",msg="jsdasfnadnfdfna",status='U')
-    add_contact(name="Paul Diaz",email="pdiaz@yahoo.com",msg="jsdasfnadnfdfna",status='R')
-    add_contact(name="Henry Jose",email="henjos@yahoo.com",msg="jsdasfnadnfdfna",status='R')
-    add_contact(name="Nica Jane",email="nj@yahoo.com",msg="jsdasfnadnfdfna",status='U')
-    add_contact(name="Missi Lee",email="mlee@yahoo.com",msg="jsdasfnadnfdfna",status='U')
-    add_contact(name="Jenne Fuentes",email="jf@yahoo.com",msg="jsdasfnadnfdfna",status='R')
-    add_contact(name="Suzy Bae",email="sz@yahoo.com",msg="jsdasfnadnfdfna",status='R')
     print "unreg" 
 
     add_campaigndonor(campaign=1,user=2,amount=700.00)
@@ -414,13 +404,6 @@ def add_unregistereddonor(name,campaign,amount):
     c = UnregisteredDonor.objects.get_or_create(name=name,
         campaign_id=campaign,
         amount=amount)[0]
-    return c
-
-def add_contact(name,email,msg,status):
-    c = Contact.objects.get_or_create(name=name,
-        email=email,
-        message=msg,
-        status=status)[0]
     return c
 
 def add_campaigndonor(campaign,user,amount):

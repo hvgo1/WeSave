@@ -1,17 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from manage_contacts.forms import ContactForm
-from crowdsourcing.models import Contact
-from django.core.mail import EmailMessage
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
-import django
 from django.conf import settings
-from django.core.mail import send_mail
-# Create your views here.
+import smtplib
 
+#Sends all contacts to WeSave email
 def contact_us(request):
-    import smtplib
+
     if request.method == 'GET': 
         contact_form = ContactForm()
 
@@ -19,33 +16,28 @@ def contact_us(request):
         contact_form = ContactForm(request.POST)
   
         if contact_form.is_valid():
+            #login admin
+            gmail_user = settings.EMAIL_HOST_USER
+            gmail_pwd = settings.EMAIL_HOST_PASSWORD
 
-#           print "Sending Email"
- #          mail_title = 'Test Email'
-  #         message = 'This is a test email.' 
-   #        email = settings.DEFAULT_FROM_EMAIL
-    #       recipients = [settings.DEFAULT_TO_EMAIL]
-     #      send_mail('Subject here', 'Here is the message.', settings.EMAIL_HOST_USER,['j25_jessie@yahoo.com'], fail_silently=False)
-           #send_mail(mail_title, message, email, recipients, settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
-      #     print "Email Sent"
-            #name = request.POST.get('name','')
-            #email = request.POST.get('email','')
-            #message = request.POST.get('message','')   
-            #subject = 'Message from %s ' %name
-            #if subject and message and email: 
-             #   try:
-                    #send_mail(subject, message, email, ['jessica.pabico@gmail.com'])
-                    #email = EmailMessage(subject, message, to=['j25_jessie@yahoo.com'])
-                    #email.send()
+            TO = settings.EMAIL_WESAVE
+            FROM_NAME = request.POST['name']
+            MESSAGE = request.POST['message']
+            CONTACT_EMAIL = request.POST['email']
 
-              #  except BadHeaderError: 
-               #     return HttpResponse('Invalid header found.')
-               # return HttpResponseRedirect('/contact/thanks/')    
-            #else:
-        # In reality we'd use a form class
-        # to get proper validation errors.
-             #   return HttpResponse('Make sure all fields are entered and valid.')
-           # contact_form.save() 
-        #return HttpResponseRedirect('/contact/')           
+            SUBJECT = "[Contact] from: %s " % FROM_NAME
+            TEXT = "From : " +FROM_NAME+ "\n\n Email : " +CONTACT_EMAIL+ "\n\nMessage: " +MESSAGE+" \n" 
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.ehlo()
+            server.starttls()
+            server.login(gmail_user, gmail_pwd)
+            BODY = '\r\n'.join(['To: %s' % TO,
+                'From: %s' % gmail_user,
+                'Subject: %s' % SUBJECT,
+                '', TEXT])
+
+            server.sendmail(gmail_user, [TO], BODY)
+            print ('email sent')            
+            return HttpResponseRedirect('/home/')
     return render(request, 'manage_contacts/contact.html', {'contact_form':contact_form,})
 
