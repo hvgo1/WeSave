@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,CampaignWish,UserRole
 # Register your models here.
 
  
@@ -38,9 +38,6 @@ class CampaignKeywordAdmin(admin.ModelAdmin):
 class UnregisteredDonorAdmin(admin.ModelAdmin):
     list_display = ['id','name','campaign','amount']
 
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ['id','name','email','message','status']
-
 class CampaignWishAdmin(admin.ModelAdmin):
     list_display = ['id','campaign','wish','completed','estimated_price']
 
@@ -75,5 +72,4 @@ admin.site.register(CampaignUserDonor,CampaignUserDonorAdmin)
 admin.site.register(CampaignUserFollowers,CampaignUserFollowersAdmin)
 admin.site.register(CampaignKeyword,CampaignKeywordAdmin)
 admin.site.register(UnregisteredDonor,UnregisteredDonorAdmin)
-admin.site.register(Contact,ContactAdmin)
 admin.site.register(CampaignWish,CampaignWishAdmin)

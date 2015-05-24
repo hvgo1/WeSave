@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from manage_contacts.forms import ContactForm
-from crowdsourcing.models import Contact
-# Create your views here.
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
+from django.conf import settings
+import smtplib
 
+#Sends all contacts to WeSave email
 def contact_us(request):
 
     if request.method == 'GET': 
@@ -11,14 +14,30 @@ def contact_us(request):
 
     else:
         contact_form = ContactForm(request.POST)
-       #name = request.POST.get('name')
-       #email = request.POST('email')
-       #message = request.POST('message')
+  
+        if contact_form.is_valid():
+            #login admin
+            gmail_user = settings.EMAIL_HOST_USER
+            gmail_pwd = settings.EMAIL_HOST_PASSWORD
 
+            TO = settings.EMAIL_WESAVE
+            FROM_NAME = request.POST['name']
+            MESSAGE = request.POST['message']
+            CONTACT_EMAIL = request.POST['email']
 
-       #msg = Contact.objects.get_or_create(name=name, 
-        #      email=email,message=message)[0] 
-        if contact_form.is_valid():           
-            contact_form.save() 
-        return HttpResponseRedirect('/contact/')           
+            SUBJECT = "[Contact] from: %s " % FROM_NAME
+            TEXT = "From : " +FROM_NAME+ "\n\n Email : " +CONTACT_EMAIL+ "\n\nMessage: " +MESSAGE+" \n" 
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.ehlo()
+            server.starttls()
+            server.login(gmail_user, gmail_pwd)
+            BODY = '\r\n'.join(['To: %s' % TO,
+                'From: %s' % gmail_user,
+                'Subject: %s' % SUBJECT,
+                '', TEXT])
+
+            server.sendmail(gmail_user, [TO], BODY)
+            print ('email sent')            
+            return HttpResponseRedirect('/home/')
     return render(request, 'manage_contacts/contact.html', {'contact_form':contact_form,})
+
