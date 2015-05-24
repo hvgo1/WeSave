@@ -115,7 +115,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #for sending email
-EMAIL_HOST_USER = #adminemail,should be gmail
-EMAIL_HOST_PASSWORD = #changepassword
-EMAIL_WESAVE = #wesaveemail'wesave@gmail.com'
+#try if not working https://accounts.google.com/DisplayUnlockCaptcha
+EMAIL_HOST_USER = ''#adminemail,should be gmail
+EMAIL_HOST_PASSWORD = ''#changepassword
+EMAIL_WESAVE = ''#wesaveemail'wesave@gmail.com'
 
