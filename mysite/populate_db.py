@@ -7,7 +7,7 @@ django.setup()
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,CampaignWish,UserRole
 
 
 def populate():
