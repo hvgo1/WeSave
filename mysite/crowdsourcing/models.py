@@ -38,15 +38,15 @@ class Keyword(models.Model):
         return u'%s' %(self.name)
     name = models.CharField(max_length=200)
 
-class Address(models.Model):
-    def __unicode__(self):  
-        return u'%s,%s,%s,%s,%s' %(self.street,self.barangay,self.city,self.region,self.country)    
+#class Address(models.Model):
+ #   def __unicode__(self):  
+  #      return u'%s,%s,%s,%s,%s' %(self.street,self.barangay,self.city,self.region,self.country)    
  
-    country = CountryField()
-    region = models.ForeignKey(Region,null=True, blank=True)   
-    city = models.ForeignKey(City,null=True, blank=True)    
-    barangay = models.ForeignKey(Barangay,null=True, blank=True)
-    street = models.CharField(max_length=200)
+   # country = CountryField()
+    #region = models.ForeignKey(Region,null=True, blank=True)   
+    #city = models.ForeignKey(City,null=True, blank=True)    
+    #barangay = models.ForeignKey(Barangay,null=True, blank=True)
+    #street = models.CharField(max_length=200)
 
 class ServiceCategory(models.Model):
     def __unicode__(self):  
@@ -57,7 +57,12 @@ class UserProfile(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.user.id)
     photo = models.ImageField(upload_to='profile_images/',null=True, blank=True)
-    address = models.ForeignKey(Address)
+    #address = models.ForeignKey(Address)
+    country = CountryField()
+    region = models.ForeignKey(Region,null=True, blank=True)   
+    city = models.ForeignKey(City,null=True, blank=True)    
+    barangay = models.ForeignKey(Barangay,null=True, blank=True)
+    street = models.CharField(max_length=200)
     user = models.OneToOneField(User)
  
 class UserRole(models.Model):
@@ -88,7 +93,7 @@ class Group(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.user.id)
     name = models.CharField(max_length=200)
-    page_address = models.URLField(max_length=200,null=True, blank=True)
+    page_address = models.CharField(max_length=200,null=True, blank=True)
     about = models.CharField(max_length=200)
     service_category = models.ManyToManyField(ServiceCategory)
     registration_number = models.BigIntegerField(null=True, blank=True)

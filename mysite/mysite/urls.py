@@ -1,6 +1,6 @@
 from registration.backends.simple.views import RegistrationView #
 from mysite import views
-import manage_contacts
+import manage_contacts,maintain_profile
 import wsadmin
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
@@ -33,7 +33,7 @@ urlpatterns = patterns('',
     url(r'^reg-individual/(?P<username>\w+)', views.register_individual, name='register_individual'),
     url(r'^reg-group/(?P<username>\w+)', views.register_group, name='register_group'),
     url(r'^campaign/', include('maintain_campaign.urls')),
-    (r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 
 
 

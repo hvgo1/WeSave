@@ -7,7 +7,8 @@ django.setup()
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,Address,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,CampaignWish,UserRole
+from crowdsourcing.models import Region,City,Barangay,Wish,Keyword,ServiceCategory, UserProfile,Individual,Group,Campaign,CampaignUserDonor,CampaignUserFollowers, CampaignKeyword,UnregisteredDonor,Contact,CampaignWish,UserRole
+
 
 def populate():
 
@@ -103,28 +104,6 @@ def populate():
     add_wish("Hospital bed",'1')
     add_wish("Crutch",'1') 
     print "wish" 
-
-    add_address(street="36 Barangka St.",
-        barangay=8,city=1,region=17,country='PH')
-    add_address(street="57 Magdangal St.",
-        barangay=3,city=8,region=1,country='PH')
-    add_address(street="127 Rizal St.",
-        barangay=5,city=5,region=17,country='PH')
-    add_address(street="54 General Luna St.",
-        barangay=1,city=2,region=17,country='PH')
-    add_address(street="65 Roces St.",
-        barangay=10,city=10,region=17,country='PH')
-    add_address(street="52 Starlight St.",
-        barangay=4,city=3,region=17,country='PH') 
-    add_address(street="Higashi-Shiokōji 721-1, Shimogyō-ku, Kyōto-shi, Kyōto-fu 600-8216",
-        barangay=None,city=None,region=None,country='JP') 
-    add_address(street="73, Jalan Cilaki BANDUNG 40115",
-        barangay=None,city=None,region=None,country='ID') 
-    add_address(street="VIA APPIA NUOVA 123/4 00184 ROMA RM ",
-        barangay=None,city=None,region=None,country='IT') 
-    add_address(street="Flat D, 6/F, Golden Industrial Center, Block 4, 182-190 Tai Lin Pai Road,Kwai Chung",
-        barangay=None,city=None,region=None,country='HK') 
-    print "addr"
      
     add_user(uname="trisprior",
         passw="trisprior",
@@ -160,34 +139,44 @@ def populate():
 
 
     add_userprofile(photo="profile_images/4.jpg",
-        address=1,
+        street="36 Barangka St.",
+        barangay=8,city=1,region=17,country='PH',
         user=11)
     add_userprofile(photo="profile_images/1.jpg",
-        address=2,
+        street="57 Magdangal St.",
+        barangay=3,city=8,region=1,country='PH',
         user=10)
     add_userprofile(photo="profile_images/3.jpg",
-        address=3,
+        street="127 Rizal St.",
+        barangay=5,city=5,region=17,country='PH',
         user=9)
     add_userprofile(photo="profile_images/2.jpg",
-        address=4,
+        street="54 General Luna St.",
+        barangay=1,city=2,region=17,country='PH',
         user=8)
     add_userprofile(photo="profile_images/4.jpg",
-        address=5,
+        street="65 Roces St.",
+        barangay=10,city=10,region=17,country='PH',
         user=7)
     add_userprofile(photo="profile_images/2.jpg",
-        address=6,
+        street="52 Starlight St.",
+        barangay=4,city=3,region=17,country='PH',
         user=6)
     add_userprofile(photo="profile_images/3.jpg",
-        address=7,
+        street="Higashi-Shiokōji 721-1, Shimogyō-ku, Kyōto-shi, Kyōto-fu 600-8216",
+        barangay=None,city=None,region=None,country='JP',
         user=5)
     add_userprofile(photo=None,
-        address=8,
+        street="73, Jalan Cilaki BANDUNG 40115",
+        barangay=None,city=None,region=None,country='ID',
         user=4)
     add_userprofile(photo="profile_images/1.jpg",
-        address=9,
+        street="VIA APPIA NUOVA 123/4 00184 ROMA RM ",
+        barangay=None,city=None,region=None,country='IT',
         user=3)
     add_userprofile(photo=None,
-        address=10,
+        street="Flat D, 6/F, Golden Industrial Center, Block 4, 182-190 Tai Lin Pai Road,Kwai Chung",
+        barangay=None,city=None,region=None,country='HK',
         user=2)
     print "uprof" 
 
@@ -330,14 +319,6 @@ def add_wish(name,wtype):
         wish_type=wtype)[0]
     return w
 
-def add_address(street,barangay,city,region,country):
-    a = Address.objects.get_or_create(country=country,
-        region_id=region, 
-        city_id=city,
-        barangay_id=barangay,
-        street=street)[0]
-    return a
-
 def add_user(uname,passw,email):
     u = User.objects.get_or_create(username=uname,
         password=passw, 
@@ -345,11 +326,15 @@ def add_user(uname,passw,email):
     r = add_userrole(user=u.id,role='Don')
     return u
  
-def add_userprofile(photo,address,user):
+def add_userprofile(photo,street,barangay,city,region,country,user):
     if photo==None:
         photo='profile_images/def.jpg'
     u = UserProfile.objects.get_or_create(photo=photo,
-        address_id=address,
+        street=street,
+        barangay_id=barangay,
+        city_id=city,
+        region_id=region,
+        country=country,
         user_id=user)[0]
     return u
 
