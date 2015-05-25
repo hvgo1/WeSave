@@ -1,6 +1,7 @@
 from django import forms
 from django_countries.widgets import CountrySelectWidget
 from crowdsourcing.models import Individual, Group, UserProfile
+from django.contrib.auth.models import User
 
 #Form for UserProfile model
 class UserProfileForm(forms.ModelForm): 
@@ -25,9 +26,3 @@ class GroupForm(forms.ModelForm):
         "pc_last_name","pc_email","pc_job_title","pc_phone_number",
         "sc_first_name","sc_last_name","sc_email","sc_job_title","sc_phone_number")  
 
-#Form for Address model
-#class AddressForm(forms.ModelForm):
-#    class Meta:
-#        model = Address
-#        fields = ("country","region","city","barangay","street")
-#        widgets = {'country': CountrySelectWidget()}
