@@ -1,13 +1,14 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
+from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 
 from crowdsourcing.models import Campaign, CampaignWish, Wish
 from maintain_campaign.forms import CampaignForm, WishForm
 
-#def index(request):
-#    return HttpResponse("You are in campaign index")
+def index(request):
+    return HttpResponse("You are in campaign index")
 
 #TODO restrict to social worker/wsadmin
 def addCampaign(request, username):
@@ -21,16 +22,22 @@ def addCampaign(request, username):
             campaign.save()
             # TODO: set amount to every wish
             wish = request.POST.get('dropdown_wishes')
-            
-            print wish
+            field = request.POST.getlist('estimated_cost_field')
+            print field
 
             redirect_link = '/campaign/view/' + campaign.slug + '/'
             return HttpResponseRedirect(redirect_link)
         else:
             print form.errors
     else:
-        form = CampaignForm()
-        wish_form = WishForm()
+        if request.user.is_authenticated():
+            if username == request.user.get_username():
+                form = CampaignForm()
+                wish_form = WishForm()
+            else:
+                raise PermissionDenied()
+        else:
+            return redirect('/login/')
 
     return render(request, 'maintain_campaign/add_campaign.html', {'form': form, 'wishes':wishes,})
 
@@ -46,8 +53,7 @@ def viewCampaign(request, campaign_title_slug):
         context_dict['campaign_title_slug'] = campaign.slug
 
     except Campaign.DoesNotExist:
-        # TODO campaign does not exist page
-        pass
+        raise Http404("Campaign Page does not exist.")
 
     return render(request, 'maintain_campaign/view_campaign.html', context_dict)
 
