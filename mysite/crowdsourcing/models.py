@@ -93,7 +93,7 @@ class Group(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.user.id)
     name = models.CharField(max_length=200)
-    page_address = models.URLField(max_length=200,null=True, blank=True)
+    page_address = models.CharField(max_length=200,null=True, blank=True)
     about = models.CharField(max_length=200)
     service_category = models.ManyToManyField(ServiceCategory)
     registration_number = models.BigIntegerField(null=True, blank=True)

@@ -63,30 +63,35 @@ def register_group(request,username):
             user_profile_object = user_profile_form.save(commit = False) 
             user_profile_object.user_id = user.id
             user_profile_object.photo=request.FILES.get('photo','profile_images/def.jpg')
-            user_profile_object.save()              
+                         
 
             if group_form.is_valid():
-
-                group_object = Group.objects.get_or_create(name=request.POST['name'], 
-                page_address=request.POST.get('page_address',None), #or ""Blank
-                about=request.POST['about'],
-                service_category=request.POST['service_category'],
-                registration_number=request.POST.get('registration_number',None),
-                document=request.FILES.get('document', None),
-                comments=request.POST.get('comments',None),
-                pc_first_name = request.POST['pc_first_name'],
-                pc_last_name = request.POST['pc_last_name'],
-                pc_email = request.POST['pc_email'],
-                pc_job_title = request.POST['pc_job_title'],
-                pc_phone_number = request.POST['pc_phone_number'],
-                sc_first_name = request.POST['sc_first_name'],
-                sc_last_name = request.POST['sc_last_name'],
-                sc_email = request.POST['sc_email'],
-                sc_job_title = request.POST['sc_job_title'],
-                sc_phone_number = request.POST['sc_phone_number'],
-                user_id=user.id)[0]        
+                group_object = group_form.save(commit=False)
+                #group_object.service_category=request.POST['service_category']
+                group_object.user_id=user.id
+                #group_object = Group.objects.get_or_create(name=request.POST['name'], 
+                #page_address=request.POST.get('page_address',None), #or ""Blank
+                #about=request.POST['about'],
+                #service_category=request.POST['service_category'],
+               # registration_number=request.POST.get('registration_number',None),
+                #document=request.FILES.get('document', None),
+                #comments=request.POST.get('comments',None),
+                #pc_first_name = request.POST['pc_first_name'],
+                #pc_last_name = request.POST['pc_last_name'],
+                #pc_email = request.POST['pc_email'],
+                #pc_job_title = request.POST['pc_job_title'],
+                #pc_phone_number = request.POST['pc_phone_number'],
+                #sc_first_name = request.POST['sc_first_name'],
+                #sc_last_name = request.POST['sc_last_name'],
+                #sc_email = request.POST['sc_email'],
+               # sc_job_title = request.POST['sc_job_title'],
+                #sc_phone_number = request.POST['sc_phone_number'],
+                #user_id=user.id)[0]  
+                #group_object.service_category.add(*request.POST['service_category'])      
                 role_object=UserRole.objects.get_or_create(role='Don',user_id=user.id)[0]    
-                group_object.save()            
+                group_object.save()
+                group_form.save_m2m()   
+                user_profile_object.save()          
                 return HttpResponseRedirect('/profile/'+username+'/')
     return render(request, 'registration/addgroup.html', {'user_profile_form':user_profile_form, 'group_form':group_form})
 

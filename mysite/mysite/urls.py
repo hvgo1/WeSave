@@ -1,6 +1,6 @@
 from registration.backends.simple.views import RegistrationView #
 from mysite import views
-import manage_contacts
+import manage_contacts,maintain_profile
 import wsadmin
 from django.conf.urls import patterns, include, url
 from django.contrib import admin

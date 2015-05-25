@@ -64,7 +64,7 @@ def update_profile(request,username):
                 group_details.page_address=request.POST.get('page_address',None) #or ""Blank
                 group_details.about=request.POST['about']
                 group_details.service_category=request.POST['service_category']
-                group_details.registration_number=request.POST.get('registration_number',None)
+                group_details.registration_number=int(request.POST.get('registration_number',None))
                 group_details.document=request.FILES.get('document', None)
                 group_details.comments=request.POST.get('comments',None)
                 group_details.pc_first_name = request.POST['pc_first_name']
