@@ -11,10 +11,3 @@ class CampaignForm(forms.ModelForm):
         widgets = {
             'deadline': forms.DateInput(attrs={'class':'datepicker'})
         }
-
-class WishForm(forms.ModelForm):
-	#wish = forms.ChoiceField(Wish)
-	class Meta:
-		model = Wish
-		fields = ('name',)
-
