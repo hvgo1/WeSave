@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnIn
 from django.core.exceptions import PermissionDenied
 
 from crowdsourcing.models import Campaign, CampaignWish, Wish
-from maintain_campaign.forms import CampaignForm, WishForm
+from maintain_campaign.forms import CampaignForm
 
 def index(request):
     return HttpResponse("You are in campaign index")
@@ -19,11 +19,24 @@ def addCampaign(request, username):
         if form.is_valid():
             campaign = form.save(commit=False)
             campaign.created_by = user
-            campaign.save()
             # TODO: set amount to every wish
-            wish = request.POST.get('dropdown_wishes')
-            field = request.POST.getlist('estimated_cost_field')
-            print field
+
+            wish_cost = zip(request.POST.getlist('wishes'), request.POST.getlist('cost'))
+            
+            campaign.save()
+            for data in wish_cost:
+                if wish.id > 1:
+                    # TODO: should not submit campaign without wishes
+                    wish = Wish.objects.get(name=data[0])
+                    if float(data[1]) > float(0):
+                        try:
+                            CampaignWish.objects.get_or_create(
+                                campaign_id = campaign.id,
+                                wish_id = wish.id,
+                                completed = False,
+                                estimated_price = data[1])[0]
+                        except:
+                            pass
 
             redirect_link = '/campaign/view/' + campaign.slug + '/'
             return HttpResponseRedirect(redirect_link)
@@ -32,8 +45,8 @@ def addCampaign(request, username):
     else:
         if request.user.is_authenticated():
             if username == request.user.get_username():
+                #TODO if user is a Social Worker
                 form = CampaignForm()
-                wish_form = WishForm()
             else:
                 raise PermissionDenied()
         else:
@@ -103,3 +116,4 @@ def listCampaign(request):
         campaigns = paginator.page(paginator.num_pages)
     #TODO: set default campaign image
     return render_to_response('maintain_campaign/view_campaign_list.html',{'campaigns':campaigns})
+

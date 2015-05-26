@@ -94,6 +94,7 @@ def populate():
     add_keyword("Bills")
     print "keyw" 
 
+    add_wish("Select a wish...",'0')
     add_wish("Wheelchair",'1')
     add_wish("Financial Assisstance",'0')
     add_wish("Medicine",'1')
@@ -129,31 +130,31 @@ def populate():
     add_user(uname="trisprior",
         passw="trisprior",
         email="tris@yahoo.com")
-    add_user(uname="helpthechildren",
+    add_user(uname="helpthechildren.org",
         passw="helpthechildren",
         email="helpthechildren@gmail.com")
-    add_user(uname="emmaroberts",
+    add_user(uname="emma_roberts",
         passw="emmaroberts",
         email="eroberts@gmail.com")
     add_user(uname="chrispine",
-        passw="chrispine",
+        passw="chris_pine",
         email="cp@gmail.com")
-    add_user(uname="sullichoi",
+    add_user(uname="sulli_choi",
         passw="sullichoi",
         email="sc@gmail.com")
-    add_user(uname="douglasbooth",
+    add_user(uname="douglas_booth",
         passw="douglasbooth",
         email="dbooth213@gmail.com")
-    add_user(uname="mirandakerr",
+    add_user(uname="miranda_kerr",
         passw="mirandakerr",
         email="kerrrr@gmail.com")
-    add_user(uname="savethepoor",
+    add_user(uname="savethepoor.org",
         passw="savethepoor",
         email="savethepoor@yahoo.com")
-    add_user(uname="carlasingson",
+    add_user(uname="carla_singson",
         passw="carlasingson",
         email="carsing@yahoo.com")
-    add_user(uname="markdy",
+    add_user(uname="mark_dy",
         passw="markdy",
         email="dymark@yahoo.com")
     print "user"
@@ -215,19 +216,19 @@ def populate():
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
         dline="2015-06-28",status='D',views=10,ack=None,image="campaign_images/2.jpg",createdby=2)
 
-    add_campaign(title="Maura",beneficiary="Maura",
+    add_campaign(title="Maura: Cancer Survivor",beneficiary="Maura",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
         dline="2015-06-28",status='F',views=5,ack=None,image="campaign_images/1.jpg",createdby=6)
 
-    add_campaign(title="Ben",beneficiary="Ben",
+    add_campaign(title="For Ben",beneficiary="Ben",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
         dline="2015-06-28",status='A',views=0,ack=None,image="campaign_images/3.jpg",createdby=3)
 
-    add_campaign(title="Andy",beneficiary="Andy",
+    add_campaign(title="Andy the Great",beneficiary="Andy",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
         dline="2015-02-23",status='C',views=10,ack="ack_receipts/ack.pdf",image="campaign_images/4.jpg",createdby=7)
 
-    add_campaign(title="Lyn & Yve",beneficiary="Lyn, Yve",
+    add_campaign(title="Lyn & Yve: Golden Hearts",beneficiary="Lyn, Yve",
         story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
         dline="2011-06-28",status='I',views=10,ack=None,image="campaign_images/5.jpg",createdby=4)
     print "camp" 
@@ -278,7 +279,6 @@ def populate():
     add_campaigndonor(campaign=5,user=11,amount=800.00)
     print "cdon" 
 
-    add_campaignwish(campaign=1,wish=1,compl=0,est=5000.00)
     add_campaignwish(campaign=2,wish=3,compl=0,est=3000.00)
     add_campaignwish(campaign=3,wish=4,compl=1,est=1000.00)
     add_campaignwish(campaign=4,wish=5,compl=0,est=2000.00)
