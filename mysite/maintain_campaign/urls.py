@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^view/(?P<campaign_title_slug>[\w\-]+)/$', views.viewCampaign, name='view_campaign'),
     url(r'^update/(?P<id>\d+)/$', views.updateCampaign, name='update_campaign'),
     url(r'^list/$', views.listCampaign, name='list_campaign'),
+    url(r'^list-details/$', views.listCampaignDetails, name='list_campaign_details')
     )

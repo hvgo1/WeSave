@@ -120,3 +120,5 @@ def listCampaign(request):
     #TODO: set default campaign image
     return render_to_response('maintain_campaign/view_campaign_list.html',{'campaigns':campaigns, 'user':user})
 
+def listCampaignDetails(request):
+    return index(request)
