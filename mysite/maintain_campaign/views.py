@@ -105,6 +105,9 @@ def donateToCampaign(request):
     return render(request, 'maintain_campaign/view_campaign.html', context_dict)
 
 def listCampaign(request):
+    user = User.objects.get(username=request.user.get_username())
+    print user.email
+
     campaign_list = Campaign.objects.all()
     paginator = Paginator(campaign_list,20) #pagination
     page = request.GET.get('page')
@@ -115,5 +118,5 @@ def listCampaign(request):
     except EmptyPage:
         campaigns = paginator.page(paginator.num_pages)
     #TODO: set default campaign image
-    return render_to_response('maintain_campaign/view_campaign_list.html',{'campaigns':campaigns})
+    return render_to_response('maintain_campaign/view_campaign_list.html',{'campaigns':campaigns, 'user':user})
 

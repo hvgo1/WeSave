@@ -109,7 +109,7 @@ def populate():
     add_user(uname="trisprior",
         passw="trisprior",
         email="tris@yahoo.com")
-    add_user(uname="helpthechildren.org",
+    add_user(uname="helpthechildrenorg",
         passw="helpthechildren",
         email="helpthechildren@gmail.com")
     add_user(uname="emma_roberts",
@@ -127,7 +127,7 @@ def populate():
     add_user(uname="miranda_kerr",
         passw="mirandakerr",
         email="kerrrr@gmail.com")
-    add_user(uname="savethepoor.org",
+    add_user(uname="savethepoororg",
         passw="savethepoor",
         email="savethepoor@yahoo.com")
     add_user(uname="carla_singson",
