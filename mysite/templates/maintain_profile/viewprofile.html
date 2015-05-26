@@ -1,5 +1,5 @@
 {% extends "mysite/base.html" %}
-{% block title %} {{user.username}} {% endblock %}
+{% block title %} {{user_object.username}} {% endblock %}
 {% block head_block %}
   <style>
     table, td {
@@ -60,22 +60,22 @@
           <table id="t2" style="width:100%;">   
                 <tr>   
                <td><h5> <b>Birthday:</b> </h5></td>
-               <td>{{user.individual.birthday}}<br></td>
+               <td>{{user_object.individual.birthday}}<br></td>
            </tr> 
                 <tr>
                   <td>
                     <h5><b>Location:</b></h5>
                   </td>
                   <td>
-                    {{user.userprofile.street}}, 
-                    {% if user.userprofile.barangay %}
-                       {{user.userprofile.barangay}},
-                    {% elif user.userprofile.city %}
-                       {{user.userprofile.city}},
-                    {% elif user.userprofile.region %}
-                       {{user.userprofile.region}},
+                    {{user_object.userprofile.street}}, 
+                    {% if user_object.userprofile.barangay %}
+                       {{user_object.userprofile.barangay}},
+                    {% elif user_object.userprofile.city %}
+                       {{user_object.userprofile.city}},
+                    {% elif user_object.userprofile.region %}
+                       {{user_object.userprofile.region}},
                     {% endif %}
-                    {{user.userprofile.country.name}}
+                    {{user_object.userprofile.country.name}}
                     
                   </td>
                 </tr>
@@ -152,24 +152,24 @@
           <table id="t2" style="width:100%;">  
            <tr>   
                <td><h5> <b>Page Address:</b> </h5></td>
-               <td><a href="{{user.group.page_address}}">{{user.group.page_address}}</a><br></td>
+               <td><a href="{{user_object.group.page_address}}">{{user_object.group.page_address}}</a><br></td>
            </tr>
            <tr>   
                <td><h5> <b>About:</b> </h5></td>
-               <td>{{user.group.about}}<br></td>
+               <td>{{user_object.group.about}}<br></td>
            </tr>           
            
            <tr>   
                <td><h5> <b>Location:</b> </h5></td>
-               <td>{{user.userprofile.street}}, 
-                    {% if user.userprofile.barangay %}
-                       {{user.userprofile.barangay}},
-                    {% elif user.userprofile.city %}
-                       {{user.userprofile.city}},
-                    {% elif user.userprofile.region %}
-                       {{user.userprofile.region}},
+               <td>{{user_object.userprofile.street}}, 
+                    {% if user_object.userprofile.barangay %}
+                       {{user_object.userprofile.barangay}},
+                    {% elif user_object.userprofile.city %}
+                       {{user_object.userprofile.city}},
+                    {% elif user_object.userprofile.region %}
+                       {{user_object.userprofile.region}},
                     {% endif %}
-                    {{user.userprofile.country.name}}
+                    {{user_object.userprofile.country.name}}
                     <br></td>
            </tr>
            <tr>
@@ -187,27 +187,27 @@
             
            <tr>   
                <td><h5> <b>Registration Number:</b> </h5></td>
-               <td>{{user.group.registration_number}}<br></td>
+               <td>{{user_object.group.registration_number}}<br></td>
            </tr>
            <tr>   
                <td><h5> <b>Document:</b> </h5></td>
-               {% if user.group.document %}
-                  <td><a href="{{user.group.document.url}}/">  download document<br></a></td>
+               {% if user_object.group.document %}
+                  <td><a href="{{user_object.group.document.url}}/">  download document<br></a></td>
                {% else %}
                   <td>None</td>
                {% endif %}
            </tr>
            <tr>   
                <td><h5> <b>Comments:</b> </h5></td>
-               <td>{{user.group.comments}}<br></td>
+               <td>{{user_object.group.comments}}<br></td>
            </tr>
            <tr>   
                <td><h5> <b>Primary Contact:</b> </h5></td>
-               <td>{{user.group.pc_first_name}}&nbsp; {{user.group.pc_last_name}}<br> {{user.group.pc_email}}<br> {{user.group.pc_job_title}}<br> {{user.group.pc_phone_number}}<br></td>
+               <td>{{user_object.group.pc_first_name}}&nbsp; {{user_object.group.pc_last_name}}<br> {{user_object.group.pc_email}}<br> {{user_object.group.pc_job_title}}<br> {{user_object.group.pc_phone_number}}<br></td>
            </tr>
            <tr>   
                <td><h5> <b>Secondary Contact:</b> </h5></td>
-               <td>{{user.group.sc_first_name}}&nbsp; {{user.group.sc_last_name}}<br> {{user.group.sc_email}}<br> {{user.group.sc_job_title}}<br> {{user.group.sc_phone_number}}<br></td>
+               <td>{{user_object.group.sc_first_name}}&nbsp; {{user_object.group.sc_last_name}}<br> {{user_object.group.sc_email}}<br> {{user_object.group.sc_job_title}}<br> {{user_object.group.sc_phone_number}}<br></td>
            </tr>
             <tr>
               <td><h5><b>Campaigns Donated:</b></h5></td>

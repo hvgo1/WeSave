@@ -19,9 +19,9 @@ def add_role(request):
 
         for checked in checked_individuals:
 
-            user = UserRole.objects.get(user_id=checked)
-            user.role = role
-            user.save()
+            user_object = UserRole.objects.get(user_id=checked)
+            user_object.role = role
+            user_object.save()
 
     return users_list(request)
 
@@ -29,8 +29,8 @@ def add_role(request):
 #Lists all users 
 def users_list(request): 
     #roles = UserRole.objects.filter(user=user) #returns all campaigns where the user is a donor
-    individual_list = Individual.objects.order_by('user')#user.username
-    userrole_list = UserRole.objects.order_by('user')
+    individual_list = Individual.objects.order_by('user_id')#user.username
+    userrole_list = UserRole.objects.order_by('user_id')
     paginator = Paginator(individual_list,8) #pagination
     page = request.GET.get('page')
     try:

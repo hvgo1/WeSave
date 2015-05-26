@@ -9,26 +9,26 @@ from crowdsourcing.forms import UserProfileForm, IndividualForm,GroupForm
 
 #View individual profile of users [privacy options pa]
 def view_profile(request,username): 
-    user = User.objects.get(username=username)
-    profile = UserProfile.objects.get(user_id=user.id) 
-    donor = CampaignUserDonor.objects.filter(user_id=user) #returns all campaigns where the user is a donor
-    sub = CampaignUserFollowers.objects.filter(user_id=user) #returns all campaigns where the user is a subscriber/follower
-    created = Campaign.objects.filter(created_by_id=user.id) #returns all campaigns where the user is a creator [by social workers only]
+    user_object = User.objects.get(username=username)
+    profile = UserProfile.objects.get(user_id=user_object.id) 
+    donor = CampaignUserDonor.objects.filter(user_id=user_object.id) #returns all campaigns where the user is a donor
+    sub = CampaignUserFollowers.objects.filter(user_id=user_object.id) #returns all campaigns where the user is a subscriber/follower
+    created = Campaign.objects.filter(created_by_id=user_object.id) #returns all campaigns where the user is a creator [by social workers only]
     
-    if Individual.objects.filter(user_id=user.id).exists():
-        details = Individual.objects.get(user_id=user.id)
+    if Individual.objects.filter(user_id=user_object.id).exists():
+        details = Individual.objects.get(user_id=user_object.id)
         is_indiv = True
     else:
-        details = Group.objects.get(user_id=user.id)
+        details = Group.objects.get(user_id=user_object.id)
         is_indiv = False
-    return render(request,'maintain_profile/viewprofile.html',{'user':user,'created':created,'sub':sub,'donor':donor,'profile':profile,'details':details,'is_indiv':is_indiv})
+    return render(request,'maintain_profile/viewprofile.html',{'user_object':user_object,'created':created,'sub':sub,'donor':donor,'profile':profile,'details':details,'is_indiv':is_indiv})
 
 #Update profiles of users
 def update_profile(request,username): 
-    user = User.objects.get(username=username)
-    profile = UserProfile.objects.get(user_id=user.id) 
-    if Individual.objects.filter(user_id=user.id).exists():
-        individual_details = Individual.objects.get(user_id=user.id)
+    user_object = User.objects.get(username=username)
+    profile = UserProfile.objects.get(user_id=user_object.id) 
+    if Individual.objects.filter(user_id=user_object.id).exists():
+        individual_details = Individual.objects.get(user_id=user_object.id)
         if request.method == 'GET':
             user_profile_form = UserProfileForm(instance=profile)
             individual_form = IndividualForm(instance=individual_details)
@@ -36,15 +36,15 @@ def update_profile(request,username):
             user_profile_form = UserProfileForm(request.POST, request.FILES,instance=profile)
             individual_form = IndividualForm(request.POST,instance=individual_details)  
         if user_profile_form.is_valid(): 
-            profile.photo=request.FILES.get('photo','profile_images/def.jpg')
+            #profile.photo=request.FILES.get('photo','profile_images/def.jpg')
             if individual_form.is_valid():
                 individual_details.save()  
                 profile.save()                         
                 return HttpResponseRedirect('/profile/'+username+'/')
         return render(request,'maintain_profile/updateprofile.html', {'user_profile_form': user_profile_form,'individual_form': individual_form,'action':'update/'+ username})
 
-    elif Group.objects.filter(user_id=user.id).exists():
-        group_details = Group.objects.get(user_id=user.id)
+    elif Group.objects.filter(user_id=user_object.id).exists():
+        group_details = Group.objects.get(user_id=user_object.id)
         if request.method == 'GET':
             user_profile_form = UserProfileForm(instance=profile)
             group_form = GroupForm(instance=group_details)
@@ -52,7 +52,7 @@ def update_profile(request,username):
             user_profile_form = UserProfileForm(request.POST, request.FILES,instance=profile)
             group_form = GroupForm(request.POST,instance=group_details)  
         if user_profile_form.is_valid(): 
-            profile.photo=request.FILES.get('photo','profile_images/def.jpg')
+            #profile.photo=request.FILES.get('photo','profile_images/def.jpg')
             
             if group_form.is_valid():
                           
@@ -70,7 +70,7 @@ def update_profile(request,username):
 
 #Lists all user profiles
 def list_profile(request): 
-    userlist = UserProfile.objects.order_by('user')
+    userlist = UserProfile.objects.order_by('user_id')
     paginator = Paginator(userlist,8) #pagination
     page = request.GET.get('page')
     try:

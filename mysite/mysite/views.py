@@ -20,7 +20,7 @@ def home(request):
 
 #Individual Registration
 def register_individual(request,username):
-    user = User.objects.get(username=username)
+    user_object = User.objects.get(username=username)
     if request.method == 'GET':
         user_profile_form = UserProfileForm()
         individual_form = IndividualForm()
@@ -32,14 +32,14 @@ def register_individual(request,username):
         if user_profile_form.is_valid():
    
             user_profile_object = user_profile_form.save(commit = False) 
-            user_profile_object.user_id = user.id
+            user_profile_object.user_id = user_object.id
             user_profile_object.photo=request.FILES.get('photo','profile_images/def.jpg')
                  
             if individual_form.is_valid():
                 individual_object = individual_form.save(commit=False)
-                individual_object.user_id=user.id  
+                individual_object.user_id=user_object.id  
                 individual_object.save()
-                role_object=UserRole.objects.get_or_create(role='Don',user_id=user.id)[0]
+                role_object=UserRole.objects.get_or_create(role='Don',user_id=user_object.id)[0]
                 individual_object.save() 
                 user_profile_object.save()          
                 return HttpResponseRedirect('/profile/'+username+'/')
@@ -47,7 +47,7 @@ def register_individual(request,username):
 
 #Group Registration
 def register_group(request,username):
-    user = User.objects.get(username=username)
+    user_object = User.objects.get(username=username)
     if request.method == 'GET':
         user_profile_form = UserProfileForm()
         group_form = GroupForm()
@@ -59,14 +59,14 @@ def register_group(request,username):
         if user_profile_form.is_valid():
   
             user_profile_object = user_profile_form.save(commit = False) 
-            user_profile_object.user_id = user.id
+            user_profile_object.user_id = user_object.id
             user_profile_object.photo=request.FILES.get('photo','profile_images/def.jpg')
                          
 
             if group_form.is_valid():
                 group_object = group_form.save(commit=False)
-                group_object.user_id=user.id    
-                role_object=UserRole.objects.get_or_create(role='Don',user_id=user.id)[0]    
+                group_object.user_id=user_object.id    
+                role_object=UserRole.objects.get_or_create(role='Don',user_id=user_object.id)[0]    
                 group_object.save()
                 group_form.save_m2m()   
                 user_profile_object.save()          
