@@ -38,16 +38,6 @@ class Keyword(models.Model):
         return u'%s' %(self.name)
     name = models.CharField(max_length=200)
 
-#class Address(models.Model):
- #   def __unicode__(self):  
-  #      return u'%s,%s,%s,%s,%s' %(self.street,self.barangay,self.city,self.region,self.country)    
- 
-   # country = CountryField()
-    #region = models.ForeignKey(Region,null=True, blank=True)   
-    #city = models.ForeignKey(City,null=True, blank=True)    
-    #barangay = models.ForeignKey(Barangay,null=True, blank=True)
-    #street = models.CharField(max_length=200)
-
 class ServiceCategory(models.Model):
     def __unicode__(self):  
         return u'%s' %(self.name)
@@ -87,6 +77,7 @@ class Individual(models.Model):
     middle_name = models.CharField(max_length=200,null=True,blank=True)
     last_name = models.CharField(max_length=200)
     birthday = models.DateField('birthday')
+    phone_number = models.CharField(max_length=12)
     user = models.OneToOneField(User)
 
 class Group(models.Model):
@@ -155,7 +146,7 @@ class CampaignUserDonor(models.Model):
     campaign = models.ForeignKey(Campaign)
     user = models.ForeignKey(User)
     amount = models.DecimalField(max_digits=20,decimal_places=2)
-
+    
 class CampaignWish(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.id)

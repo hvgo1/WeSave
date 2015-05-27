@@ -15,7 +15,7 @@ class UserProfileForm(forms.ModelForm):
 class IndividualForm(forms.ModelForm):
     class Meta:
         model = Individual
-        fields = ("first_name", "middle_name", "last_name","birthday")   
+        fields = ("first_name", "middle_name", "last_name","phone_number","birthday")   
 
 #Form for Group model
 class GroupForm(forms.ModelForm):

@@ -38,6 +38,7 @@ urlpatterns = patterns('',
 
 
     url(r'^profile/', include('maintain_profile.urls',namespace="profile")),
+    url(r'^donate/', include('donate.urls',namespace="donate")),
 
 
 )

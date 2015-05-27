@@ -1,0 +1,46 @@
+{% extends 'wsadmin/base.html' %}
+{% block body_block %}
+ 
+<br><br>
+<br><br>
+<section id="intro">
+</section>
+<section id="about" class="home-section text-center">
+<br><br>
+<center>
+<h1>Send In kind Donation</h1>
+
+<form  action="" method="post">
+{% csrf_token %}
+<table>
+  
+  {% if is_logged_in %}
+      <tr>
+          <td>{{inkind_form.description.errors}}</td> 
+          <td>{{inkind_form.description.label_tag}}</td>
+          <td>{{inkind_form.description}}</td>
+      </tr>
+       <tr><td>{{inkind_form.reason}}</td></tr>
+  <tr>
+      <tr><td>{{inkind_form.fair_market_value}}</td></tr>
+   {% else %}
+          {% for field in inkind_form %} 
+          <tr>
+              <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
+              <td style="padding-right:60px;">{{ field.label_tag }}</td> 
+              <td> {{ field }} </td>
+           </tr>
+          {% endfor %}
+   {% endif %}
+
+   
+   </tr>
+     
+</table>
+<button style="width:250px;margin-left: 60px;margin-top: 20px;" type="submit" class="btn btn-skin" name="Send" value="Send">Submit Donation Details</button>
+</form>
+
+<br><br>
+</center>
+</section>
+{% endblock %}
