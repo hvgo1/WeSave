@@ -93,7 +93,7 @@
 		</table>
 		{% if user.is_authenticated %}
 			<!--TODO: if user is a social worker -->
-			{% if campaign.created_by == user %}
+			{% if role == "Soc" %}
 			<button onclick="location.href = '/campaign/update/{{ campaign.id }}';" style="width:250px;" tonclick="location.href = 'www.yoursite.com';" ype="submit" class="btn btn-skin" name="updatebutton" value="Update">Update Campaign</button>
 			{% endif %}
 		{% endif %}

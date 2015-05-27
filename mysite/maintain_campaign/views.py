@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 
-from crowdsourcing.models import Campaign, CampaignWish, Wish
+from crowdsourcing.models import Campaign, CampaignWish, Wish, UserRole
 from maintain_campaign.forms import CampaignForm
 
 def index(request):
@@ -25,9 +25,9 @@ def addCampaign(request, username):
             
             campaign.save()
             for data in wish_cost:
+                wish = Wish.objects.get(name=data[0])
                 if wish.id > 1:
                     # TODO: should not submit campaign without wishes
-                    wish = Wish.objects.get(name=data[0])
                     if float(data[1]) > float(0):
                         try:
                             CampaignWish.objects.get_or_create(
@@ -44,8 +44,11 @@ def addCampaign(request, username):
             print form.errors
     else:
         if request.user.is_authenticated():
-            if username == request.user.get_username():
-                #TODO if user is a Social Worker
+            try:
+                user_role = UserRole.objects.get(user=user)
+            except UserRole.DoesNotExist:
+                raise Http404("User role does not exist.")
+            if user_role.role == "Soc":
                 form = CampaignForm()
             else:
                 raise PermissionDenied()
@@ -60,10 +63,12 @@ def viewCampaign(request, campaign_title_slug):
     try:
         campaign = Campaign.objects.get(slug=campaign_title_slug)
         wishes = CampaignWish.objects.filter(campaign=campaign)
+        user_role = UserRole.objects.get(user=request.user)
 
         context_dict['wishes'] = wishes
         context_dict['campaign'] = campaign
         context_dict['campaign_title_slug'] = campaign.slug
+        context_dict['role'] = user_role.role
 
     except Campaign.DoesNotExist:
         raise Http404("Campaign Page does not exist.")
@@ -82,21 +87,48 @@ def updateCampaign(request, id):
             campaign.beneficiary_name = request.POST["beneficiary_name"]
             campaign.story = request.POST["story"]
             campaign.deadline = request.POST["deadline"]
-            # TODO: on updating image, delete the previous image
-            # retain previous  
+            # TODO: on updating image, delete the previous image, retain previous
             campaign.campaign_image = request.FILES.get('campaign_image', campaign.campaign_image)
             campaign.save()
             # TODO: update wishes
             #wish = CampaignWish(wish_id=request.POST["wishes"], campaign_id=campaign.id, completed=False, estimated_price=0)
             #wish.save()
-            wish = request.POST.get('dropdown_wishes')
-
+            #wish = request.POST.get('dropdown_wishes')
+            wish_cost = zip(request.POST.getlist('wishes'), request.POST.getlist('cost'))
+            
+            campaign.save()
+            for data in wish_cost:
+                wish = Wish.objects.get(name=data[0])
+                if wish.id > 1:
+                    # TODO: should not submit campaign without wishes
+                    if float(data[1]) > float(0):
+                        try:
+                            CampaignWish.objects.get_or_create(
+                                campaign_id = campaign.id,
+                                wish_id = wish.id,
+                                completed = False,
+                                estimated_price = data[1])[0]
+                        except:
+                            pass
             redirect_link = '/campaign/view/' + campaign.slug + '/'
             return HttpResponseRedirect(redirect_link)
     else:
-        form = CampaignForm(instance=campaign)
+        if request.user.is_authenticated():
+            try:
+                user_role = UserRole.objects.get(user=request.user)
+            except UserRole.DoesNotExist:
+                raise Http404("User role does not exist.")
+            if user_role.role == "Soc":
+                form = CampaignForm(instance=campaign)
+                campaign_wishes = CampaignWish.objects.filter(campaign=campaign.id)
+                print campaign_wishes
+            else:
+                raise PermissionDenied()
+        else:
+            return redirect('/login/')
+        
 
-    return render(request, 'maintain_campaign/update_campaign.html', {'form':form, 'campaign':campaign, 'wishes':wishes})
+    return render(request, 'maintain_campaign/update_campaign.html', {'form':form, 'campaign':campaign, 'wishes':wishes, 'campaign_wishes':campaign_wishes})
 
 def donateToCampaign(request):
     #TODO: create donate to campaign page
@@ -108,7 +140,7 @@ def listCampaign(request):
     user = User.objects.get(username=request.user.get_username())
     print user.email
 
-    campaign_list = Campaign.objects.all()
+    campaign_list = Campaign.objects.filter(status="A")
     paginator = Paginator(campaign_list,20) #pagination
     page = request.GET.get('page')
     try:
