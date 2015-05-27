@@ -10,12 +10,22 @@
         {% if user == None %}
             Invalid login details.
         {% endif %}
+
         <form id="login_form" method="post" >
-            {% csrf_token %}        
-            <label for="username">Username</label>
-            <input type="text" class="" id="username" name="username" placeholder="Enter username" required="required" style = "width:200px; margin-left:5px;" value="" /><br/>
-            <label for="password">Password</label>
-            <input type="password" class="" id="password" name="password" placeholder="Enter password" required="required" style = "width:200px; margin-left:5px;" value="" />
+            {% csrf_token %}    
+            <table>    
+               <tr><td>
+                <label for="username">Username</label></td>
+                <td>
+                <input type="text" class="" id="username" name="username" placeholder="Enter username" required="required" style = "width:200px; margin-left:5px;left:5px;margin-bottom: 5px;" value="" /></td>
+
+                </tr>
+                <tr><td>
+                <label for="password">Password</label></td>
+                <td>
+                <input type="password" class="" id="password" name="password" placeholder="Enter password" required="required" style = "width:200px; margin-left:5px;" value="" /></td>
+                </tr>
+            </table>
             <div style="
                 padding-top: 10px;
                 padding-bottom: 10px;"   class="col-md-12">
