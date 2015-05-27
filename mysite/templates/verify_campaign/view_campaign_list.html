@@ -43,7 +43,7 @@ table#t2 th	{
     	{% for campaign in campaigns %}
                 <tr>
                 	<td><h5>{{campaign.title}}</h5></td>
-                	<td><h5><a href="/campaign/{{campaign.id}}"><b>View Page</b></a></h5></td>
+                	<td><h5><a href="/campaign/view/{{campaign.slug}}"><b>View Page</b></a></h5></td>
                 	<td><input type="checkbox" name="checks" value={{campaign.id}} /></td>
                 </tr>
     	{% endfor %}		

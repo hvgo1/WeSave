@@ -117,8 +117,19 @@ def listCampaign(request):
         campaigns = paginator.page(1)
     except EmptyPage:
         campaigns = paginator.page(paginator.num_pages)
-    #TODO: set default campaign image
     return render_to_response('maintain_campaign/view_campaign_list.html',{'campaigns':campaigns, 'user':user})
 
 def viewCampaignDetails(request):
-    return render(request, 'maintain_campaign/view_campaign_details.html',)
+    campaigns = Campaign.objects.all()
+    if request.method == 'POST':
+        print 'hello'
+
+    paginator = Paginator(campaigns,20) #pagination
+    page = request.GET.get('page')
+    try:
+        campaigns = paginator.page(page) 
+    except PageNotAnInteger:
+        campaigns = paginator.page(1)
+    except EmptyPage:
+        campaigns = paginator.page(paginator.num_pages)
+    return render(request, 'maintain_campaign/view_campaign_details.html',{'campaigns':campaigns})
