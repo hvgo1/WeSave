@@ -3,6 +3,7 @@ from donate.forms import InkindForm1,InkindForm2,InkindForm3
 from django.contrib.auth.models import User
 from crowdsourcing.models import Campaign,Individual,Group, UserProfile, UnregisteredDonor
 
+
 def donate_inkind(request,campaign_title_slug):
     campaign = Campaign.objects.get(slug=campaign_title_slug)
     if request.method == 'GET':
@@ -12,8 +13,10 @@ def donate_inkind(request,campaign_title_slug):
             user_object = User.objects.get(username=username)
             if Individual.objects.filter(user_id=user_object.id).exists():
                     is_individual = True
+                    print "indiv"
                     inkind_form = InkindForm2()
-            else:
+            elif Group.objects.filter(user_id=user_object.id).exists():
+                    print "group"
                     is_individual = False
                     inkind_form = InkindForm3()
             is_logged_in = True
@@ -47,14 +50,30 @@ def donate_inkind(request,campaign_title_slug):
                 inkind_form = InkindForm2(request.POST)
                 
                 if inkind_form.is_valid():
+                    print "valid"
                     inkind_object = inkind_form.save(commit=False)
-                    
+                    member = Individual.objects.get(user_id=user_object.id)
                     inkind_object.pc_contact_number = member.phone_number
                     inkind_object.name = user_object.username
                     inkind_object.email = user_object.email
-                    inkind_object.address = profile.street + "," + profile.barangay+ "," + profile.city + "," + profile.country
+                    if profile.barangay == None :
+                        barangay = " "
+
+                    else:
+                        barangay = profile.barangay
+                    if profile.city == None :
+                        city = " "
+                    else:
+                        city = profile.city              
+
+                    inkind_object.address = profile.street +  unicode(barangay) + unicode(city) + unicode(profile.country.name)
                     inkind_object.campaign_id = campaign.id
                     inkind_object.save() 
+                    print inkind_object.pc_contact_number
+                    print inkind_object.name
+                    print inkind_object.email
+                    print inkind_object.address
+                    print inkind_object.campaign_id
                     print is_logged_in
             else:
                 print "group" 
@@ -63,12 +82,21 @@ def donate_inkind(request,campaign_title_slug):
                 
                 if inkind_form.is_valid():
                     inkind_object = inkind_form.save(commit=False)
-                    
-                    inkind_object.pc_contact_number = member.pc_contact_number
-                    inkind_object.sc_contact_number = member.sc_contact_number
+                    member = Group.objects.get(user_id=user_object.id)
+                    inkind_object.pc_contact_number = member.pc_phone_number
+                    inkind_object.sc_contact_number = member.sc_phone_number
                     inkind_object.name = user_object.username
                     inkind_object.email = user_object.email
-                    inkind_object.address = profile.street + "," + profile.barangay+ "," + profile.city + "," + profile.country
+                    if profile.barangay == None :
+                        barangay = " "
+
+                    else:
+                        barangay = profile.barangay
+                    if profile.city == None :
+                        city = " "
+                    else:
+                        city = profile.city    
+                    inkind_object.address = profile.street +  unicode(barangay) + unicode(city) + unicode(profile.country.name)
                     inkind_object.campaign_id = campaign.id
                     inkind_object.save() 
                     print is_logged_in

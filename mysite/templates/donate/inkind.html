@@ -1,4 +1,4 @@
-{% extends 'wsadmin/base.html' %}
+{% extends 'mysite/base.html' %}
 {% block body_block %}
  
 <br><br>
@@ -10,37 +10,11 @@
 <center>
 <h1>Send In kind Donation</h1>
 
-<form  action="" method="post">
+<form  action="" method="POST">
 {% csrf_token %}
 <table>
   
-  {% if is_logged_in %}
-
-     {%if is_individual%}
-      <tr>
-          <td style="padding-right:40px;padding-top:35px;">{{inkind_form.sc_contact_number.errors}}</td> 
-          <td style="padding-right:60px;">{{inkind_form.sc_contact_number.label_tag}}</td>
-          <td>{{inkind_form.sc_contact_number}}</td>
-      </tr>
-   
-     {% endif %}
-       <tr>
-          <td style="padding-right:40px;padding-top:35px;">{{inkind_form.description.errors}}</td> 
-          <td style="padding-right:60px;">{{inkind_form.description.label_tag}}</td>
-          <td>{{inkind_form.description}}</td>
-      </tr>
-       <tr>
-          <td style="padding-right:40px;padding-top:35px;">{{inkind_form.reason.errors}}</td>
-          <td style="padding-right:60px;">{{inkind_form.reason.label_tag}}</td>
-          <td>{{inkind_form.reason}}</td>
-      </tr>
-       <tr>
-          <td style="padding-right:40px;padding-top:35px;">{{inkind_form.fair_market_value.errors}}</td>
-          <td style="padding-right:60px;">{{inkind_form.fair_market_value.label_tag}}</td>
-          <td>{{inkind_form.fair_market_value}}</td>
-      </tr>
-
-   {% else %}
+ 
           {% for field in inkind_form %} 
           <tr>
               <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
@@ -48,7 +22,7 @@
               <td> {{ field }} </td>
            </tr>
           {% endfor %}
-   {% endif %}
+  
 
    
    </tr>
@@ -61,3 +35,5 @@
 </center>
 </section>
 {% endblock %}
+
+
