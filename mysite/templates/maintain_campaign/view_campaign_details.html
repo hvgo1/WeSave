@@ -37,7 +37,7 @@
 	<table id="t2" class="tablesorter" style="width:100%;">
 		<thead>
 			<tr>
-				<th colspan="6"><h1 style="color:white;">Campaigns</h1></th>
+				<th colspan="7"><h1 style="color:white;">Campaigns</h1></th>
 			</tr>
 			<tr>
 				<td><h4>ID</h4></td>
@@ -45,7 +45,7 @@
 				<td><h4>Story</h4></td>
 				<td><h4>Created by</h4></td>
 				<td><h4>Status</h4></td>
-				<td><h4>Action</h4></td>
+				<td colspan="2"><h4>Actions</h4></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -57,6 +57,7 @@
 	        	<td><h5>{{campaign.created_by}}</h5></td>
 	        	<td><h5>{{campaign.get_status_display}}</h5></td>
 	        	<td><h5><a href="/campaign/update/{{campaign.id}}"><b>Update</b></a></h5></td>
+	        	<td><h5><a href="/wsadmin/campaign/view-details/reallocate/{{campaign.id}}/"><b>Reallocate</b></a></h5></td>
 	        </tr>
 			{% endfor %}
 		</tbody>
