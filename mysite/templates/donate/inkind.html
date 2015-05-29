@@ -1,0 +1,39 @@
+{% extends 'mysite/base.html' %}
+{% block body_block %}
+ 
+<br><br>
+<br><br>
+<section id="intro">
+</section>
+<section id="about" class="home-section text-center">
+<br><br>
+<center>
+<h1>Send In kind Donation</h1>
+
+<form  action="" method="POST">
+{% csrf_token %}
+<table>
+  
+ 
+          {% for field in inkind_form %} 
+          <tr>
+              <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
+              <td style="padding-right:60px;">{{ field.label_tag }}</td> 
+              <td> {{ field }} </td>
+           </tr>
+          {% endfor %}
+  
+
+   
+   </tr>
+     
+</table>
+<button style="width:250px;margin-left: 60px;margin-top: 20px;" type="submit" class="btn btn-skin" name="Send" value="Send">Submit Donation Details</button>
+</form>
+
+<br><br>
+</center>
+</section>
+{% endblock %}
+
+

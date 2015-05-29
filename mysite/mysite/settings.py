@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'verify_campaign',
     'maintain_campaign',  
     'manage_social_workers', 
+    'donate',
 
 )
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
