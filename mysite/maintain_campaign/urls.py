@@ -1,6 +1,6 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from maintain_campaign import views
-
+import donate
 urlpatterns = patterns('', 
     #url(r'^$', views.index, name='index'),
     url(r'^add/(?P<username>\w+)/$', views.addCampaign, name='add_campaign'),
@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^update/(?P<id>\d+)/$', views.updateCampaign, name='update_campaign'),
     url(r'^list/$', views.listCampaign, name='list_campaign'),
     url(r'^view-details/$', views.viewCampaignDetails, name='view_campaign_details'),
+    url(r'^donate/', include('donate.urls', namespace="donate")),
     )

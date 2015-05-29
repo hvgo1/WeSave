@@ -1,0 +1,84 @@
+{% extends 'mysite/base.html' %}
+{% block title %}Donate{% endblock%}
+{% block body_block %}
+<section id="intro">
+	</section>
+<section id="about" class="home-section">
+	<br><br>
+	<div style="text-align:right; margin-right:110px">
+		<a href="/donate/in-kind/{{campaign.slug}}/">Donate In-kind</a>
+	</div>
+	<center>
+		<h1>Donate</h1>
+
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		{% csrf_token %}
+			<table>
+				<div class="fieldWrapper">
+				<tr>
+					<td style="padding-right:60px; ">
+						<h5>Campaign Title</h5>
+					</td>
+					<td>
+						{{ campaign.title }}
+					</td>
+				</tr>
+				<tr>          
+                    <td style="padding-right:60px; ">
+						<h5>Donor's Name</h5>
+					</td>
+					{% if user.is_authenticated %}
+					<td>
+						{{ user.username }}
+					</td>
+					{% else %}
+					<td>
+						<input type="text" name="donor_name" id="donor_name">
+					</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td>
+						<h5>Amount</h5>
+					</td>
+					<td>
+						<select name="currency_code" id="currency_code">
+        	                <option id="currency" name="currency">PHP</option>
+        	                <option id="currency" name="currency">USD</option>
+    	                </select>
+						<input type="number" name="amount" id="amount" onkeypress='validate(event)' style="text-align:right;" min="0.01" step="0.01"><br/>
+					</td>
+				</tr>
+				</div>
+			</table>
+
+			<input type="hidden" name="cmd" value="_xclick">
+			<input type="hidden" name="business" value="wesave@gmail.com">
+			<input type="hidden" name="lc" value="PH">
+			<input type="hidden" name="item_name" value="WeSave: {{ campaign.title }}">
+			<input type="hidden" name="button_subtype" value="services">
+			<input type="hidden" name="no_note" value="0">
+			<input type="hidden" name="cn" value="Add special instructions to the seller">
+			<input type="hidden" name="no_shipping" value="2">
+			<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+
+			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+			">
+			<button style="width:250px; margin-top: 20px;" type="submit" class="btn btn-skin" name="Send" value="Send">Donate</button>
+		</form>
+		<br><br>
+	</center>
+</section>
+<script>
+    function validate(evt) {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode( key );
+        var regex = /[0-9]|\./;
+        if( !regex.test(key) ) {
+            theEvent.returnValue = false;
+            if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
+</script>
+{% endblock %}
