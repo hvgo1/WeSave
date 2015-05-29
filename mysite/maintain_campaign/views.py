@@ -137,8 +137,10 @@ def donateToCampaign(request):
     return render(request, 'maintain_campaign/view_campaign.html', context_dict)
 
 def listCampaign(request):
-    user = User.objects.get(username=request.user.get_username())
-    print user.email
+    context_dict = {}
+    if request.user.is_authenticated():
+        user = User.objects.get(username=request.user.get_username())
+        context_dict['user'] = user
 
     campaign_list = Campaign.objects.filter(status="A")
     paginator = Paginator(campaign_list,20) #pagination
@@ -149,7 +151,9 @@ def listCampaign(request):
         campaigns = paginator.page(1)
     except EmptyPage:
         campaigns = paginator.page(paginator.num_pages)
-    return render_to_response('maintain_campaign/view_campaign_list.html',{'campaigns':campaigns, 'user':user})
+    context_dict['campaigns'] = campaigns
+
+    return render_to_response('maintain_campaign/view_campaign_list.html',context_dict)
 
 def viewCampaignDetails(request):
     campaigns = Campaign.objects.all()
