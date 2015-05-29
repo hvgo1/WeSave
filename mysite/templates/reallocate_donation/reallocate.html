@@ -1,0 +1,86 @@
+{% extends 'wsadmin/base.html' %}
+{% block body_block %}
+ <head>
+<style>
+table, th, td {
+    padding: 5px;
+    text-align: center;
+}
+table#t2 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#t2 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#t2 th	{
+    background-color: #87CEEB;;
+  
+}
+</style>
+</head><section id="intro">
+
+</section>
+<section id="about" class="home-section text-center">
+<br>
+
+<body>
+<form action="add-role/" method="POST">
+{% csrf_token %}  
+<table id="t2" style="width:100%;">
+
+    		    <tr ><th colspan="3" style="color:white;"><h1 style="padding-top: 5px;">Wishes</h1></th></tr>
+    			<tr>
+                    <td><h4>Name</h4></td> 
+                    <td ><h4>Status</h4></td>
+                    
+                    <td style="width: 460px;"><h4>Action</h4></td>
+                </tr>
+   		        {% if wishes %}
+                {% for wish in wishes.all %}
+                 <tr>
+                      <td><h5>{{wish.wish.name}}</h5></td>
+                      {% if wish.completed == 1 %}
+                           <td><h5>Completed</h5></td>
+                      {% else %}
+                           <td><h5>Incomplete</h5></td>
+                      {% endif %}
+                      {% if wish.completed == 1 %}
+                          <td><h5>Reallocate to:</h5> 
+                                <form action="" method="POST">
+                                    {% csrf_token %} 
+                                    <table>
+                                    <tr>
+                                      <td><input type="hidden" name="wish_id" value="{{wish.id}}"></td>
+                                      <td><select style= "width:250px;"id="subject" name="campaign" class="form-control" required="required">
+                                        <option value="na" selected="">Choose Campaign:</option>
+                                     {% for entry in campaigns %}
+                                          <option value="{{ entry.id }}">{{ entry.title }}, {{entry.deadline}}</option>
+                                     {% endfor %}
+                                     </select></td>
+                                     <td>
+                                	<button style="width: 120px;" type="submit" class=" btn btn-skin" name="reallocate" value="reallocate">Reallocate</button>
+                                	</td>
+                                	</tr>
+                                    </table>
+                                </form>
+                            
+                          </td>
+                      {% else %}
+                          <td>None</td>
+                      {% endif %}
+                 </tr>
+
+                {% endfor %}
+{% else %}
+         None
+{% endif %}
+ 			
+</table>
+<br>
+
+
+</body>
+<br><br>
+<br><br>
+</section>
+{% endblock %}
