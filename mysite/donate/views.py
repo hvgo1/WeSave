@@ -95,4 +95,16 @@ def donate_inkind(request,campaign_title_slug):
                 inkind_object.campaign_id = campaign.id
                 inkind_object.save()          
         return HttpResponseRedirect('/home/')
-    return render(request,'donate/inkind.html',{'inkind_form':inkind_form})
+    return render(request,'donate/inkind.html',{'inkind_form':inkind_form, 'campaign':campaign})
+
+def donate_monetary(request, campaign_title_slug):
+    context_dict = {}
+    campaign = Campaign.objects.get(slug=campaign_title_slug)
+    context_dict['campaign'] = campaign
+
+    if request.method == 'POST':
+        print 'POST'
+    else:
+        print 'GET'
+
+    return render(request, 'donate/monetary.html', context_dict)

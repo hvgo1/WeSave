@@ -63,12 +63,13 @@ def viewCampaign(request, campaign_title_slug):
     try:
         campaign = Campaign.objects.get(slug=campaign_title_slug)
         wishes = CampaignWish.objects.filter(campaign=campaign)
-        user_role = UserRole.objects.get(user=request.user)
+        if request.user.is_authenticated():
+            user_role = UserRole.objects.get(user=request.user)
+            context_dict['role'] = user_role.role
 
         context_dict['wishes'] = wishes
         context_dict['campaign'] = campaign
         context_dict['campaign_title_slug'] = campaign.slug
-        context_dict['role'] = user_role.role
 
     except Campaign.DoesNotExist:
         raise Http404("Campaign Page does not exist.")

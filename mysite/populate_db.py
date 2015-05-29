@@ -138,6 +138,7 @@ def populate():
         email="dymark@yahoo.com")
     print "user"
 
+    add_userrole(user=1, role='Soc')
 
     add_userprofile(photo="profile_images/4.jpg",
         street="36 Barangka St.",
