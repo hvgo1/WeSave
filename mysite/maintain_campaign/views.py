@@ -157,10 +157,21 @@ def listCampaign(request):
     return render_to_response('maintain_campaign/view_campaign_list.html',context_dict)
 
 def viewCampaignDetails(request):
+    is_admin = False
+    if request.user.is_authenticated():
+        try:
+            username = request.user.get_username()
+            user_object = User.objects.get(username=username)
+            user_role = UserRole.objects.get(user=user_object)
+        except UserRole.DoesNotExist:
+            raise Http404("User role does not exist.")
+        if user_role.role == "Adm":
+            is_admin = True
+            
     campaigns = Campaign.objects.all()
     if request.method == 'POST':
         print 'hello'
-
+    
     paginator = Paginator(campaigns,20) #pagination
     page = request.GET.get('page')
     try:
@@ -169,4 +180,4 @@ def viewCampaignDetails(request):
         campaigns = paginator.page(1)
     except EmptyPage:
         campaigns = paginator.page(paginator.num_pages)
-    return render(request, 'maintain_campaign/view_campaign_details.html',{'campaigns':campaigns})
+    return render(request, 'maintain_campaign/view_campaign_details.html',{'campaigns':campaigns,'is_admin':is_admin})

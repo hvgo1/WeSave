@@ -57,7 +57,11 @@
 	        	<td><h5>{{campaign.created_by}}</h5></td>
 	        	<td><h5>{{campaign.get_status_display}}</h5></td>
 	        	<td><h5><a href="/campaign/update/{{campaign.id}}"><b>Update</b></a></h5></td>
-	        	<td><h5><a href="/wsadmin/campaign/view-details/reallocate/{{campaign.id}}/"><b>Reallocate</b></a></h5></td>
+	        	{% if is_admin %}
+	        	   <td><h5><a href="/wsadmin/campaign/view-details/reallocate/{{campaign.id}}/"><b>Reallocate</b></a></h5></td>
+	        	{% else %}
+	        	    <td><h5><b>Reallocate</b></h5></td>
+	        	{% endif %}
 	        </tr>
 			{% endfor %}
 		</tbody>

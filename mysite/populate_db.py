@@ -209,24 +209,32 @@ def populate():
     print "grp" 
 
     add_campaign(title="For the Kids",beneficiary="Ella,Rosie,Marie,Selena",
-        story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
+        story="Kids in Ward 2 were diagnosed with acute malnutrion. A need for various laboratory testing and micronutrient supplements are advised by the hospital's nutritionist.",
         dline="2015-06-28",status='D',views=10,ack=None,image="campaign_images/2.jpg",createdby=2)
 
-    add_campaign(title="Maura: Cancer Survivor",beneficiary="Maura",
-        story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
+    add_campaign(title="Surviving Cancer",beneficiary="Lyn, Yve",
+        story="Lyn and Yve, 33 years old and 39 years old respectively, were diagnosed with breast cancer. the pain forced them to stop their work to provide for their family.They needed funds to perform masectomy to avoid the spread of cancer.'This surgery will save their lives,' said their doctor. ",
         dline="2015-06-28",status='F',views=5,ack=None,image="campaign_images/1.jpg",createdby=6)
 
     add_campaign(title="For Ben",beneficiary="Ben",
-        story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2015-06-28",status='A',views=0,ack=None,image="campaign_images/3.jpg",createdby=3)
+        story="Ben, 53 years old, slipped badly in the bathroom in their small house. He acquired a fractured femur. He is the breadwinner of the family, but he is forced to stop his work as a janitor due to his injury. Ben has three children which are still young to work. His wife is now a food vendor to be able to pay for his treatments but ben needs a surgery to realign the broken bone which costs php 25,830. He and his wife's current work is not enough to raise this amount of money that may allow him to again support his family.",
+        dline="2015-06-28",status='I',views=0,ack=None,image="campaign_images/3.jpg",createdby=3)
 
-    add_campaign(title="Andy the Great",beneficiary="Andy",
-        story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
+    add_campaign(title="Supporting Andy",beneficiary="Andy",
+        story="Andy is only 28 years old and diagnosed with kidney disease. Father of four children. He is the family breadwinner, working as a jeepney driver. Per session of a dialysis costs Php 3,500/week and he needs to take three treatments a week which will costs php 42,000. What he earns a public transportation driver is only enough for his family's daily needs.",
         dline="2015-02-23",status='C',views=10,ack="ack_receipts/ack.pdf",image="campaign_images/4.jpg",createdby=7)
 
-    add_campaign(title="Lyn & Yve: Golden Hearts",beneficiary="Lyn, Yve",
-        story="Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare",
-        dline="2011-06-28",status='I',views=10,ack=None,image="campaign_images/5.jpg",createdby=4)
+    add_campaign(title="Help Rico Raise Funds",beneficiary="Rico",
+        story="Rico is 66 years old and admitted at ward-2 bed-27. Rico is married and with three children. His youngest is 16 years old and his eldest is 23 years old. Two of his children are married while the other was separated. His wife works as a launderer and earns Php 350/day. He has abdominal mass and needs to undergo diagnostic procedures for Php 9,400. He needs medicines that will cost Php 11,000 and operation expenses for Php 15,000. Rico was a former family driver before he got sick three years ago. He is not a registered member for Philhealth and has no means to support his treatments.",
+        dline="2011-06-28",status='A',views=10,ack=None,image="campaign_images/5.jpg",createdby=4)
+
+    add_campaign(title="Common Fund",beneficiary="WeSave Beneficiaries",
+        story="Donate to WeSave's Common Fund.",
+        dline="2011-06-28",status='A',views=10,ack=None,image=None,createdby=4)
+
+    add_campaign(title="Common Goods",beneficiary="WeSave Beneficiaries",
+        story="Donate to WeSave's Common Goods. Limited only to home medical equipments.",
+        dline="2011-06-28",status='A',views=10,ack=None,image=None,createdby=4)
     print "camp" 
 
     add_unregistereddonor(name="Syara",campaign=1,amount=200.00)
@@ -265,12 +273,14 @@ def populate():
     add_campaigndonor(campaign=5,user=11,amount=800.00)
     print "cdon" 
 
-    add_campaignwish(campaign=2,wish=3,compl=0,est=3000.00)
-    add_campaignwish(campaign=3,wish=4,compl=1,est=1000.00)
-    add_campaignwish(campaign=4,wish=5,compl=0,est=2000.00)
-    add_campaignwish(campaign=5,wish=6,compl=0,est=4000.00)
-    add_campaignwish(campaign=1,wish=5,compl=0,est=2000.00)
-    add_campaignwish(campaign=3,wish=8,compl=1,est=1300.00)  
+    add_campaignwish(campaign=2,wish=3,compl=0,est=33000.00)
+    add_campaignwish(campaign=3,wish=3,compl=1,est=25830.00)
+    add_campaignwish(campaign=4,wish=4,compl=0,est=42000.00)
+    add_campaignwish(campaign=5,wish=3,compl=0,est=11000.00)
+    add_campaignwish(campaign=5,wish=4,compl=0,est=24400.00)
+    add_campaignwish(campaign=1,wish=3,compl=0,est=10000.00)
+    add_campaignwish(campaign=1,wish=4,compl=0,est=5000.00)
+  
     print "cwish"     
 
     add_campaignfollowers(campaign=1,user=2)
@@ -381,6 +391,8 @@ def add_group(name,page,abt,scat,rnum,doc,comm,pcf,pcl,pce,pcj,pcp,scf,scl,sce,s
     return u
 
 def add_campaign(title,beneficiary,story,dline,status,views,ack,image,createdby):
+    if image==None:
+        image='campaign_images/default.png'
     c = Campaign.objects.get_or_create(title=title,
         beneficiary_name=beneficiary,
         story=story,
