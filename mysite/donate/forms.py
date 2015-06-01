@@ -1,5 +1,6 @@
 from django import forms
 from donate.models import InkindDonation
+from crowdsourcing.models import CampaignUserDonor
 
 class InkindForm1(forms.ModelForm):
     name = forms.CharField(max_length=128)
@@ -35,3 +36,8 @@ class InkindForm3(forms.ModelForm):
         model = InkindDonation
         exclude = ('campaign',)
         fields = ('description','remarks','fair_market_value')
+
+class CampaignUserDonorForm(forms.ModelForm):
+    class Meta:
+        model = CampaignUserDonor
+        fields = ('user', 'amount')

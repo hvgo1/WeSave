@@ -23,6 +23,11 @@ def addCampaign(request, username):
 
             wish_cost = zip(request.POST.getlist('wishes'), request.POST.getlist('cost'))
             
+            if request.POST['submitbutton'] == 'Save':
+                campaign.status = 'D'
+            elif request.POST['submitbutton'] == 'Submit':
+                campaign.status = 'F'
+
             campaign.save()
             for data in wish_cost:
                 wish = Wish.objects.get(name=data[0])

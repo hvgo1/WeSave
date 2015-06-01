@@ -110,3 +110,13 @@ def donate_monetary(request, campaign_title_slug):
         print 'GET'
 
     return render(request, 'donate/monetary.html', context_dict)
+
+def success(request, campaign_title_slug):
+    #TODO: update campaign status and donor list
+
+    redirect_link = '/campaign/view/' + campaign_title_slug + '/'
+    return HttpResponseRedirect(redirect_link)
+
+def cancelled(request, campaign_title_slug):
+    redirect_link = '/donate/monetary/' + campaign_title_slug + '/'
+    return HttpResponseRedirect(redirect_link)
