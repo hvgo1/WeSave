@@ -105,7 +105,9 @@ def populate():
     add_wish("Hospital bed",'1')
     add_wish("Crutch",'1') 
     print "wish" 
-     
+    
+    add_userrole(user=1, role='Soc')
+    
     add_user(uname="trisprior",
         passw="trisprior",
         email="tris@yahoo.com")
@@ -138,8 +140,11 @@ def populate():
         email="dymark@yahoo.com")
     print "user"
 
-    add_userrole(user=1, role='Soc')
 
+    add_userprofile(photo="profile_images/1.jpg",
+        street="",
+        barangay=8,city=1,region=17,country='PH',
+        user=1)
     add_userprofile(photo="profile_images/4.jpg",
         street="36 Barangka St.",
         barangay=8,city=1,region=17,country='PH',
@@ -183,6 +188,7 @@ def populate():
     print "uprof" 
 
 
+    add_individual(fname="Wesave",mid=None,lname="admin",bday="1991-01-04",user=1)
     add_individual(fname="Tris",mid=None,lname="Prior",bday="1991-01-04",user=2)
     add_individual(fname="Emmalyn",mid="Santos",lname="Roberts",bday="1971-08-26",user=4)
     add_individual(fname="Christopher",mid="Lopez",lname="Pine",bday="1961-06-30",user=5)
