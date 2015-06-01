@@ -6,9 +6,11 @@ from crowdsourcing.models import Campaign,Individual,Group, UserProfile, Unregis
 
 def donate_inkind(request,campaign_title_slug):
     campaign = Campaign.objects.get(slug=campaign_title_slug)
+    username = ""
     if request.method == 'GET':
         
         if request.user.is_authenticated():
+            logged_in = True
             username = request.user.get_username()
             user_object = User.objects.get(username=username)
             if Individual.objects.filter(user_id=user_object.id).exists():
@@ -19,13 +21,13 @@ def donate_inkind(request,campaign_title_slug):
                     inkind_form = InkindForm3()
   
         else:
-        
+            logged_in = False
             inkind_form = InkindForm1()
    
     else:
 
         if request.user.is_authenticated():
- 
+            logged_in = True
             username = request.user.get_username()
             user_object = User.objects.get(username=username)
          
@@ -83,7 +85,7 @@ def donate_inkind(request,campaign_title_slug):
 
             
         else:
-         
+            logged_in = False
             inkind_form = InkindForm1(request.POST)
             
             if inkind_form.is_valid():
@@ -95,7 +97,7 @@ def donate_inkind(request,campaign_title_slug):
                 inkind_object.campaign_id = campaign.id
                 inkind_object.save()          
         return HttpResponseRedirect('/home/')
-    return render(request,'donate/inkind.html',{'inkind_form':inkind_form, 'campaign':campaign})
+    return render(request,'donate/inkind.html',{'inkind_form':inkind_form, 'campaign':campaign,'logged_in':logged_in,'username':username})
 
 def donate_monetary(request, campaign_title_slug):
     context_dict = {}

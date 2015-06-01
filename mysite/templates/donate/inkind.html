@@ -9,14 +9,30 @@
 
 		<form  action="" method="POST">
 		{% csrf_token %}
+
 			<table>
-			    {% for field in inkind_form %} 
-			    <tr>
-			        <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
-			        <td style="padding-right:60px;">{{ field.label_tag }}</td> 
-			        <td> {{ field }} </td>
-			    </tr>
-			    {% endfor %}
+			    {% if logged_in %}
+                    <tr>
+                        <td></td>
+                    	<td><b> Donor's Name </b></td>
+                    	<td><b> {{username}} </b></td>
+                    </tr>
+                    {% for field in inkind_form %} 
+				    <tr>
+				        <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
+				        <td style="padding-right:60px;">{{ field.label_tag }}</td> 
+				        <td> {{ field }} </td>
+				    </tr>
+				    {% endfor %}
+			    {% else %}
+				    {% for field in inkind_form %} 
+				    <tr>
+				        <td style="padding-right:40px;padding-top:35px;"> {{ field.errors }} </td>
+				        <td style="padding-right:60px;">{{ field.label_tag }}</td> 
+				        <td> {{ field }} </td>
+				    </tr>
+				    {% endfor %}
+			    {% endif %}
 			</table>
 			<button style="width:250px; margin-top: 20px;" type="submit" class="btn btn-skin" name="Send" value="Send">Submit Donation Details</button>
 		</form>
