@@ -11,6 +11,6 @@ class InkindDonation(models.Model):
     pc_contact_number = models.CharField(max_length=128)
     sc_contact_number = models.CharField(max_length=128)
     description = models.CharField(max_length=1200)
-    reason = models.CharField(max_length=1200)
+    remarks = models.CharField(max_length=1200)
     fair_market_value = models.DecimalField(max_digits=20,decimal_places=2)
     campaign = models.ForeignKey(Campaign)    
