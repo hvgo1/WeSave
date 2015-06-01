@@ -16,7 +16,14 @@ class RegFormEmail(RegistrationFormNoFreeEmail):
 
 # Homepage
 def home(request):
-    return render(request,'mysite/index.html')
+    context_dict = {}
+    if request.user.is_authenticated():
+        try:
+            user_role = UserRole.objects.get(user=request.user)
+            context_dict['user_role'] = user_role
+        except UserRole.DoesNotExist:
+            raise Http404("User role does not exist.")
+    return render(request,'mysite/index.html', context_dict)
 
 #Individual Registration
 def register_individual(request,username):

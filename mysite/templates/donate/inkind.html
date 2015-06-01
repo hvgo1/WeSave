@@ -1,9 +1,14 @@
 {% extends 'mysite/base.html' %}
+{% block title %}Donate{% endblock%}
 {% block body_block %}
 <section id="intro">
 	</section>
-<section id="about" class="home-section text-center">
+<section id="about" class="home-section">
 	<br><br>
+	<div style="text-align:right; margin-right:110px">
+		<a href="/donate/monetary/{{campaign.slug}}/">Donate Money</a>
+	</div>
+
 	<center>
 		<h1>Send In kind Donation</h1>
 
@@ -22,7 +27,6 @@
 		</form>
 
 		<br><br>
-		<a href="/donate/monetary/{{campaign.slug}}/">Donate Money</a>
 	</center>
 </section>
 {% endblock %}
