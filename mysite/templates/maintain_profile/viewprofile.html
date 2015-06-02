@@ -126,9 +126,11 @@
          </tr>
          {% if user.is_authenticated %}
            {% if user_object.username == user.username %}
-            <tr><td><h4>
-            <a href="/profile/update/{{user.username}}">Update Profile </a>
-            </h4></td></tr>
+            <tr><td>
+            <center>
+            <a href="/profile/update/{{user.username}}" class="btn btn-skin" style="width:250px; padding-top:10px;">Update Profile </a>
+            </center>
+            </td></tr>
            {% endif %}
         {% endif %}
 
