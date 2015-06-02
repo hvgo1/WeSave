@@ -7,7 +7,7 @@ from django.conf import settings
 import smtplib
 
 #Sends all contacts to WeSave email
-def contact_us(request):
+def contactUs(request):
 
     if request.method == 'GET': 
         contact_form = ContactForm()

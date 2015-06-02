@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from crowdsourcing.models import Campaign, CampaignWish
 

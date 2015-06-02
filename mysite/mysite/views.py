@@ -26,7 +26,7 @@ def home(request):
     return render(request,'mysite/index.html', context_dict)
 
 #Individual Registration
-def register_individual(request,username):
+def registerIndividual(request,username):
     user_object = User.objects.get(username=username)
     if request.method == 'GET':
         user_profile_form = UserProfileForm()
@@ -53,7 +53,7 @@ def register_individual(request,username):
     return render(request,'registration/addindividual.html', {'user_profile_form': user_profile_form,'individual_form': individual_form})
 
 #Group Registration
-def register_group(request,username):
+def registerGroup(request,username):
     user_object = User.objects.get(username=username)
     if request.method == 'GET':
         user_profile_form = UserProfileForm()
@@ -81,7 +81,7 @@ def register_group(request,username):
     return render(request, 'registration/addgroup.html', {'user_profile_form':user_profile_form, 'group_form':group_form})
 
 #User Authentication
-def user_login(request):
+def userLogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -103,6 +103,6 @@ def user_login(request):
 
 #Restrict
 @login_required
-def user_logout(request):
+def userLogout(request):
     logout(request)
     return HttpResponseRedirect('/home/')
