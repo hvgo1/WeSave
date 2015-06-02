@@ -7,15 +7,19 @@
 		    text-align: left;
 		    vertical-align: top;
 		}
-		table#t2 tr:nth-child(even) {
+		table#targetTable tr:nth-child(even) {
 		    background-color: #fff;
 		}
-		table#t2 tr:nth-child(odd) {
+		table#targetTable tr:nth-child(odd) {
 		   background-color:#eee;
 		}
-		table#t2 th	{
+		table#targetTable th	{
 		    background-color: #87CEEB;
 		    text-align: center;
+		}
+		#scroll_table{
+			overflow-y: scroll; 
+			height: 120px;
 		}
 	</style>
 {% endblock %}
@@ -67,20 +71,34 @@
 						<br/>
 						<h3 style="padding-top:5px; height:20px; color:#87CEEB;">Campaign Status</h3>
 							<div class="progress">
-				    			<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="100"   aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-					        		<span><b>60% </b></span>
+				    			<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="100"   aria-valuemin="0" aria-valuemax="100" style="width: {{ campaign_percentage }}%;">
+					        		<span><b>{{ campaign_percentage }}%</b></span>
 				    			</div>
 				            </div>
-			    		<button onclick="location.href = '/donate/monetary/{{ campaign.slug }}';" style="width: 106px;" type="submit" class="btn btn-skin" id="btnDonate">Donate</button>
+				        {% if campaign_percentage < 100 %}
+			    			<button onclick="location.href = '/donate/monetary/{{ campaign.slug }}';" style="width: 106px;" type="submit" class="btn btn-skin" id="btnDonate">Donate</button>
+			    		{% else %}
+			    			<h4>Funded</h4>
+			    		{% endif %}
 												
 			    		<br/><br/><br/>
 			    		<h3 style="padding-top:5px; height:20px; color:#87CEEB;">Donors List</h3>
-			    		<table id="t2" style="width:100%;">
-		    			<tr><td><h5>Anonymous</h5></td><td><h5>₱ 3,100</h5></td></tr>
-    					<tr><td><h5>Cris</h5></td><td><h5>₱ 100</h5></td></tr>
-    					<tr><td><h5>Alex</h5></td><td><h5>₱20</h5></td></tr>
-    			
-    		</table>
+			    		<div id="scroll_table">
+				    		<table id="targetTable" style="width:100%;">
+				    		{% for donor in donors %}
+				    			<tr>
+				    				<td><h5>{{ donor.user.username }}</h5></td>
+				    				<td><h5>₱ {{ donor.amount }}</h5></td>
+				    			</tr>
+				    		{% endfor %}
+				    		{% for donor in unregistered_donors %}
+				    			<tr>
+				    				<td><h5>{{ donor.name }}</h5></td>
+				    				<td><h5>₱ {{ donor.amount }}</h5></td>
+				    			</tr>
+				    		{% endfor %}
+				    		</table>
+			    		</div>
 			    	</center>
 				</td>
 			</tr>
@@ -94,11 +112,43 @@
 	</center>
 </section>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+	(function(d, s, id) {
+  		var js, fjs = d.getElementsByTagName(s)[0];
+  		if (d.getElementById(id)) return;
+  		js = d.createElement(s); js.id = id;
+  		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+  		fjs.parentNode.insertBefore(js, fjs);
+	}
+	(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+    $(function () {
+	    var columnWidths = new Array();
+
+	    // Get column widths
+	    $("#headerRow").find('td').each(function (index) {
+	        columnWidths[index] = $(this).width();
+	    });
+
+	    // get column data for header
+	    var tableHeaderRow = $("#headerRow").html();
+
+	    // clear header
+	    $("#headerRow").html("");
+	    // insert header data into new table container
+	    $("#newTableHeader").html(tableHeaderRow);
+
+	    // modify column width for header
+	    $("#newTableHeader").find('td').each(function (index) {
+	        $(this).css("width", columnWidths[index]);
+	    });
+
+	    // modify column width for 
+	    // go to the next row, first row considered header column
+	    $("#targetTable tr:first").next().find('td').each(function (index) {
+	        $(this).css("width", columnWidths[index]);
+	    });
+	});
+</script>
 {% endblock %}

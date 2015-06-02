@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnIn
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 
-from crowdsourcing.models import Campaign, CampaignWish, Wish, UserRole
+from crowdsourcing.models import Campaign, CampaignWish, Wish, UserRole, CampaignUserDonor, UnregisteredDonor
 from maintain_campaign.forms import CampaignForm
 
 def index(request):
@@ -69,11 +69,34 @@ def viewCampaign(request, campaign_title_slug):
     try:
         campaign = Campaign.objects.get(slug=campaign_title_slug)
         wishes = CampaignWish.objects.filter(campaign=campaign)
+        donors = CampaignUserDonor.objects.filter(campaign=campaign)
+        unregistered_donors = UnregisteredDonor.objects.filter(campaign=campaign)
+
         if request.user.is_authenticated():
             user_role = UserRole.objects.get(user=request.user)
             context_dict['role'] = user_role.role
 
+        campaign_amount = 0
+        donation_amount = 0
+
+        for wish in wishes:
+            campaign_amount += wish.estimated_price
+
+        for donor in donors:
+            donation_amount += donor.amount
+
+        for donor in unregistered_donors:
+            donation_amount += donor.amount
+
+        campaign_percentage = (donation_amount / campaign_amount) * 100
+        print campaign_amount
+        print donation_amount
+        print campaign_percentage
+
         context_dict['wishes'] = wishes
+        context_dict['donors'] = donors
+        context_dict['unregistered_donors'] = unregistered_donors
+        context_dict['campaign_percentage'] = campaign_percentage
         context_dict['campaign'] = campaign
         context_dict['campaign_title_slug'] = campaign.slug
 

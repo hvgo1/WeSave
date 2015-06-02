@@ -221,7 +221,7 @@ def populate():
         dline="2015-06-28",status='I',views=100,ack=None,image="campaign_images/3.jpg",createdby=3)
 
     add_campaign(title="Supporting Andy",beneficiary="Andy",
-        story="Andy is only 28 years old and diagnosed with kidney disease. Father of four children. He is the family breadwinner, working as a jeepney driver. Per session of a dialysis costs Php 3,500/week and he needs to take three treatments a week which will costs php 42,000. What he earns a public transportation driver is only enough for his family's daily needs.",
+        story="Andy is only 28 years old and diagnosed with kidney disease. Father of four children. He is the family breadwinner, working as a jeepney driver. Per session of a dialysis costs Php 3,500/week and he needs to take three treatments a week which will costs php 42,000. What he earns as a public transportation driver is only enough for his family's daily needs.",
         dline="2015-02-23",status='C',views=120,ack="ack_receipts/ack.pdf",image="campaign_images/5.jpg",createdby=7)
    
     add_campaign(title="Help Rico Raise Funds",beneficiary="Rico",
