@@ -210,61 +210,67 @@ def populate():
 
     add_campaign(title="For the Kids",beneficiary="Ella,Rosie,Marie,Selena",
         story="Kids in Ward 2 were diagnosed with acute malnutrion. A need for various laboratory testing and micronutrient supplements are advised by the hospital's nutritionist.",
-        dline="2015-06-28",status='D',views=10,ack=None,image="campaign_images/2.jpg",createdby=2)
+        dline="2015-06-28",status='D',views=0,ack=None,image="campaign_images/2.jpg",createdby=2)
 
     add_campaign(title="Surviving Cancer",beneficiary="Lyn, Yve",
         story="Lyn and Yve, 33 years old and 39 years old respectively, were diagnosed with breast cancer. the pain forced them to stop their work to provide for their family.They needed funds to perform masectomy to avoid the spread of cancer.'This surgery will save their lives,' said their doctor. ",
-        dline="2015-06-28",status='F',views=5,ack=None,image="campaign_images/1.jpg",createdby=6)
+        dline="2015-06-28",status='F',views=0,ack=None,image="campaign_images/1.jpg",createdby=6)
 
     add_campaign(title="For Ben",beneficiary="Ben",
         story="Ben, 53 years old, slipped badly in the bathroom in their small house. He acquired a fractured femur. He is the breadwinner of the family, but he is forced to stop his work as a janitor due to his injury. Ben has three children which are still young to work. His wife is now a food vendor to be able to pay for his treatments but ben needs a surgery to realign the broken bone which costs php 25,830. He and his wife's current work is not enough to raise this amount of money that may allow him to again support his family.",
-        dline="2015-06-28",status='I',views=0,ack=None,image="campaign_images/3.jpg",createdby=3)
+        dline="2015-06-28",status='I',views=100,ack=None,image="campaign_images/3.jpg",createdby=3)
 
     add_campaign(title="Supporting Andy",beneficiary="Andy",
         story="Andy is only 28 years old and diagnosed with kidney disease. Father of four children. He is the family breadwinner, working as a jeepney driver. Per session of a dialysis costs Php 3,500/week and he needs to take three treatments a week which will costs php 42,000. What he earns a public transportation driver is only enough for his family's daily needs.",
-        dline="2015-02-23",status='C',views=10,ack="ack_receipts/ack.pdf",image="campaign_images/4.jpg",createdby=7)
-
+        dline="2015-02-23",status='C',views=120,ack="ack_receipts/ack.pdf",image="campaign_images/5.jpg",createdby=7)
+   
     add_campaign(title="Help Rico Raise Funds",beneficiary="Rico",
         story="Rico is 66 years old and admitted at ward-2 bed-27. Rico is married and with three children. His youngest is 16 years old and his eldest is 23 years old. Two of his children are married while the other was separated. His wife works as a launderer and earns Php 350/day. He has abdominal mass and needs to undergo diagnostic procedures for Php 9,400. He needs medicines that will cost Php 11,000 and operation expenses for Php 15,000. Rico was a former family driver before he got sick three years ago. He is not a registered member for Philhealth and has no means to support his treatments.",
-        dline="2011-06-28",status='A',views=10,ack=None,image="campaign_images/5.jpg",createdby=4)
+        dline="2011-06-28",status='A',views=1310,ack=None,image="campaign_images/5.jpg",createdby=4)
+
+    add_campaign(title="Supporting Diane",beneficiary="Diane",
+        story="Diane is 48 years old and diagnosed with kidney disease. Mother of three children. She is the family breadwinner, working as a street vendor. Per session of a dialysis costs Php 3,500/week and she needs to take three treatments a week which will costs php 42,000. What she earns a vendor is only enough for her family's daily needs.",
+        dline="2015-07-23",status='A',views=120,ack="ack_receipts/ack.pdf",image="campaign_images/5.jpg",createdby=7)
 
     add_campaign(title="Common Fund",beneficiary="WeSave Beneficiaries",
         story="Donate to WeSave's Common Fund.",
-        dline="2011-06-28",status='A',views=10,ack=None,image=None,createdby=4)
+        dline="2011-06-28",status='A',views=1430,ack=None,image="campaign_images/4.jpg",createdby=4)
 
     add_campaign(title="Common Goods",beneficiary="WeSave Beneficiaries",
         story="Donate to WeSave's Common Goods. Limited only to home medical equipments.",
-        dline="2011-06-28",status='A',views=10,ack=None,image=None,createdby=4)
+        dline="2011-06-28",status='A',views=10,ack=None,image="campaign_images/4.jpg",createdby=4)
+
+    
     print "camp" 
 
-    add_unregistereddonor(name="Syara",campaign=1,amount=200.00)
-    add_unregistereddonor(name="Casie",campaign=1,amount=2500.00)
-    add_unregistereddonor(name="Jun",campaign=2,amount=600.00)
-    add_unregistereddonor(name="Anonymous",campaign=4,amount=10.00)
-    add_unregistereddonor(name="Anonymous",campaign=1,amount=200.00)
-    add_unregistereddonor(name="Anonymous",campaign=4,amount=2500.00)
-    add_unregistereddonor(name="Junie",campaign=2,amount=600.00)
-    add_unregistereddonor(name="Anonymous",campaign=2,amount=10.00)
+    add_unregistereddonor(name="Syara",campaign=3,amount=200.00)
+    add_unregistereddonor(name="Casie",campaign=3,amount=2500.00)
+    add_unregistereddonor(name="Jun",campaign=4,amount=600.00)
+    add_unregistereddonor(name="Anonymous",campaign=8,amount=10.00)
+    add_unregistereddonor(name="Anonymous",campaign=5,amount=200.00)
+    add_unregistereddonor(name="Anonymous",campaign=8,amount=2500.00)
+    add_unregistereddonor(name="Junie",campaign=6,amount=600.00)
+    add_unregistereddonor(name="Anonymous",campaign=6,amount=10.00)
     add_unregistereddonor(name="Lyca",campaign=3,amount=200.00)
-    add_unregistereddonor(name="Sophie Rey",campaign=1,amount=500.00)
-    add_unregistereddonor(name="Jun Alden",campaign=2,amount=5.00)
+    add_unregistereddonor(name="Sophie Rey",campaign=7,amount=500.00)
+    add_unregistereddonor(name="Jun Alden",campaign=7,amount=5.00)
     add_unregistereddonor(name="Anonymous",campaign=5,amount=10.00)
 
     print "unreg" 
 
-    add_campaigndonor(campaign=1,user=2,amount=700.00)
-    add_campaigndonor(campaign=1,user=9,amount=740.00)
-    add_campaigndonor(campaign=1,user=6,amount=300.00)
-    add_campaigndonor(campaign=1,user=11,amount=700.00)
-    add_campaigndonor(campaign=1,user=10,amount=740.00)
-    add_campaigndonor(campaign=2,user=2,amount=100.00)
-    add_campaigndonor(campaign=2,user=6,amount=800.00)
-    add_campaigndonor(campaign=2,user=9,amount=100.00)
-    add_campaigndonor(campaign=2,user=11,amount=800.00)
+    add_campaigndonor(campaign=5,user=2,amount=700.00)
+    add_campaigndonor(campaign=5,user=9,amount=740.00)
+    add_campaigndonor(campaign=8,user=6,amount=300.00)
+    add_campaigndonor(campaign=8,user=11,amount=700.00)
+    add_campaigndonor(campaign=7,user=10,amount=740.00)
+    add_campaigndonor(campaign=7,user=2,amount=100.00)
+    add_campaigndonor(campaign=3,user=6,amount=800.00)
+    add_campaigndonor(campaign=3,user=9,amount=100.00)
+    add_campaigndonor(campaign=4,user=11,amount=800.00)
     add_campaigndonor(campaign=3,user=10,amount=700.00)
     add_campaigndonor(campaign=3,user=2,amount=740.00)
-    add_campaigndonor(campaign=3,user=6,amount=700.00)
-    add_campaigndonor(campaign=3,user=9,amount=740.00)
+    add_campaigndonor(campaign=6,user=6,amount=700.00)
+    add_campaigndonor(campaign=6,user=9,amount=740.00)
     add_campaigndonor(campaign=4,user=11,amount=300.00)
     add_campaigndonor(campaign=4,user=2,amount=100.00)
     add_campaigndonor(campaign=4,user=6,amount=300.00)
@@ -275,23 +281,25 @@ def populate():
 
     add_campaignwish(campaign=2,wish=3,compl=0,est=33000.00)
     add_campaignwish(campaign=3,wish=3,compl=1,est=25830.00)
-    add_campaignwish(campaign=4,wish=4,compl=0,est=42000.00)
-    add_campaignwish(campaign=5,wish=3,compl=0,est=11000.00)
+    add_campaignwish(campaign=4,wish=3,compl=0,est=42000.00)
+    add_campaignwish(campaign=5,wish=3,compl=1,est=11000.00)
     add_campaignwish(campaign=5,wish=4,compl=0,est=24400.00)
     add_campaignwish(campaign=1,wish=3,compl=0,est=10000.00)
     add_campaignwish(campaign=1,wish=4,compl=0,est=5000.00)
-  
-    print "cwish"     
+    add_campaignwish(campaign=1,wish=3,compl=0,est=10000.00)
+    add_campaignwish(campaign=6,wish=3,compl=0,est=42000.00)
 
-    add_campaignfollowers(campaign=1,user=2)
-    add_campaignfollowers(campaign=1,user=3)
-    add_campaignfollowers(campaign=1,user=4)
-    add_campaignfollowers(campaign=1,user=5)
-    add_campaignfollowers(campaign=2,user=6)
-    add_campaignfollowers(campaign=2,user=7)
-    add_campaignfollowers(campaign=2,user=8)
-    add_campaignfollowers(campaign=2,user=9)
-    add_campaignfollowers(campaign=3,user=10)
+    print "cwish"    
+
+    add_campaignfollowers(campaign=5,user=2)
+    add_campaignfollowers(campaign=5,user=3)
+    add_campaignfollowers(campaign=4,user=4)
+    add_campaignfollowers(campaign=4,user=5)
+    add_campaignfollowers(campaign=3,user=6)
+    add_campaignfollowers(campaign=3,user=7)
+    add_campaignfollowers(campaign=4,user=8)
+    add_campaignfollowers(campaign=3,user=9)
+    add_campaignfollowers(campaign=6,user=10)
     add_campaignfollowers(campaign=3,user=11)
     add_campaignfollowers(campaign=4,user=2)
     add_campaignfollowers(campaign=4,user=4)
