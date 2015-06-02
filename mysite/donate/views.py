@@ -1,10 +1,11 @@
 from django.shortcuts import render,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
 from donate.forms import InkindForm1,InkindForm2,InkindForm3
 from django.contrib.auth.models import User
 from crowdsourcing.models import Campaign,Individual,Group, UserProfile, UnregisteredDonor
 
 
-def donate_inkind(request,campaign_title_slug):
+def donateInkind(request,campaign_title_slug):
     campaign = Campaign.objects.get(slug=campaign_title_slug)
     username = ""
     if request.method == 'GET':
@@ -99,7 +100,7 @@ def donate_inkind(request,campaign_title_slug):
         return HttpResponseRedirect('/home/')
     return render(request,'donate/inkind.html',{'inkind_form':inkind_form, 'campaign':campaign,'logged_in':logged_in,'username':username})
 
-def donate_monetary(request, campaign_title_slug):
+def donateMonetary(request, campaign_title_slug):
     context_dict = {}
     campaign = Campaign.objects.get(slug=campaign_title_slug)
     context_dict['campaign'] = campaign

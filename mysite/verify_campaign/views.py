@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect,render_to_response
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.core.paginator import Paginator, InvalidPage,EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 from crowdsourcing.models import Campaign,UserRole
 from django.contrib.auth.models import User
 
@@ -14,11 +16,11 @@ def approve(request):
             campaign.status = 'A'
             campaign.save()
             print campaign.status
-    return forapproval_campaigns(request)
+    return forapprovalCampaigns(request)
 
 
 #Lists all campaigns for approval/verification
-def forapproval_campaigns(request): 
+def forapprovalCampaigns(request): 
   
     if request.user.is_authenticated():
         try:

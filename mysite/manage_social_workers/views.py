@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.shortcuts import redirect,render_to_response
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.core.paginator import Paginator, InvalidPage,EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 from crowdsourcing.models import UserProfile, Individual, UserRole
 from django.contrib.auth.models import User
 
 
 #Edit UserRole of User to Social Worker or WSAdmin
-def add_role(request):
+def addRole(request):
 
     if request.method == 'POST':
         checked_individuals = request.POST.getlist('checks')
@@ -24,11 +26,11 @@ def add_role(request):
             user_object.save()
     
 
-    return users_list(request)
+    return usersList(request)
 
 
 #Lists all users 
-def users_list(request): 
+def usersList(request): 
     #roles = UserRole.objects.filter(user=user) #returns all campaigns where the user is a donor
     
     if request.user.is_authenticated():

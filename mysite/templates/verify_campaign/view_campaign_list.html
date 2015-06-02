@@ -60,14 +60,14 @@ table#t2 th	{
 <div class = "pagination">
     <span class = "step-links">	
      	<br><br><br><br><br><br><br><br><br><br><br>
-        {% if users.has_previous %}
-		<a href="?page={{ users.previous_page_number }}"><b><< PREVIOUS</b></a>
+        {% if campaigns.has_previous %}
+		<a href="?page={{ campaigns.previous_page_number }}"><b><< PREVIOUS</b></a>
 	{% endif %} 
     <span class= "current">
-		 Page {{ users.number }} of {{ users.paginator.num_pages }}.
+		 Page {{ campaigns.number }} of {{ campaigns.paginator.num_pages }}.
         </span>
-        {% if users.has_next %}
-		<a href="?page={{ users.next_page_number }}"><b>NEXT >></b></a>
+        {% if campaigns.has_next %}
+		<a href="?page={{ campaigns.next_page_number }}"><b>NEXT >></b></a>
 	{% endif %} 
     </span>
 </div>
