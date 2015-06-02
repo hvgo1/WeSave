@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from registration.forms import RegistrationFormNoFreeEmail
 from django.contrib.auth.models import User
 from crowdsourcing.forms import UserProfileForm, IndividualForm,GroupForm
-from crowdsourcing.models import UserProfile,Individual,Group, UserRole
+from crowdsourcing.models import UserProfile,Individual,Group, UserRole, Campaign
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
 #Override RegistrationFormNoFreeEmail of Registration package
 class RegFormEmail(RegistrationFormNoFreeEmail):
@@ -13,6 +14,8 @@ class RegFormEmail(RegistrationFormNoFreeEmail):
     bad_domains = ['aim.com', 'aol.com', 'email.com','hushmail.com',
                    'mail.ru', 'mailinator.com', 'live.com']
 
+def index(request):
+    return HttpResponseRedirect('/home/')
 
 # Homepage
 def home(request):
@@ -106,3 +109,20 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/home/')
+
+def generateReport(request):
+    context_dict = {}
+
+    completed = 'C'
+    campaign_list = Campaign.objects.filter(status=completed)
+
+    paginator = Paginator(campaign_list,20) #pagination
+    page = request.GET.get('page')
+    try:
+        campaigns = paginator.page(page) 
+    except PageNotAnInteger:
+        campaigns = paginator.page(1)
+    except EmptyPage:
+        campaigns = paginator.page(paginator.num_pages)
+    context_dict['campaigns'] = campaigns
+    return render(request, 'mysite/generate_report.html', context_dict)

@@ -35,7 +35,7 @@
 
 
    {% if is_indiv %}
-     <table  style="width:100%;">
+     <table  style="width:100%;" border="0">
       <tr>
         <th>
           <h1 style="color:#87CEEB;">{{details.first_name}}&nbsp;{{details.last_name}}</h1>
@@ -43,11 +43,9 @@
       </tr>
       <tr>
         <td>
-                <div class="col-xs-6 col-sm-3 col-md-3" style = "padding-left: 150px; left: 370px; width: 500px;">                
-              
-                <div class="avatar"> <img src="{{profile.photo.url}}" alt="" class="img-responsive img-circle"/></div>
-      
-                </div><br><br>
+          <center>
+            <img src="{{profile.photo.url}}" alt="" class="img-responsive img-circle"/><br><br>
+          </center>
         </td>
       </tr>
       <tr>

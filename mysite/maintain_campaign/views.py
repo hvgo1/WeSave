@@ -3,12 +3,13 @@ from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 
 from crowdsourcing.models import Campaign, CampaignWish, Wish, UserRole
 from maintain_campaign.forms import CampaignForm
 
 def index(request):
-    return HttpResponse("You are in campaign index")
+    return HttpResponseRedirect('/campaign/list/')
 
 #TODO restrict to social worker/wsadmin
 def addCampaign(request, username):
@@ -53,7 +54,7 @@ def addCampaign(request, username):
                 user_role = UserRole.objects.get(user=user)
             except UserRole.DoesNotExist:
                 raise Http404("User role does not exist.")
-            if user_role.role == "Soc":
+            if user_role.role == "Soc" or user_role.role == "Adm":
                 form = CampaignForm()
             else:
                 raise PermissionDenied()
@@ -124,7 +125,7 @@ def updateCampaign(request, id):
                 user_role = UserRole.objects.get(user=request.user)
             except UserRole.DoesNotExist:
                 raise Http404("User role does not exist.")
-            if user_role.role == "Soc":
+            if user_role.role == "Soc" or user_role.role == "Adm":
                 form = CampaignForm(instance=campaign)
                 campaign_wishes = CampaignWish.objects.filter(campaign=campaign.id)
                 print campaign_wishes
@@ -148,7 +149,7 @@ def listCampaign(request):
         user = User.objects.get(username=request.user.get_username())
         context_dict['user'] = user
 
-    campaign_list = Campaign.objects.filter(status="A")
+    campaign_list = Campaign.objects.filter(Q(status="A") | Q(status="C"))
     paginator = Paginator(campaign_list,20) #pagination
     page = request.GET.get('page')
     try:
@@ -174,9 +175,6 @@ def viewCampaignDetails(request):
             is_admin = True
             
     campaigns = Campaign.objects.all()
-    if request.method == 'POST':
-        print 'hello'
-    
     paginator = Paginator(campaigns,20) #pagination
     page = request.GET.get('page')
     try:

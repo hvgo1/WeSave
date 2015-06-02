@@ -17,17 +17,15 @@ class MyRegistrationView(RegistrationView):
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^$', views.index, name='index'),
     url(r'^wsadmin/', include('wsadmin.urls',namespace="wsadmin")),
     url(r'^contact/', include('manage_contacts.urls',namespace="contact")),
     url(r'^home/', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
     
-
-
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
-
 
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
     url(r'^reg-individual/(?P<username>\w+)', views.register_individual, name='register_individual'),
@@ -35,11 +33,9 @@ urlpatterns = patterns('',
     url(r'^campaign/', include('maintain_campaign.urls')),
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
-
-
     url(r'^profile/', include('maintain_profile.urls',namespace="profile")),
     url(r'^donate/', include('donate.urls',namespace="donate")),
-
+    url(r'^report/', views.generateReport, name='generate_report'),
 
 )
 

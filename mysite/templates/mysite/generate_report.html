@@ -1,0 +1,84 @@
+{% extends "wsadmin/base.html" %}
+{% load static %}
+{% block title %}Transparency Report{% endblock %}
+{% block body_block %}
+<head>
+	<style>
+	table, th, td {
+	    padding: 5px;
+	    text-align: center;
+	}
+	table#t2 tr:nth-child(even) {
+	    background-color: #fff;
+	}
+	table#t2 tr:nth-child(odd) {
+	   background-color:#eee;
+	}
+	table#t2 th	{
+	    background-color: #87CEEB;;
+	}
+	</style>
+</head>
+<section id="intro">
+	</section>
+<section id="about" class="home-section text-center">
+	<br/><br/>
+
+{% if message %}
+	<b> {{ message }} </b>
+{% endif %}
+
+<body>
+	<form action="all/" method="POST">
+	{% csrf_token %}  
+		    
+	
+		    
+	<table id="t2" class="tablesorter" style="width:100%;">
+		<thead>
+			<tr>
+				<th colspan="7"><h1 style="color:white;">Transparency Report</h1></th>
+			</tr>
+			<tr>
+				<td><h4>ID</h4></td>
+				<td><h4>Title</h4></td>
+				<td><h4>Acknowledgment Receipt</h4></td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for campaign in campaigns %}
+	        <tr>
+	        	<td><h5>{{campaign.id}}</h5></td>
+	        	<td><h5><a href="/campaign/view/{{campaign.slug}}">{{campaign.title}}</a></h5></td>
+	        	<td>
+					{% if campaign.ack_receipt %}
+		        		<h5><a href="{{campaign.ack_receipt.url}}" target="_blank">View</a></h5>
+		        	{% else %}
+		        		<h5>View</h5>
+		        	{% endif %}
+	        	</td>
+	        </tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<br>
+	</form>
+</body>
+
+<div class = "pagination">
+    <span class = "step-links">	
+     	<br><br><br><br><br><br><br><br><br><br><br>
+        {% if campaigns.has_previous %}
+		<a href="?page={{ campaigns.previous_page_number }}"><b><< PREVIOUS</b></a>
+	{% endif %} 
+    <span class= "current">
+		 Page {{ campaigns.number }} of {{ campaigns.paginator.num_pages }}.
+        </span>
+        {% if campaigns.has_next %}
+		<a href="?page={{ campaigns.next_page_number }}"><b>NEXT >></b></a>
+	{% endif %} 
+    </span>
+</div>
+        
+</section>
+{% endblock %}

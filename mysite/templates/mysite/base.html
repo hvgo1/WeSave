@@ -57,6 +57,10 @@
             <li>
               <a style="text-align:center" href="/wsadmin/">View Admin Page</a>
             </li>
+            {% elif user_role.role == 'Adm' %}
+            <li>
+              <a style="text-align:center" href="/wsadmin/">View Admin Page</a>
+            </li>
             {% endif %}
 
           </ul></li>
