@@ -3,108 +3,107 @@
 {% block title %} Edit User Role {% endblock %}
 {% block body_block %}
 <head>
-<style>
-table, th, td {
-    padding: 5px;
-    text-align: center;
-}
-table#t2 tr:nth-child(even) {
-    background-color: #eee;
-}
-table#t2 tr:nth-child(odd) {
-   background-color:#fff;
-}
-table#t2 th	{
-    background-color: #87CEEB;;
-  
-}
-</style>
-</head><section id="intro">
-
-</section>
+    <style>
+        table, th, td {
+            padding: 5px;
+            text-align: center;
+        }
+        table#t2 tr:nth-child(even) {
+            background-color: #eee;
+        }
+        table#t2 tr:nth-child(odd) {
+           background-color:#fff;
+        }
+        table#t2 th	{
+            background-color: #87CEEB;;
+        }
+    </style>
+</head>
+<section id="intro">
+    </section>
 <section id="about" class="home-section text-center">
-<br>
-
-<center>
-
-</center>
-{% if message %}
- <b> {{ message }} </b>
- <p>
-{% endif %}
-
-<body>
-<form action="add-role/" method="POST">
-{% csrf_token %}  
-<table id="t2" style="width:100%;">
-
-    		    <tr ><th colspan="4" style="color:white;"><h1 style="padding-top: 5px;">Edit User Role</h1></th></tr>
-    			<tr>
-                    <td><h4>Username</h4></td> 
-                    <td ><h4>Name</h4></td>
-                    <td ><h4>Role/s</h4></td>
-                    <td ><h4>Action</h4></td>
-                </tr>
-    	{% for individual in individuals %}
-                <tr>
-                	<td><h5>{{individual.user.username}}</h5></td>
-                	<td><h5><a href="/campaign/{{campaign.id}}"><b>{{individual.first_name}}
-                    {% if individual.middle_name != None %}
-                        {{individual.middle_name}}
-                    {% endif %}
-                    {{individual.last_name}}</b></a></h5></td>
-                    <td><h5>
-                         {% for user in userrole_list %}
+    <br><br>
+    {% if message %}
+        <b> {{ message }} </b>
+        <p>
+    {% endif %}
+    <body>
+    <form action="add-role/" method="POST">
+        {% csrf_token %}  
+        <table id="t2" style="width:100%;">
+		    <tr>
+                <th colspan="4" style="color:white;">
+                    <h1 style="padding-top: 5px;">Edit User Role</h1>
+                </th>
+            </tr>
+			<tr>
+                <td><h4>Username</h4></td> 
+                <td ><h4>Name</h4></td>
+                <td ><h4>Role/s</h4></td>
+                <td ><h4>Action</h4></td>
+            </tr>
+        	{% for individual in individuals %}
+            <tr>
+            	<td><h5>{{individual.user.username}}</h5></td>
+            	<td>
+                    <h5>
+                        <a href="/campaign/{{campaign.id}}">
+                            <b>
+                            {{individual.first_name}}
+                            {% if individual.middle_name != None %}
+                                {{individual.middle_name}}
+                            {% endif %}
+                            {{individual.last_name}}
+                            </b>
+                        </a>
+                    </h5>
+                </td>
+                <td>
+                    <h5>
+                        {% for user in userrole_list %}
                             {% if user.user == individual.user %}
                                {{user.get_role_display}}
                             {% endif %}
-                          {% endfor %}
-
-                    </h5></td>
-                	<td><input type="checkbox" name="checks" value={{individual.user.id}} /></td>
+                        {% endfor %}
+                    </h5>
+                </td>
+            	<td><input type="checkbox" name="checks" value={{individual.user.id}} /></td>
+            </tr>
+        	{% endfor %}		
+            <table style="margin-left: 1000px;" id="choose">
+                <tr>
+                    <td>
+                        <div style="margin-top: 10px; padding-top: 5px;"class="form-group">
+                            <select id="subject" name="role" class="form-control" required="required">
+                                <option value="na" selected="">Choose One:</option>
+                                <option value="social_worker">As Social Worker</option>
+                                <option value="wsadmin">As WeSave Administrator</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <button style="width: 106px;" type="submit" class="pull-right btn btn-skin" name="edit_role" value="edit_role">Edit Roles</button>
+          
+                    </td>
                 </tr>
-    	{% endfor %}		
- <table style="
-    margin-left: 1000px;" id="choose">
-<tr>
-    <td>
-         <div style="margin-top: 10px; padding-top: 5px;"class="form-group">
-                                    <select id="subject" name="role" class="form-control" required="required">
-                                        <option value="na" selected="">Choose One:</option>
-                                        <option value="social_worker">As Social Worker</option>
-                                        <option value="wsadmin">As WeSave Administrator</option>
-                                        
-                                    </select>
-                                </div>
-   </td>
-
-    <td>
-            <button style="width: 106px;" type="submit" class="pull-right btn btn-skin" name="edit_role" value="edit_role">Edit Roles</button>
-      
-    </td>
-</tr>
-</form>   			
-</table>
-<br>
-
-
-</body>
-
-
-<div class = "pagination">
-    <span class = "step-links">	
-     	<br><br><br><br><br><br><br><br><br><br><br>
-        {% if individuals.has_previous %}
-		<a href="?page={{ users.previous_page_number }}"><b><< PREVIOUS</b></a>
-	{% endif %} 
-    <span class= "current">
-		 Page {{ individuals.number }} of {{ individuals.paginator.num_pages }}.
+            </form>   			
+        </table>
+        <br>
+    </body>
+    <div class = "pagination">
+        <span class = "step-links">	
+         	<br><br><br><br><br><br><br><br><br><br><br>
+            {% if individuals.has_previous %}
+    		<a href="?page={{ users.previous_page_number }}"><b><< PREVIOUS</b></a>
+    	{% endif %} 
+        <span class= "current">
+    		 Page {{ individuals.number }} of {{ individuals.paginator.num_pages }}.
+            </span>
+            {% if individuals.has_next %}
+    		<a href="?page={{ users.next_page_number }}"><b>NEXT >></b></a>
+    	{% endif %} 
         </span>
-        {% if individuals.has_next %}
-		<a href="?page={{ users.next_page_number }}"><b>NEXT >></b></a>
-	{% endif %} 
-    </span>
-</div>
+    </div>
         
 </section>
 

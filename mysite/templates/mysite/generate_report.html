@@ -31,37 +31,34 @@
 <body>
 	<form action="all/" method="POST">
 	{% csrf_token %}  
-		    
-	
-		    
-	<table id="t2" class="tablesorter" style="width:100%;">
-		<thead>
-			<tr>
-				<th colspan="7"><h1 style="color:white;">Transparency Report</h1></th>
-			</tr>
-			<tr>
-				<td><h4>ID</h4></td>
-				<td><h4>Title</h4></td>
-				<td><h4>Acknowledgment Receipt</h4></td>
-			</tr>
-		</thead>
-		<tbody>
-			{% for campaign in campaigns %}
-	        <tr>
-	        	<td><h5>{{campaign.id}}</h5></td>
-	        	<td><h5><a href="/campaign/view/{{campaign.slug}}">{{campaign.title}}</a></h5></td>
-	        	<td>
-					{% if campaign.ack_receipt %}
-		        		<h5><a href="{{campaign.ack_receipt.url}}" target="_blank">View</a></h5>
-		        	{% else %}
-		        		<h5>View</h5>
-		        	{% endif %}
-	        	</td>
-	        </tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<br>
+		<table id="t2" class="tablesorter" style="width:100%;">
+			<thead>
+				<tr>
+					<th colspan="7"><h1 style="color:white;">Transparency Report</h1></th>
+				</tr>
+				<tr>
+					<td><h4>ID</h4></td>
+					<td><h4>Title</h4></td>
+					<td><h4>Acknowledgment Receipt</h4></td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for campaign in campaigns %}
+		        <tr>
+		        	<td><h5>{{campaign.id}}</h5></td>
+		        	<td><h5><a href="/campaign/view/{{campaign.slug}}">{{campaign.title}}</a></h5></td>
+		        	<td>
+						{% if campaign.ack_receipt %}
+			        		<h5><a href="{{campaign.ack_receipt.url}}" target="_blank">View</a></h5>
+			        	{% else %}
+			        		<h5>View</h5>
+			        	{% endif %}
+		        	</td>
+		        </tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<br>
 	</form>
 </body>
 
