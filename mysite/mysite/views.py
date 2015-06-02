@@ -17,6 +17,9 @@ class RegFormEmail(RegistrationFormNoFreeEmail):
 def index(request):
     return HttpResponseRedirect('/home/')
 
+def about(request):
+    return render(request,'crowdsourcing/about.html', {})
+
 # Homepage
 def home(request):
     context_dict = {}
