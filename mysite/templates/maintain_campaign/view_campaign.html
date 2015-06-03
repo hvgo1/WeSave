@@ -19,7 +19,7 @@
 		}
 		#scroll_table{
 			overflow-y: scroll; 
-			height: 120px;
+			height: 200px;
 		}
 	</style>
 {% endblock %}
@@ -75,10 +75,9 @@
 					        		<span><b>{{ campaign_percentage }}%</b></span>
 				    			</div>
 				            </div>
+		    			<h6>{{ campaign_percentage }}% Complete</h6>
 				        {% if campaign_percentage < 100 %}
 			    			<button onclick="location.href = '/donate/monetary/{{ campaign.slug }}';" style="width: 106px;" type="submit" class="btn btn-skin" id="btnDonate">Donate</button>
-			    		{% else %}
-			    			<h4>Funded</h4>
 			    		{% endif %}
 												
 			    		<br/><br/><br/>

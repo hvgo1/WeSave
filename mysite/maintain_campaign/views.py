@@ -96,7 +96,7 @@ def viewCampaign(request, campaign_title_slug):
         context_dict['wishes'] = wishes
         context_dict['donors'] = donors
         context_dict['unregistered_donors'] = unregistered_donors
-        context_dict['campaign_percentage'] = campaign_percentage
+        context_dict['campaign_percentage'] = int(campaign_percentage)
         context_dict['campaign'] = campaign
         context_dict['campaign_title_slug'] = campaign.slug
 
@@ -119,6 +119,10 @@ def updateCampaign(request, id):
             campaign.deadline = request.POST["deadline"]
             # TODO: on updating image, delete the previous image, retain previous
             campaign.campaign_image = request.FILES.get('campaign_image', campaign.campaign_image)
+            
+            if request.POST['submitbutton'] == 'Submit':
+                campaign.status = 'F'
+            
             campaign.save()
             # TODO: update wishes
             #wish = CampaignWish(wish_id=request.POST["wishes"], campaign_id=campaign.id, completed=False, estimated_price=0)

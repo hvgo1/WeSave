@@ -133,6 +133,30 @@ class Campaign(models.Model):
     keywords = models.ManyToManyField(Keyword,through='CampaignKeyword')
     slug = models.SlugField(unique = True)
 
+    def calculatePercentage(self):
+        wishes = CampaignWish.objects.filter(campaign=self)
+        donors = CampaignUserDonor.objects.filter(campaign=self)
+        unregistered_donors = UnregisteredDonor.objects.filter(campaign=self)
+
+        campaign_amount = 0
+        donation_amount = 0
+
+        for wish in wishes:
+            campaign_amount += wish.estimated_price
+
+        for donor in donors:
+            donation_amount += donor.amount
+
+        for donor in unregistered_donors:
+            donation_amount += donor.amount
+
+        if campaign_amount > 0:
+            campaign_percentage = (donation_amount / campaign_amount) * 100
+            return int(campaign_percentage)
+
+    percentage = property(calculatePercentage)
+
+
 class UnregisteredDonor(models.Model):
     def __unicode__(self): 
         return u'%s' %(self.name)
