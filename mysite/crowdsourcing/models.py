@@ -176,7 +176,7 @@ class CampaignWish(models.Model):
         return u'%s' %(self.id)
     campaign = models.ForeignKey(Campaign)
     wish = models.ForeignKey(Wish)
-    completed = models.BooleanField()
+    completed = models.BooleanField(default=False)
     estimated_price = models.DecimalField(max_digits=20,decimal_places=2)
     # set default value of received_tag to false
     class Meta:
