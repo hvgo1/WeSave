@@ -21,7 +21,7 @@ STATIC_PATH = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = '_nt5b=!nb-+_db2qw4-ebpx4(2!(i@z@1gx=dy7pm1lr5=tggf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
